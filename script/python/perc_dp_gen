@@ -1,0 +1,57 @@
+#!/p/inway/addons/esd_scout/Python-3.6.7/bin/python3
+# -*- coding: iso-8859-1 -*-
+# -*- coding: iso-8859-1 -*-
+
+
+def cleanup_python_path(plist):
+    idx = 0
+    delidxs = []
+    for p in plist:
+        if 'tpgit' in p:
+            delidxs.append(idx)
+        idx += 1
+    for idx in reversed(delidxs):
+        del plist[idx]
+
+
+import sys
+cleanup_python_path(sys.path)
+
+import argparse
+import os
+import CfgFile
+import TplGenRunset
+
+
+descript_str = f'bla'
+parser = argparse.ArgumentParser(description=descript_str)
+parser.add_argument(
+    "-cfg",
+    help='run with config file'
+)
+args = parser.parse_args()
+
+cfg_dp = CfgFile.CfgFile(args.cfg)
+cfg_dp.dump_cfg2("cfg_debug")
+if not os.path.exists(cfg_dp.get_destpath()):
+    print(f'Fatal Error: DESTPATH does not exist')
+    print(f'             {cfg_dp.get_destpath()}')
+print(f'Writing to DESTPATH {cfg_dp.get_destpath()}')
+#calibre_dir = f'{cfg_dp.get_destpath()}/calibre'
+#if not os.path.exists(calibre_dir):
+#    os.mkdir(calibre_dir)
+#    print(f'Creating dir {calibre_dir}')
+#for ms_dir in cfg_dp.get_metalstack_dirs():
+#    if not os.path.exists(f'{calibre_dir}/{ms_dir}'):
+#        os.mkdir(f'{calibre_dir}/{ms_dir}')
+#        print(f'Creating dir {calibre_dir}/{ms_dir}')
+#    rsf_dir = f'{calibre_dir}/{ms_dir}/rsf'
+#    if not os.path.exists(rsf_dir):
+#        os.mkdir(rsf_dir)
+#        print(f'Creating dir {rsf_dir}')
+for runset in cfg_dp.get_runsets():
+    cfg_rst = cfg_dp.get_cfg_of_runset(runset)
+    tplgenrst = TplGenRunset.TplGenRunset(cfg_rst)
+    tplgenrst.dump_rsf()
+
+

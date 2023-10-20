@@ -1,0 +1,27 @@
+-DFM model version: 
+
+        N03
+
+- Revision history
+
+        07/29/19   0.01a         C.P.Chiang   1) Newly created
+        04/20/20   0.1a          M.K.Tsai     1) Update to V0.5 LDE Spe
+                                                a) Add: snpba1,snpba2,snpbb1,snpbb2,
+                                                        matchingflag,edgeflag,
+                                                        total,odind,gpocrdx,gpocrdy. 
+                                                        spotl2,spotl1,spotr1,spotr2,
+                                                        spobl2,spobl1,spobr1,spobr2,
+                                                        spotl3,spotr3,spobl3,spobr3,
+                                                        lcpotr,lcpotl,lcpobr,lcpobl,
+                                                        scpodea1, scpodeb1,
+                                                        scpodea2, scpodeb2,
+                                                        lcpodea1, lcpodea2, lcpodeb1, lcpodeb2
+                                                b) Remove: sodxa,sodxb 
+                                                c) Name change: sodba->soda, sodbb->sodb 
+
+        09/30/20   0.5a          M.K.Tsai     1) Update to V0.5a LDE Spe
+                                                a) Remove: lcpodea1, lcpodea2, lcpodeb1, lcpodeb2
+
+        03/22/21   0.9a          M.P.Liou     1) Update to V0.9 LDE Spe
+                                                a) Support parameterized-CPODE
+                                             

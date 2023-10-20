@@ -1,0 +1,164 @@
+* SPICE NETLIST
+***************************************
+.SUBCKT efuse_m0 PLUS MINUS
+.ENDS
+***************************************
+.SUBCKT efuse_m1 PLUS MINUS
+.ENDS
+***************************************
+.SUBCKT efuse_m4 PLUS MINUS
+.ENDS
+***************************************
+.SUBCKT efuse_mx PLUS MINUS
+.ENDS
+***************************************
+.SUBCKT mimcap_shp1_4tlv MTP MMP MBP MBP_LV
+.ENDS
+***************************************
+.SUBCKT mimcap_shp1_5thv MTP MMP MBP MBP_LV MBP_HV
+.ENDS
+***************************************
+.SUBCKT mimcap_shp2_4thv MTP MMP MBP MBP_HV
+.ENDS
+***************************************
+.SUBCKT mimcap_shp2_4tlv MTP MMP MBP MBP_LV
+.ENDS
+***************************************
+.SUBCKT mimcap_shp2_5thv MTP MMP MBP MBP_LV MBP_HV
+.ENDS
+***************************************
+.SUBCKT mimcap_sin_shd_3t MTP MMP MBP
+.ENDS
+***************************************
+.SUBCKT crtmom_wo PLUS MINUS BULK
+.ENDS
+***************************************
+.SUBCKT crtmom_2t PLUS MINUS
+.ENDS
+***************************************
+.SUBCKT crtmom_wo_mx PLUS1 MINUS1 PLUS2 MINUS2 BULK
+.ENDS
+***************************************
+.SUBCKT crtmom_mx_4t PLUS1 MINUS1 PLUS2 MINUS2
+.ENDS
+***************************************
+.SUBCKT crtmom_wo_rf PLUS MINUS BULK
+.ENDS
+***************************************
+.SUBCKT crtmom_ary PLUS MINUS BULK
+.ENDS
+***************************************
+.SUBCKT crtmom_ary_sm PLUS MINUS TOP
+.ENDS
+***************************************
+.SUBCKT crtmom_ary_sm_4t PLUS MINUS BULK TOP
+.ENDS
+***************************************
+.SUBCKT crtmom_sm_rf PLUS MINUS TOP
+.ENDS
+***************************************
+.SUBCKT crtmom_sm_4t_rf PLUS MINUS BULK TOP
+.ENDS
+***************************************
+.SUBCKT moscap_rf GATE BULK GNODE
+.ENDS
+***************************************
+.SUBCKT moscap_rf12 GATE BULK GNODE
+.ENDS
+***************************************
+.SUBCKT moscap_rf12_nw GATE BULK GNODE
+.ENDS
+***************************************
+.SUBCKT moscap_rf_nw GATE BULK GNODE
+.ENDS
+***************************************
+.SUBCKT ndio_12_mac PLUS MINUS
+.ENDS
+***************************************
+.SUBCKT ndio_12_ntn_mac PLUS MINUS
+.ENDS
+***************************************
+.SUBCKT ndio_hia12_mac PLUS MINUS
+.ENDS
+***************************************
+.SUBCKT ndio_hia12_ntn_mac PLUS MINUS
+.ENDS
+***************************************
+.SUBCKT ndio_mac PLUS MINUS
+.ENDS
+***************************************
+.SUBCKT nmoscap PLUS MINUS
+.ENDS
+***************************************
+.SUBCKT nmoscap_12 PLUS MINUS
+.ENDS
+***************************************
+.SUBCKT npode_12_mac S G B
+.ENDS
+***************************************
+.SUBCKT npode_eflvt_mac S G B
+.ENDS
+***************************************
+.SUBCKT npode_efsvt_mac S G B
+.ENDS
+***************************************
+.SUBCKT npode_elvt_mac S G B
+.ENDS
+***************************************
+.SUBCKT npode_lvt_mac S G B
+.ENDS
+***************************************
+.SUBCKT npode_lvtll_mac S G B
+.ENDS
+***************************************
+.SUBCKT npode_svt_mac S G B
+.ENDS
+***************************************
+.SUBCKT npode_ulvt_mac S G B
+.ENDS
+***************************************
+.SUBCKT npode_ulvtll_mac S G B
+.ENDS
+***************************************
+.SUBCKT pdio_12_mac PLUS MINUS
+.ENDS
+***************************************
+.SUBCKT pdio_hia12_mac PLUS MINUS
+.ENDS
+***************************************
+.SUBCKT pdio_mac PLUS MINUS
+.ENDS
+***************************************
+.SUBCKT ppode_12_mac S G B
+.ENDS
+***************************************
+.SUBCKT ppode_eflvt_mac S G B
+.ENDS
+***************************************
+.SUBCKT ppode_efsvt_mac S G B
+.ENDS
+***************************************
+.SUBCKT ppode_elvt_mac S G B
+.ENDS
+***************************************
+.SUBCKT ppode_lvt_mac S G B
+.ENDS
+***************************************
+.SUBCKT ppode_lvtll_mac S G B
+.ENDS
+***************************************
+.SUBCKT ppode_svt_mac S G B
+.ENDS
+***************************************
+.SUBCKT ppode_ulvt_mac S G B
+.ENDS
+***************************************
+.SUBCKT ppode_ulvtll_mac S G B
+.ENDS
+***************************************
+.SUBCKT rhim PLUS MINUS
+.ENDS
+***************************************
+.SUBCKT rmsp PLUS MINUS
+.ENDS
+***************************************

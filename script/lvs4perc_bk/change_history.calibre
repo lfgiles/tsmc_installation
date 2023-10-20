@@ -1,0 +1,56 @@
+                           CHANGE HISTORY 
+ 
+   Date         Version         Author       Description 
+ ----------  ----------------  ---------    ------------------------------------------------- 
+ 12/15/2020  0.5_1a             M.K.Tsai    1) Newly created. 
+  
+ 03/22/2021  0.9a_pre032221     M.P.Liou    1) Add new devices 
+                                               a. Add new efuse SVT devices: nch_efsvt_mac, nch_efsvt_dnw_mac, pch_efsvt_mac, npode_efsvt_mac, ppode_efsvt_mac  
+                                            2) Support parameterize-CPODE 
+                                               a. New layer: 
+                                                  DUT(206;200) : DUT standard dummy cell 
+                                                  DUT_ROW_ID_TEXT(206;201) : DUT ROW ID text layer 
+                                               b. New switch to turn on/off this feature(default off) : PARAMETERIZED_CPODE 
+                                            3) Layer update: 
+                                               a. Comply with v0.9 DummyCell implant spec 
+                                            4) Add CB connection 
+                                            5) Rename Cu_RDL related layers  
+ 
+ 04/16/2021  0.9a               M.K.Tsai    1) Update devices  
+                                               a. Add new SHPMIM devices:  mimcap_shp1_4tlv, mimcap_shp1_5thv, mimcap_shp2_4thv, mimcap_shp2_4tlv, mimcap_shp2_5thv 
+                                               b. Add new SRAM devices: nchpd_dpsr_mac, nchpg_dpsr_mac, pchpu_dpsr_mac 
+                                               c. Remove SRAM devices:  
+                                                  nchpd_ulvt10trpsr_mac, nchpd_ulvt10tsr_mac, nchpg_ulvt10trpsr_mac, nchpg_ulvt10tsr_mac, 
+                                                  nchpd_ulvt8trpsr_mac, nchpd_ulvt8tsr_mac, nchpd_ulvthc8trpsr_mac, nchpd_ulvthc8tsr_mac, 
+                                                  nchpg_ulvt8trpsr_mac, nchpg_ulvt8tsr_mac, nchpg_ulvthc8trpsr_mac, nchpg_ulvthc8tsr_mac,  
+                                                  pchpu_ulvt10tsr_mac, pchpu_ulvt8tsr_mac, pchpu_ulvthc8tsr_mac 
+                                               d. Update mom device logic operation: crtmom_ary, crtmom_ary_sm, crtmom_ary_sm_4t, crtmom_sm_rf, crtmom_sm_4t_rf  
+                                            2) Support new ERC switch for unexpected mimcap device checking 
+                                               a. unexpected_device_checking_SHDMIM: check unexpected SHDMIM device 
+                                               b. unexpected_device_checking_SHPMIM_client: check unexpected SHPMIM client-type device 
+                                               c. unexpected_device_checking_SHPMIM_server: check unexpected SHPMIM server-type device 
+                                            3) Support CCI flow only, remove Calibre folder 
+                                            4) Code enhancement 
+ 
+ 06/15/2021  0.9b               M.P.Liou    1) Support CAL flow 
+                                            2) ERC update 
+                                               a. Update PODE.R.9.2 check rule 
+                                               b. Update ERC PICKUP_CHECK with PSUB2 logic operation enhancement 
+                                            3) Layer update 
+                                               a. New layer: BPC_HV1_O(263;14) for SHPMIM BPC_HV1 opening 
+                                               b. Update related SHPMIM logic operation: mimcap_shp1_4tlv, mimcap_shp2_4thv, mimcap_shp2_4tlv, mimcap_shp2_5thv 
+ 
+ 08/13/2021  1.0a               M.K.Tsai  
+                                            1) Device update 
+                                               a. Change MOM maximal stm from 11 to 14 
+                                            2) Layer update 
+                                               a. Enable CPP51 CFI RC markers 
+                                               b. New via layer(RV_MTOP_TPC) to connect top metal and TPC_GND layer 
+                                            3) Code enhancement 
+
+ 01/28/2022  1.0b               M.K.Tsai 
+                                            1) Layer update
+                                               a. Remove layer : OD12_15(14;2)
+                                            2) Device update
+                                               b. Remove devices : nch_12od15_mac, nch_12od15_dnw_mac, pch_12od15_mac, npode_12od15_mac, ppode_12od15_mac, nch_mpode12od15_mac, pch_mpode12od15_mac
+

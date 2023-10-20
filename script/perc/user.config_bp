@@ -1,0 +1,38 @@
+############################################
+##           User Configuration           ##
+############################################
+
+## absolute path to install perc deck
+INSTALLATION_PATH = /home/user/perc_n03_deck
+
+## path of TSMC formal released LVS package or Calibre Flow LVS & MAP file without modification (either one is ok)
+##   note: please use the same LVS version as denoted in '4_ReleaseNotes.txt' to prevent from unexpected result
+LVS_PACKAGE_DIRECTORY = T-N03-CL-SP-005-C1/1.0b
+##LVS_FILE = DFM_LVS_RC_CALIBRE_N3_1p18M_1X1Xb1Xc1Xd1Ya1Yb5Y2Yy2Yx1R1U_CURDL.1.0b
+##MAP_FILE = xact_mapping_18M_1X1Xb1Xc1Xd1Ya1Yb5Y2Yy2Yx1R1U
+
+## metal scheme ( e.g. 1P18M_1X1Xb1Xc1Xd1Ya1Yb5Y2Yy2Yx1R1U_SHPMIM1_CURDL, 1P18M_1X1Xb1Xc1Xd1Ya1Yb5Y2Yy2Yx1R1U_SHPMIM1_UT-CURDL, 1P18M_1X1Xb1Xc1Xd1Ya1Yb5Y2Yy2Yx1R1U_SHPMIM2_UT-CURDL, or 1P17M_1X1Xb1Xc1Xd1Ya1Yb6Y2Yy2R_SHDMIM_UT-ALRDL )
+METAL_SCHEME = 1P18M_1X1Xb1Xc1Xd1Ya1Yb5Y2Yy2Yx1R1U_SHPMIM1_UT-CURDL
+
+## =============================================================================================
+## ==                                   Optional Settings                                     ==
+## =============================================================================================
+## 1. By default, PERC will use real pad for cd/p2p check.
+##    When there is no real pad, PERC will use all lvs recognized port for cd/p2p check.
+##    If user want to constrain the port layers, please un-comment and define following two variables:
+##
+##    PORT_LAYER = Cu_RDL M18  # port layers with pin-text which will be used to form pseudo pad
+##    TOP_PORT_ONLY = y    # y: use top hierarchy level pin-text only, n: use all hierarchy level pin-text
+##
+##    When the 'CREATE_PAD_BY_TEXT' switch in 'perc_n03.top' is enabled as well,
+##    PERC will use the pin-text on these layers only to form pseudo pad for cd/p2p check.
+##
+##    Priority: {"real pad" or "pseudo pad"} > "lvs recognized port"
+##
+## 2. By default, MOM capacitor, and MIM capacitor will be skipped. If user wants to keep them,
+##    please un-comment following variables accordingly:
+##
+##    SKIP_MOM_CAPACITOR = n   # y: skip MOM capacitor, n: keep MOM capacitor (model name: crtmom_**)
+##    SKIP_MIM_CAPACITOR = n   # y: skip MIM capacitor, n: keep MIM capacitor (model name: mimcap_**)
+## =============================================================================================
+

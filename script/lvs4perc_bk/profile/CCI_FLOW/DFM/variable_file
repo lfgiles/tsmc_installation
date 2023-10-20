@@ -1,0 +1,26 @@
+
+// variable_setting
+VARIABLE dfm_sd 5.0
+VARIABLE dfm_sds 0.5
+VARIABLE ODW1 0.04  // N20 Min. OD width 
+VARIABLE od_max_dist 0.31
+VARIABLE od_max_len  0.384
+VARIABLE po_max_dist 0.3
+VARIABLE min_grid 0.0001
+VARIABLE fgrid 0.0001
+VARIABLE UNIT_LENGTH 1e-6
+VARIABLE OJE_PODE_EXP_LEN 0.005
+VARIABLE JGS_MIN 4.61e-8  // 8e-8 + 1e-10(error in numerical calculation)
+VARIABLE OJE_GATE_W   1.01e-8  // 1e-8   + 1e-10(error in numerical calculation)
+VARIABLE JGH_xfin_MIN 0.01e-8  // 9.6e-8 + 1e-10(error in numerical calculation)
+VARIABLE JGH_1fin_MIN 0.01e-8  // 9.6e-8 + 1e-10(error in numerical calculation)
+
+// CPO parameter set
+//VARIABLE PO_END_EX     1.1   // x-dir extension
+//VARIABLE PO_END_BY     3 // y-dir boundary
+//VARIABLE PO_END_SMAX_Y 3 // y-dir maximum search range
+//
+//VARIABLE GATE_END_OUT  0.0001
+//VARIABLE GATE_END_FOUT 0.0002
+
+// end_variable_setting

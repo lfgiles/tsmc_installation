@@ -1,0 +1,445 @@
+#!tvf
+set env(TP_CAL_VERSION) 3616f72_n3
+set env(TP_CAL_RUNSET) RSF_digital_perc_esd_cd_tsmc
+
+## ------------------------------------------------------------
+## TEV_START
+## ------------------------------------------------------------
+
+## NAME: TEV(RS_SWITCH_TOPO)
+## TYPE: boolean
+## INFO:
+## * Turn on-off TSMC switch "TOPO"
+set TEV(RS_SWITCH_TOPO) "0"
+
+## NAME: TEV(RS_SWITCH_LDL)
+## TYPE: boolean
+## INFO:
+## * Turn on-off TSMC switch "LDL"
+set TEV(RS_SWITCH_LDL) "0"
+
+## NAME: TEV(RS_SWITCH_CD)
+## TYPE: boolean
+## INFO:
+## * Turn on-off TSMC switch "CD"
+set TEV(RS_SWITCH_CD) "1"
+
+## NAME: TEV(RS_SWITCH_P2P)
+## TYPE: boolean
+## INFO:
+## * Turn on-off TSMC switch "P2P"
+set TEV(RS_SWITCH_P2P) "0"
+
+## NAME: TEV(RS_SWITCH_CD_PRE_CHECK)
+## TYPE: boolean
+## INFO:
+## * Turn on-off TSMC switch "CD_PRE_CHECK"
+set TEV(RS_SWITCH_CD_PRE_CHECK) "0"
+
+## NAME: TEV(RS_SWITCH_P2P_PRE_CHECK)
+## TYPE: boolean
+## INFO:
+## * Turn on-off TSMC switch "P2P_PRE_CHECK"
+set TEV(RS_SWITCH_P2P_PRE_CHECK) "0"
+
+## NAME: TEV(RS_SWITCH_CDM_6A)
+## TYPE: boolean
+## INFO:
+## * Turn on-off TSMC switch "CDM_6A"
+set TEV(RS_SWITCH_CDM_6A) "1"
+
+## NAME: TEV(RS_SWITCH_CDM_7A)
+## TYPE: boolean
+## INFO:
+## * Turn on-off TSMC switch "CDM_7A"
+set TEV(RS_SWITCH_CDM_7A) "0"
+
+## NAME: TEV(RS_SWITCH_CDM_9A)
+## TYPE: boolean
+## INFO:
+## * Turn on-off TSMC switch "CDM_9A"
+set TEV(RS_SWITCH_CDM_9A) "0"
+
+## NAME: TEV(RS_SWITCH_Hi_CDM)
+## TYPE: boolean
+## INFO:
+## * Turn on-off TSMC switch "Hi_CDM"
+set TEV(RS_SWITCH_Hi_CDM) "1"
+
+## NAME: TEV(RS_SWITCH_IN_DIE_MODE)
+## TYPE: boolean
+## INFO:
+## * Turn on-off TSMC switch "IN_DIE_MODE"
+set TEV(RS_SWITCH_IN_DIE_MODE) "1"
+
+## NAME: TEV(RS_SWITCH_GROUP_PWR_CLAMP)
+## TYPE: boolean
+## INFO:
+## * Turn on-off TSMC switch "GROUP_PWR_CLAMP"
+set TEV(RS_SWITCH_GROUP_PWR_CLAMP) "1"
+
+## NAME: TEV(RS_SWITCH_SET_PWR_CLAMP_RON)
+## TYPE: boolean
+## INFO:
+## * Turn on-off TSMC switch "SET_PWR_CLAMP_RON"
+set TEV(RS_SWITCH_SET_PWR_CLAMP_RON) "1"
+
+## NAME: TEV(RS_SWITCH_CHECK_SCR_PATH_CD)
+## TYPE: boolean
+## INFO:
+## * Turn on-off TSMC switch "CHECK_SCR_PATH_CD"
+set TEV(RS_SWITCH_CHECK_SCR_PATH_CD) "0"
+
+## NAME: TEV(RS_SWITCH_CHECK_FULL_PATH_CD)
+## TYPE: boolean
+## INFO:
+## * Turn on-off TSMC switch "CHECK_FULL_PATH_CD"
+set TEV(RS_SWITCH_CHECK_FULL_PATH_CD) "1"
+
+## NAME: TEV(RS_SWITCH_CHECK_FULL_PATH_P2P)
+## TYPE: boolean
+## INFO:
+## * Turn on-off TSMC switch "CHECK_FULL_PATH_P2P"
+set TEV(RS_SWITCH_CHECK_FULL_PATH_P2P) "0"
+
+## NAME: TEV(RS_SWITCH_CHECK_PICK_UP_P2P)
+## TYPE: boolean
+## INFO:
+## * Turn on-off TSMC switch "CHECK_PICK_UP_P2P"
+set TEV(RS_SWITCH_CHECK_PICK_UP_P2P) "0"
+
+## NAME: TEV(RS_SWITCH_CREATE_PAD_BY_TEXT)
+## TYPE: boolean
+## INFO:
+## * Turn on-off TSMC switch "CREATE_PAD_BY_TEXT"
+set TEV(RS_SWITCH_CREATE_PAD_BY_TEXT) "0"
+
+## NAME: TEV(RS_SWITCH_DISABLE_IODMY)
+## TYPE: boolean
+## INFO:
+## * Turn on-off TSMC switch "DISABLE_IODMY"
+set TEV(RS_SWITCH_DISABLE_IODMY) "0"
+
+## NAME: TEV(RS_SWITCH_EXPORT_ONE_VICTIM)
+## TYPE: boolean
+## INFO:
+## * Turn on-off TSMC switch "EXPORT_ONE_VICTIM"
+set TEV(RS_SWITCH_EXPORT_ONE_VICTIM) "0"
+
+## NAME: TEV(RS_PATH_PAD_INFO)
+## TYPE: path to txt file
+## INFO:
+## * set pad voltage & pad text. template available in calibre/<metalstack>/runset/PERC/TSMC
+set TEV(RS_PAD_INFO) ""
+
+## ------------------------------------------------------------
+## TEV_STOP
+## ------------------------------------------------------------
+
+
+namespace import tvf::*
+
+proc INCLUDE {path {comment "dummy"}} {
+    puts "sourcing $path"
+    if [catch {uplevel "source $path"} msg] {
+        puts $msg
+        exit 1
+    }
+}
+
+tvf::VERBATIM {
+// ******************************************************************************
+// * CALIBRE PERC COMMAND FILE (05/06/2022)
+// * ESD/LUP CHECKER FOR TSMC N03B 1P18M_1X1XB1XC1XD1YA1YB5Y2YY2YX1R1U_SHPMIM1_UT-CURDL CMOS LOGIC PROCESS (CALIBRE)
+// * ESD/LUP CHECKER DOCUMENT: T-N03-CL-DR-007-C7     Ver.: 1.0_3a
+// * DESIGN RULE DOCUMENT:     T-N03-CL-DR-007        Ver.: 1.0_3
+// * Tech File Ver: v1.0_3a
+// ******************************************************************************
+
+// start switch
+//#DEFINE TOPO    // Turn on to enable Topology checks
+//#DEFINE LDL     // Turn on to enable LDL(Logic-Driven-Layout) DRC checks
+//#DEFINE CD    // Turn on to enable CD(Current Density) checks
+//#DEFINE P2P   // Turn on to enable P2P(Point-to-Point) checks
+
+// ** Note: CD & P2P cannot be enabled at the same time **
+
+//#DEFINE CD_PRE_CHECK          // Turn on to check the existence of CD path
+
+//#DEFINE P2P_PRE_CHECK         // Turn on to check the existence of P2P path
+
+//#DEFINE CDM_6A                // Turn on to check CDM 6A rules
+
+//#DEFINE CDM_7A                // Turn on to check CDM 7A rules
+
+//#DEFINE CDM_9A                // Turn on to check CDM 9A rules
+
+//#DEFINE Hi_CDM                  // Turn on to check Hi-CDM rules for Hi-CDM design
+
+//#DEFINE IN_DIE_MODE             // Turn off to disable In-Die Mode during R extraction to improve runtime
+                                // Please note: accuracy will be impacted when this switch is disabled
+
+//#DEFINE GROUP_PWR_CLAMP         // Turn off to short all Power-clamp for ESD.CD.1gU:pc, ESD.14.4gU, and ESD.CDM.P.3~5gU checks
+                                // Turn on to check each Power-clamp group separately
+
+#DEFINE GROUP_HIA_DIODE         // Turn off to short all reversed HIA diodes for ESD.CD.1.1gU and ESD.CDM.P.5.1gU checks
+                                // Turn on to check each reversed HIA diode separately
+
+//#DEFINE SET_PWR_CLAMP_RON     // Turn on to set Power-clamp Ron for Full Path CD/P2P check, to improve accuracy
+
+#DEFINE SET_DIODE_RON           // Turn on to set Diode Ron for Full Path P2P (DISTP2P) check, to improve accuracy
+
+//#DEFINE CHECK_FULL_PATH_CD      // Turn off for Basic CD checks: (recommended when full path CD cannot be done)
+                                //   1. I/O Pad to primary ESD device
+                                //   2. R-ESD to secondary ESD device
+                                // Turn on for Full Path CD checks: (recommended)
+                                //   1. I/O Pad to Power/Ground Pad through primary ESD device
+                                //   2. R-ESD to Power/Ground Pad through secondary ESD device
+                                //   3. Power Pad to Ground Pad through Power-clamp
+                                //   4. Two Ground Pads through B2B diode connection
+
+//#DEFINE CHECK_SCR_PATH_CD     // Turn on to check parasitic SCR discharging path CD (ESD.CD.3.1~4gU)
+                                // Before turn on this switch, please:
+                                //   1. Run LDL check to get ESD Marker GDS: TSMC.ESD.MARK.gds
+                                //   2. Specify the path of ESD Marker GDS in "PATH2", and topcell name in "PRIMARY2"
+                                //   3. Set "TEXT DEPTH" & "PORT DEPTH" as target depth + 1
+
+//#DEFINE CHECK_FULL_PATH_P2P     // Turn on for Full Path P2P checks: (recommended for Cell/IP or small size chip)
+                                //   ESD.DISTP2P.1gU, ESD.DISTP2P.1.1gU, ESD.DISTP2P.1.2gU, ESD.DISTP2P.1.3gU
+
+//#DEFINE CHECK_PICK_UP_P2P     // Turn on to check PAD to Pick-Up Ring/Strap resistance (ESD.14.6~8gU, ESD.CDM.P.10gU)
+                                // Before turn on this switch, please:
+                                //   1. Run LDL check to get ESD Marker GDS: TSMC.ESD.MARK.gds
+                                //   2. Specify the path of ESD Marker GDS in "PATH2", and topcell name in "PRIMARY2"
+                                //   3. Set "TEXT DEPTH" & "PORT DEPTH" as target depth + 1
+
+//#DEFINE VIRTUAL_CONNECT_P2P   // Turn on to enable virtual connected path P2P checks
+
+//#DEFINE CREATE_PAD_BY_TEXT    // Turn on to create Pseudo PAD by pin-text for CD/P2P checks. Please note:
+                                //   1. By default, PERC will use "real pad" or "lvs recognized port" for cd/p2p checks
+                                //   2. This switch is used when there is no real pad, and user want to use pin-text
+                                //      on specific layers only (i.e. AP & M12) to form pseudo pad
+                                //   3. To use this switch, user need to set PORT_LAYER in user.config during installation
+                                //   4. The priority is: {"real pad" + "pseudo pad"} > "lvs recognized port"
+
+//#DEFINE DISABLE_IODMY         // Turn on to disable IODMY recognition
+                                //   By default, PERC will use {IODMY AND M1} to recognize internal nets as signal in LDL check
+
+//#DEFINE EXPORT_ONE_VICTIM     // Turn on to export only one of multiple parallel connected victim devices for LDL check
+                                //   By default, PERC will export all victim devices
+                                //   This switch is used when there is runtime or memory usage issue in LDL check for big chip,
+                                //   but it may result in some potential false or missing errors
+                                //   The affected rules: ESD.CDM.1gU, ESD.CDM.1.1gU, ESD.CDM.2gU
+
+//#DEFINE SHOW_XPWR_STACK       // Turn on to show the number of transistors and resistors across power domain nets
+                                //   By default, only "single" or "cascoded" stack information will be shown in the result
+                                //   When this switch is enabled, there could be runtime performance issue in chip level design
+                                //   The affected rules: ESD.XDM.VIC.3gU, ESD.XDM.VIC.4gU
+
+//#DEFINE COMMON_GROUND         // Turn off for any kind of design
+                                // Turn on for common ground design with some checks disabled to improve runtime
+
+#DEFINE CD_GROUP1               // Turn on to check ESD.CD.1gu rules
+#DEFINE CD_GROUP2               // Turn on to check ESD.CD.1gu:pc, ESD.CD.1gu:b2b and ESD.CD.1.1gu rules if "CHECK_FULL_PATH_CD" is also enabled
+#DEFINE CD_GROUP3               // Turn on to check ESD.CD.2gu rules
+#DEFINE CD_GROUP4               // Turn on to check ESD_D2D.CDM.CD.1gu rules if "Hi_CDM" is also enabled
+
+#DEFINE P2P_GROUP1              // Turn on to check ESD.CDM.P.3.0.1gu, ESD.CDM.P.3.0.2gu, ESD.CDM.P.4.0.1gu, ESD.CDM.P.4.0.2gu, 
+                                // ESD.CDM.P.5.0.1gu, ESD.CDM.P.5.0.2gu, ESD.14.4gu
+#DEFINE P2P_GROUP2              // Turn on to check ESD.CDM.P.1.0.1gu, ESD.CDM.P.1.0.2gu, ESD.CDM.P.1.0.3gu, ESD.CDM.P.1.2.0.1gu, ESD.CDM.P.1.2.0.2gu
+                                // ESD.LCP2P.1.1gu, ESD.LCP2P.1.2gu, ESD.14.3.1gu, ESD.14.3.2gu
+                                // ESD_D2D.CDM.P.1.1.1gu, ESD_D2D.CDM.P.1.1.2gu, ESD_D2D.CDM.P.1.2.1gu, ESD_D2D.CDM.P.1.2.2gu
+#DEFINE P2P_GROUP3              // Turn on to check ESD.CDM.P.1.1.0.1gu, ESD.CDM.P.1.1.0.2gu, ESD.CDM.P.1.1.0.3gu
+                                // ESD.CDM.P.2.0.1gu, ESD.CDM.P.2.0.2gu, ESD.CDM.P.2.0.3gu, ESD.CDM.P.2.1gu
+                                // ESD.LCP2P.2.1gu, ESD.LCP2P.2.2gu, ESD.14.5.1gu, ESD.14.5.2gu
+                                // ESD_D2D.CDM.P.2.1.1gu, ESD_D2D.CDM.P.2.1.2gu, ESD_D2D.CDM.P.2.2.1gu, ESD_D2D.CDM.P.2.2.2gu
+#DEFINE P2P_GROUP4              // Turn on to check ESD.CDM.P.7.0.1gu, ESD.CDM.P.7.0.2gu, ESD.CDM.P.7.1.0.1gu,  ESD.CDM.P.7.1.0.2gu, 
+                                // ESD.CDM.P.7.2.0.1gu, ESD.CDM.P.7.2.0.2gu
+#DEFINE P2P_GROUP5              // Turn on to check ESD.CDM.P.7.3gu, ESD.CDM.P.7.4gu, ESD.CDM.P.7.5gu
+#DEFINE P2P_GROUP6              // Turn on to check ESD.CDM.P.8gu, ESD.CDM.P.9gu, ESD.XDM.P.1gu 
+
+
+//#DEFINE USE_SUB_PROPERTY      // Turn on to add sub properties for ESD.8/8.1/9gU and ESD.CDM.1/1.1/2gU results
+
+#DEFINE ENABLE_R0_CHECK         // Turn off to disable R0 exclusion and check for primary ESD P2P rules if it has long runtime issue
+
+VARIABLE PC_NFIN_MULTIPLIER 1   // The multiplier used to select the closest Power-clamp devices in CD/P2P checks
+                                //   1: select Power-clamps with >= 1X rule compliant nfin (for any design)
+                                //   2: select Power-clamps with >= 2X rule compliant nfin (for big IP)
+                                //  -1: select all Power-clamps (for small IP)
+
+VARIABLE INT_PWR_LIMIT 10000    // The net with more than this number of MOS s/d connected will be recognized as internal power
+
+// end switch
+VARIABLE VIA_REDUCE_STEP 3      // Define via reduce step in R-extraction for P2P check. (default is 3x3 to 1)
+
+#IFDEF CD
+  #DEFINE CD_P2P
+  #IFDEF CHECK_SCR_PATH_CD
+    #DEFINE INCLUDE_LDL_MARKER
+  #ENDIF
+#ENDIF
+#IFDEF P2P
+  #DEFINE CD_P2P
+  #IFDEF CHECK_PICK_UP_P2P
+    #DEFINE INCLUDE_LDL_MARKER
+  #ENDIF
+#ENDIF
+
+//############################################################
+//        Define Input Information
+//############################################################
+
+//LAYOUT SYSTEM OASIS     // set SPICE for CDL(netlist) check
+//LAYOUT PATH "GDSFILENAME"
+//LAYOUT PRIMARY "TOPCELLNAME"
+
+PERC NETLIST LAYOUT
+
+#IFDEF INCLUDE_LDL_MARKER
+LAYOUT SYSTEM2 GDSII
+LAYOUT PATH2 "RUN_LDL/TSMC.ESD.MARK.gds"  // ESD Marker GDS generated in LDL run
+LAYOUT PRIMARY2 "TOPCELLNAME"
+LAYOUT BUMP2 50000
+TEXT DEPTH 1    // set target TEXT DEPTH + 1
+PORT DEPTH 1    // set target PORT DEPTH + 1
+#ELSE
+TEXT DEPTH 0
+PORT DEPTH 0
+#ENDIF
+
+VIRTUAL CONNECT NAME "?"
+
+//VARIABLE GLOBAL_ESD_BUS ""        // define global ESD bus
+
+//VARIABLE LC_PAD_NAME ""           // define low capacitance PAD names
+
+//VARIABLE PoP_PAD_NAME ""          // define package-on-package IO PAD names
+
+//VARIABLE ULTRA_LOW_NOISE_PAD_NAME ""  // define ultra-low noise IO PAD names
+
+//VARIABLE VIRTUAL_POWER_NAME ""    // define virtual power names for LDL checks (e.g. "VVDD1" "VVDD2@CELL2")
+                                    // the used cell names should be defined in hcell to preserve hierarchy
+
+//VARIABLE EXCLUDE_PC_CELL ""       // define cell names to be excluded for power clamp recognition (e.g. "CELL_A" "CELL_B")
+                                    // the used cell names should be defined in hcell to preserve hierarchy
+
+//VARIABLE D2D_INT_CDM05V0D040A_POWER_NAME ""  // define CDM 5V 40mA die-to-die power names (D2D_VDD)
+
+//VARIABLE D2D_INT_CDM05V0D040A_NAME ""        // define CDM 5V 40mA die-to-die interface names
+
+//VARIABLE D2D_INT_CDM35V0D220A_POWER_NAME ""  // define CDM 35V 220mA die-to-die power names (D2D_VDD)
+
+//VARIABLE D2D_INT_CDM35V0D220A_NAME ""        // define CDM 35V 220mA die-to-die interface names
+
+VARIABLE SIGNAL_NAME "?"    // define signal names, "?" matches all top port names (except power/ground names)
+
+VARIABLE POWER_NAME "VDD" "vdd" "vcc" "AHVDD" "AHVDDB" "AHVDDG" "AHVDDR" "AHVDDWELL" "AVDD" "AVDDB" "AVDDBG" "AVDDG" "AVDDR" "AVDWELL" "DHVDD" "DVDD" "HVDDWELL" "TACVDD" "TAVD33" "TAVD33PST" "TAVDD" "TAVDDPST" "TVDD" "VD33" "VDD?" "VDD5V" "VDDESD" "VDDG" "VDDM" "VDDPST" "VDDSA" "VDWELL" "vdd?" "vcc?" "VCC?"  //default_on
+
+
+VARIABLE GROUND_NAME "VSS" "vss" "gnd" "AGND" "AHVSS" "AHVSSB" "AHVSSG" "AHVSSR" "AHVSSUB" "AVSS" "AVSSB" "AVSSBG" "AVSSG" "AVSSR" "AVSSUB" "DHVSS" "DVSS" "GND" "HVSSUB" "TACVSS" "TAVSS" "TAVSSPST" "TVSS" "VS33" "VSS?" "VSSESD" "VSSG" "VSSM" "VSSPST" "VSSUB" "vss?"  //default_on
+
+
+//INCLUDE "$LYNX_TECHLIB_DIR/calibre/1P18M_1X_h_1Xb_v_1Xc_h_1Xd_v_1Ya_h_1Yb_v_5Y_hvhvh_2Yy2Yx1R1U_shpmim_std_ut-curdl/PERC/TSMC/ESD/pad_info.rules"
+
+
+#IFDEF CD_P2P
+//PERC LDL LAYOUT REDUCE TOP LAYERS Cu_RDL Mtop ...         // define top-level metal routing layers to optimize CD/P2P layout processing
+                                                        // For details, please refer to the tool manual
+DFM DATABASE "dfmdb" OVERWRITE REVISIONS [ALL PINLOC]   // keep pin-location for move probe function
+#ELSE
+DFM DATABASE "dfmdb" OVERWRITE REVISIONS [ALL]
+#ENDIF
+PERC REPORT "perc_digital_esd_cd_tsmc.rep"
+PERC REPORT MAXIMUM ALL
+PERC REPORT PLACEMENT LIST MAXIMUM ALL
+PERC REPORT OPTION NO_NET_TYPE NO_DEVICE_PIN            // set ALL_NET_TYPE to show detailed information in report
+DRC ICSTATION YES
+
+#IFDEF VIRTUAL_CONNECT_P2P
+VARIABLE VIRTUAL_CONNECT_P2P 1
+VIRTUAL CONNECT REPORT YES
+#ENDIF
+#IFDEF SHOW_XPWR_STACK
+VARIABLE SHOW_XPWR_STACK 1
+PERC VOLTAGE TRACE DISTANCE ENABLE YES
+#ENDIF
+
+LAYOUT PROCESS BOX RECORD YES                           // instructs the tool to process BOX and BOXTYPE records
+LAYOUT INPUT EXCEPTION SEVERITY TEXTSTRING_ASTRING 1    // The string in a TEXTSTRING or TEXT record is not an OASIS a-string
+                                                        // 0: Quietly allow the string to contain any ASCII character except zero
+                                                        // 1: Warn and allow the string to contain any ASCII character except zero
+                                                        // 2: Error (default)
+LAYOUT INPUT EXCEPTION SEVERITY MISSING_REFERENCE 1     // A placement points to a cell that is not defined in the database
+                                                        // 0: Quietly generate an empty cell definition for the condition
+                                                        // 1: Warn and generate an empty cell definition for the condition
+                                                        // 2: Error (default)
+//LAYOUT ERROR ON INPUT NO                              // indicates the input module error/warning exceptions do not become fatal errors
+//LAYOUT ALLOW DUPLICATE CELL YES                       // instructs the tool to allow multiple records for the same layout cell
+
+
+//############################################################
+//        Include Files
+//############################################################
+// ==== R Tech File ====
+#IFNDEF IN_DIE_MODE
+  #define $XCAL_EXCL_INDIE
+#ENDIF
+  #define $XCAL_EXCL_CAP_RULES
+  #define $XCAL_EXCL_gate_fringe
+#IFDEF CD_P2P
+  INCLUDE "$LYNX_TECHLIB_DIR/calibre/1P18M_1X_h_1Xb_v_1Xc_h_1Xd_v_1Ya_h_1Yb_v_5Y_hvhvh_2Yy2Yx1R1U_shpmim_std_ut-curdl/PERC/TSMC/ESD/perc_n03.ro"
+
+#ENDIF
+
+// ==== LVS Tech File ====
+  LVS EXECUTE ERC NO
+  LVS NETLIST FILTER DEVICES YES
+#IFDEF CD_P2P
+  #define RC_DFM_RULE
+  #define XACT_DFM_RULE
+  INCLUDE "$LYNX_TECHLIB_DIR/calibre/1P18M_1X_h_1Xb_v_1Xc_h_1Xd_v_1Ya_h_1Yb_v_5Y_hvhvh_2Yy2Yx1R1U_shpmim_std_ut-curdl/PERC/TSMC/ESD/pex_map.rules"
+
+  INCLUDE "$LYNX_TECHLIB_DIR/calibre/1P18M_1X_h_1Xb_v_1Xc_h_1Xd_v_1Ya_h_1Yb_v_5Y_hvhvh_2Yy2Yx1R1U_shpmim_std_ut-curdl/PERC/TSMC/ESD/perc_n03.map"
+
+  #IFDEF P2P
+    PEX REDUCE VIA RESISTANCE FLEXIBLE MINSTEP VIA_REDUCE_STEP
+  #ENDIF
+#ELSE
+  LVS SPICE SCALE X PARAMETERS YES
+#ENDIF
+  INCLUDE "$LYNX_TECHLIB_DIR/calibre/1P18M_1X_h_1Xb_v_1Xc_h_1Xd_v_1Ya_h_1Yb_v_5Y_hvhvh_2Yy2Yx1R1U_shpmim_std_ut-curdl/PERC/TSMC/ESD/perc_n03.lvs"
+
+
+// ==== PERC Rule File ====
+}
+INCLUDE "$env(LYNX_TECHLIB_DIR)/calibre/1P18M_1X_h_1Xb_v_1Xc_h_1Xd_v_1Ya_h_1Yb_v_5Y_hvhvh_2Yy2Yx1R1U_shpmim_std_ut-curdl/PERC/TSMC/ESD/tsmc_lib/logusage.tvf"
+
+tvf::VERBATIM {
+#IFDEF CDM_9A
+}
+  INCLUDE "$env(LYNX_TECHLIB_DIR)/calibre/1P18M_1X_h_1Xb_v_1Xc_h_1Xd_v_1Ya_h_1Yb_v_5Y_hvhvh_2Yy2Yx1R1U_shpmim_std_ut-curdl/PERC/TSMC/ESD/tsmc_lib/perc_n03_9a.rules"
+
+tvf::VERBATIM {
+#ELSE
+  #IFDEF CDM_7A
+}
+    INCLUDE "$env(LYNX_TECHLIB_DIR)/calibre/1P18M_1X_h_1Xb_v_1Xc_h_1Xd_v_1Ya_h_1Yb_v_5Y_hvhvh_2Yy2Yx1R1U_shpmim_std_ut-curdl/PERC/TSMC/ESD/tsmc_lib/perc_n03_7a.rules"
+
+tvf::VERBATIM {
+  #ELSE
+    #IFDEF CDM_6A
+}
+      INCLUDE "$env(LYNX_TECHLIB_DIR)/calibre/1P18M_1X_h_1Xb_v_1Xc_h_1Xd_v_1Ya_h_1Yb_v_5Y_hvhvh_2Yy2Yx1R1U_shpmim_std_ut-curdl/PERC/TSMC/ESD/tsmc_lib/perc_n03_6a.rules"
+
+tvf::VERBATIM {
+    #ELSE
+}
+      INCLUDE "$env(LYNX_TECHLIB_DIR)/calibre/1P18M_1X_h_1Xb_v_1Xc_h_1Xd_v_1Ya_h_1Yb_v_5Y_hvhvh_2Yy2Yx1R1U_shpmim_std_ut-curdl/PERC/TSMC/ESD/tsmc_lib/perc_n03.rules"
+
+tvf::VERBATIM {
+    #ENDIF
+  #ENDIF
+#ENDIF
+
+}

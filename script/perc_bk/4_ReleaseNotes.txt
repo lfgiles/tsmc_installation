@@ -1,0 +1,194 @@
+RELEASE NOTES
+===============
+
+REFERRED DRM DOCUMENT:
+    ESD/LUP CHECKER FOR TSMC N03 CMOS LOGIC PROCESS (CALIBRE)
+    Design Rule Doc.:     T-N03-CL-DR-007       Ver.: 1.0_3
+    ESD/LUP CHECKER Doc.: T-N03-CL-DR-007-C7    Ver.: 1.0_3a
+    LVS TechFile:         T-N03-CL-SP-005-C1    Ver.: 1.0b
+                          T-N03-CL-SP-001-C1    Ver.: 1.0b
+
+CREATOR AND DATE:
+    Creator: Y.J. Chuang
+    Release Date: 05/06/2022
+
+EDA TOOL VERSION:
+    Calibre v2022.1_27.11 was used to develop and QA ESD/LUP CHECKER
+    Please use Calibre v2022.1_27.11 or newer TSMC qualified version
+
+    TSMC developed this deck using Siemens proprietary SVRF and TVF formats
+    The deck is to be used only in Calibre tools
+
+REVISION HISTORY OF ESD/LUP CHECKER:
+    Ver. 0.5_1a           12/28/2020 : Y.J. Chuang
+         - Newly created
+
+    Ver. 0.9_1a           06/18/2021 : J.P. Chiang
+         - Add CDM-6A rules
+         - Add TOPO rules: ESD.NET.1.2gU, ESD.9.0.2gU, ESD.40.4gU, ESD.CDM7A.40.4gU, ESD.CDM9A.40.4gU,
+           ESD_D2D.CDM.NET.1.1gu, ESD_D2D.CDM.RD2D.1.1gU, ESD_D2D.CDM.RD2D.2.1gU, ESD_D2D.CDM.PHIA.5.1gU,
+           ESD_D2D.CDM.NHIA.5.1gU, ESD_D2D.CDM.PMOS.5.1gU, ESD_D2D.CDM.NMOS.5.1gU
+         - Add LDL rules: ESD.7.0.1.1gU, ESD.7.0.2.1gU
+         - Add CD rules: ESD_D2D.CDM.CD.1.1gu
+         - Add P2P rules: ESD.CDM.P.2.1gU, ESD.CDM.P.5.1gU, ESD.CDM.P.1.0gU, ESD.LCP2P.1.0gU, ESD_D2D.CDM.P.1.0.1gU,
+           ESD_D2D.CDM.P.1.1.1gU, ESD_D2D.CDM.P.1.2.1gU, ESD_D2D.CDM.P.2.1.1gU, ESD_D2D.CDM.P.2.2.1gU
+         - Remove D2D evaluation rules: ESD_D2D.NET.1gu, ESD_D2D.9.1.2gU, ESD_D2D.9.1.3gU, ESD_D2D.9.1.4gU,
+           ESD_D2D.9.3gU, ESD_D2D.S.8gU
+         - Add INT_PWR_LIMIT variable in top file to control the recognition of internal power net
+         - Update ESD device list
+         - Update ESD.40.2gU, ESD.42.1gU to support 2-stack cascoded PMOS power-clamp
+         - Update ESD.CDM.2gU w*r constant values
+         - Update ESD.CDM.6.1g rule value from 1.32v to 1.65v
+         - Update ESD.CDM.P.1gU, ESD.LCP2P.1gU to exclude R0
+         - Update PAD device formation by pad types
+         - Fix ESD.CDM.C.2gU potential missing when the variable of voltage number is string format
+         - Skip cross-domain checks when there is only single power/ground net
+         - Rename SKIP_METAL_RESISTOR option to SKIP_NET_SPLITTER in user.config
+         - Update METAL_SCHEME option to require RDL type specified in user.config
+         - Support capacitance calculation for SHPMIM placed between power and ground nets
+
+    Ver. 1.0a             09/28/2021 : J.P. Chiang
+         - Add CD rules: ESD.CD.1.1gu for reversed HIA diode
+         - Add P2P rules: ESD.DISTP2P.1.0gU, ESD.DISTP2P.1.1.0gU, ESD.DISTP2P.1.2.0gU, ESD.DISTP2P.1.3.0gU for R0
+         - Add switch "SET_DIODE_RON" to enable diode Ron calculation
+         - Add switch "GROUP_HIA_DIODE" to enable reversed HIA diode grouping in ESD.CD.1.1gU and ESD.CDM.P.5.1gU
+         - Update ESD.XDM.VIC.3gU, ESD.XDM.VIC.4gU to relax the exception for stacked case
+         - Update ESD.CD.3.1gU, ESD.CD.3.2gU, ESD.CD.3.3gU, ESD.CD.3.4gU to change NW to {NW AND OD}, and merge net/path checks
+         - Update ESD.DISTP2P.1gU, ESD.DISTP2P.1.1gU, ESD.DISTP2P.1.2gU, ESD.DISTP2P.1.3gU to check from IO Pad and exclude R0
+         - Update ESD.1.1gU to fix potential false violation when multiple ESD devices are connected to the same net
+         - Update some CD/P2P rules to recognize the power-clamp with width less than rule value as well
+         - Split rules: ESD.CDM.P.1gU, ESD.CDM.P.1.1gU, ESD.CDM.P.1.2gU, ESD.CDM.P.2gU, ESD.CDM.P.3gU, ESD.CDM.P.4gU,
+           ESD.CDM.P.5gU, ESD.CDM.P.5.1gU, ESD.CDM.P.7gU, ESD.CDM.P.7.1.1gU, ESD.CDM.P.7.1.2gU, ESD.CDM.P.7.2gU
+         - Support both Al-RDL and Cu-RDL metal schemes
+    
+    Ver. 1.0_1a           12/15/2021 : J.P. Chiang
+         - Add TOPO rules ESD_D2D.CDM.40gu & ESD_D2D.CDM.40.1gu to relax power clamp size rules for D2D_VDD nets
+         - Add P2P rules ESD_D2D.CDM.P.3.1.1gU, ESD_D2D.CDM.P.3.1.2gU, ESD_D2D.CDM.P.3.2.1gU and ESD_D2D.CDM.P.3.2.2gU to check resistance 
+           from D2D primary ESD to VDD/VSS bump
+         - Replace P2P rules ESD.14.3gU, ESD.14.5gU, ESD.LCP2P.1gU, ESD.LCP2P.2gU, ESD.DISTP2P.1gU, ESD.DISTP2P.1.1gU, ESD.DISTP2P.1.2gU, 
+           ESD.DISTP2P.1.3gU by ESD.14.3.1gU, ESD.14.3.2gU, ESD.14.5.1gU, ESD.14.5.2gU, ESD.LCP2P.1.1gU, ESD.LCP2P.1.2gU,
+           ESD.LCP2P.2.1gU, ESD.LCP2P.2.2gU, ESD.DISTP2P.1.0.1gU, ESD.DISTP2P.1.0.2gU, ESD.DISTP2P.1.1.0.1gU, ESD.DISTP2P.1.1.0.2gU,
+           ESD.DISTP2P.1.2.0.1gU, ESD.DISTP2P.1.2.0.2gU, ESD.DISTP2P.1.3.0.1gU, and ESD.DISTP2P.1.3.0.2gU to differentiate pull-up/down paths
+         - Change D2D CDM spec to 220mA and modify rule values of ESD_D2D.CDM.PHIA.5.1gU, ESD_D2D.CDM.NHIA.5.1gU, ESD_D2D.CDM.PMOS.5.1gU, 
+           ESD_D2D.CDM.NMOS.5.1gU, ESD_D2D.CDM.CD.1.1gU, ESD_D2D.CDM.P.1.0.1gU, ESD_D2D.CDM.P.1.1.1.1gU, ESD_D2D.CDM.P.1.1.2.1gU,
+           ESD_D2D.CDM.P.1.2.1.1gU, ESD_D2D.CDM.P.1.2.2.1gU, ESD_D2D.CDM.P.2.1.1.1gU, ESD_D2D.CDM.P.2.1.2.1gU, ESD_D2D.CDM.P.2.2.1.1gU, 
+           ESD_D2D.CDM.P.2.2.2.1gU
+         - Update ESD.14.6/7/8gU to select closest 10 pads as sources  
+         - Add sub-property function for cross-domain rules
+         - Recognize stacked diodes with interconnection as legal primary ESD devices
+         - Modify searching range of "move_probe" function from 0.3um to 0.9um for mos devices
+
+    Ver. 1.0_3a           05/06/2022 : Y.J. Chuang
+         - Add D2D CDM 5V/40mA checks
+         - Update ESD.WARN.4.2gU to remove 1.8V I/O PMOS exception
+         - Update ESD.CDM.2gU W*R constrain values
+         - Update ESD_D2D.CDM.CD.1.1gu CDM 35V/220mA ESD current from 80mA to 58mA
+         - Update LUP.14.0.1U to except OD injectors connected to PoP IOPAD following DRM
+         - Change to turn on ENABLE_R0_CHECK switch by default (it may still has long runtime issue in chip level design)
+         - Add VIRTUAL_CONNECT_P2P switch to enable virtual connected path P2P checks
+         - Add PC_NFIN_MULTIPLIER variable in top file to control the closest power-clamp selection for CD/P2P checks
+         - Add INFO_Pad check to show the recognized Pad devices
+         - Add new metal scheme: 1P18M_1X1Xb1Xc1Xd1Ya1Yb5Y2Yy2Yx1R1U_SHPMIM1_CURDL
+
+
+RULE COVERAGE:
+    [ Topology / CDL ]
+        Primary-Res:    ESD.8gU, ESD.8.1gU
+        Primary-ESD:    ESD.NET.1gU, ESD.NET.1.1gU, ESD.NET.1.2gU, ESD.18g, ESD.20g, ESD.27g, ESD.29g, ESD.31g, HIA.1g, HIA.3g, HIA.3.1g
+        Secondary-ESD:  ESD.9.0gU, ESD.9.0.1gU, ESD.9.0.2gU, ESD.9.0.3gU, ESD.9.1gU, ESD.9.1.1gU, ESD.9.1.2gU, ESD.9.1.3gU, ESD.9.3gU
+        Power-Clamp:    ESD.40g, ESD.40.1g, ESD.40.2gU, ESD.40.3.1gU, ESD.40.4gU, ESD.42g, ESD.42.1gU, ESD.42.2g, ESD.43gU
+        Cross-domain:   ESD.45.0gU, ESD.45.0.1gU, ESD.45.0.2gU, ESD.45.1gU, ESD.47gU
+        MOS Protection: ESD.1.1gU, ESD.WARN.3gU, ESD.WARN.3.1gU, ESD.WARN.4.1gU, ESD.WARN.4.2gU, LUP.WARN.4U
+        Back-to-Back Diode: ESD.15gU
+        LC Primary-ESD:     ESD.LC.3g, ESD.LC.3.1g
+        LC Power-Clamp:     ESD.LC.5gU, ESD.LC.5.1gU
+        HiCDM Victim:       ESD.CDM.1gU, ESD.CDM.1.1gU, ESD.CDM.1.3gU, ESD.CDM.2gU, ESD.CDM.2.1gU
+        HiCDM Power-Clamp:  ESD.CDM.4gU, ESD.CDM.6.0g, ESD.CDM.6.1g
+        HiCDM B2B Diode:    ESD.CDM.B.1gU, ESD.CDM.B.2gU
+        HiCDM Cross-domain: ESD.XDM.VIC.3gU, ESD.XDM.VIC.4gU, ESD.CDM.X.1gU
+        Die-to-Die Interface:   ESD_D2D.CDM.NET.1.1gU, ESD_D2D.CDM.RD2D.1.1gU, ESD_D2D.CDM.RD2D.2.1gU,
+                                ESD_D2D.CDM.PHIA.5.1gU, ESD_D2D.CDM.NHIA.5.1gU, ESD_D2D.CDM.PMOS.5.1gU, ESD_D2D.CDM.NMOS.5.1gU
+        Die-to-Die Power-Clamp: ESD_D2D.CDM.40gU, ESD_D2D.CDM.40.1gU
+        CDM-6A:         ESD.CDM6A.NET.1gU, ESD.CDM6A.9.0gU
+        CDM-7A:         ESD.CDM7A.NET.1gU, ESD.CDM7A.8.1gU, ESD.CDM7A.9.0gU, HIA.CDM7A.3g, HIA.CDM7A.3.1g, ESD.CDM7A.LC.3g, ESD.CDM7A.LC.3.1g,
+                        ESD.CDM7A.40g, ESD.CDM7A.40.1g, ESD.CDM7A.40.2gU, ESD.CDM7A.40.3.1gU, ESD.CDM7A.40.4gU
+        CDM-9A:         ESD.CDM9A.NET.1gU, ESD.CDM9A.8.1gU, ESD.CDM9A.9.0gU, HIA.CDM9A.3g, HIA.CDM9A.3.1g, ESD.CDM9A.LC.3g, ESD.CDM9A.LC.3.1g,
+                        ESD.CDM9A.40g, ESD.CDM9A.40.1g, ESD.CDM9A.40.2gU, ESD.CDM9A.40.3.1gU, ESD.CDM9A.40.4gU
+
+    [ LDL-DRC ]
+        Primary-ESD:    ESD.35gU
+        Power-Clamp:    ESD.43.1gU
+        Gate Victim:    ESD.9.5gU
+        HiCDM Victim:   ESD.CDM.1gU, ESD.CDM.1.1gU, ESD.CDM.2gU
+        HiCDM Internal: ESD.CDM.C.2gU, ESD.CDM.C.3.1gU, ESD.CDM.C.3.2gU
+        Other:          SR_ESD.R.7U, ESD.7gU, ESD.7.0.1gU, ESD.7.0.2gU, ESD.7.0.3gU, ESD.7.0.4gU, ESD.7.0.1.1gU, ESD.7.0.2.1gU,
+                        ESD.7.1gU, ESD.7.1.1gU, ESD.7.1.2gU, ESD.7.1.3gU, ESD.7.1.4gU
+        Latch-Up:       LUP.WARN.3U, LUP.WARN.3.1U, LUP.1.0.1U, LUP.2.0.1U, LUP.2.1U, LUP.4.2U, LUP.14.0.1U,
+                        LUP.IHIA.1.0.1U, LUP.IHIA.14.0.1U
+        CDM-7A/9A:      ESD.CDM.C.4gU, ESD.CDM.C.4.1gU, ESD.CDM.C.5gU
+
+    [ CD ]
+        Primary-ESD:    ESD.CD.1gU
+        Secondary-ESD:  ESD.CD.2gU
+        Reverse Diode:  ESD.CD.1.1gu
+        SCR-Path:       ESD.CD.3.1gU, ESD.CD.3.2gU, ESD.CD.3.3gU, ESD.CD.3.4gU
+        Die-to-Die Interface:   ESD_D2D.CDM.CD.1.1gU
+
+    [ P2P ]
+        Primary-ESD:    ESD.14.3.1gU, ESD.14.3.2gU
+        Power-Clamp:    ESD.14.4gU
+        Secondary-ESD:  ESD.14.5.1gU, ESD.14.5.2gU
+        Pick-up to PAD: ESD.14.6gU, ESD.14.7gU, ESD.14.8gU
+        LC Primary-ESD: ESD.LCP2P.1.1gU, ESD.LCP2P.1.2gU, ESD.LCP2P.1.0gU, ESD.LCP2P.2.1gU, ESD.LCP2P.2.2gU
+        HiCDM Primary-ESD:  ESD.CDM.P.1.0gU, ESD.CDM.P.1.0.1gU, ESD.CDM.P.1.0.2gU, ESD.CDM.P.1.0.3gU,ESD.CDM.P.1.1.0.1gU, ESD.CDM.P.1.1.0.2gU,
+                            ESD.CDM.P.1.1.0.3gU, ESD.CDM.P.1.2.0.1gU, ESD.CDM.P.1.2.0.2gU, ESD.CDM.P.2.0.1gU, ESD.CDM.P.2.0.2gU, ESD.CDM.P.2.0.3gU
+        HiCDM Power-Clamp:  ESD.CDM.P.3.0.1gU, ESD.CDM.P.3.0.2gU, ESD.CDM.P.4.0.1gU, ESD.CDM.P.4.0.2gU, ESD.CDM.P.5.0.1gU, ESD.CDM.P.5.0.2gU,
+                            ESD.CDM.P.7.0.1gU, ESD.CDM.P.7.0.2gU, ESD.CDM.P.7.1.0.1gU, ESD.CDM.P.7.1.0.2gU, ESD.CDM.P.7.2.0.1gU, ESD.CDM.P.7.2.0.2gU, 
+                            ESD.CDM.P.7.3gU, ESD.CDM.P.7.4gU, ESD.CDM.P.7.5gU, ESD.DISTP2P.1.0gU, ESD.DISTP2P.1.0.1gU, ESD.DISTP2P.1.0.2gU, 
+                            ESD.DISTP2P.1.1.0gU, ESD.DISTP2P.1.1.0.1gU, ESD.DISTP2P.1.1.0.2gU, ESD.DISTP2P.1.2.0gU, ESD.DISTP2P.1.2.0.1gU, 
+                            ESD.DISTP2P.1.2.0.2gU, ESD.DISTP2P.1.3.0gU, ESD.DISTP2P.1.3.0.1gU, ESD.DISTP2P.1.3.0.2gU
+        Reverse Diode:      ESD.CDM.P.2.1gU, ESD.CDM.P.5.1.0.1gU, ESD.CDM.P.5.1.0.2gU
+        HiCDM B2B Diode:    ESD.CDM.P.8gU, ESD.CDM.P.9gU
+        HiCDM Victim:       ESD.CDM.P.10gU
+        CDM-7A/9A:          ESD.XDM.P.1gU
+        Die-to-Die Interface:   ESD_D2D.CDM.P.1.0.1gU, ESD_D2D.CDM.P.1.1.1.1gU, ESD_D2D.CDM.P.1.1.2.1gU, ESD_D2D.CDM.P.1.2.1.1gU, ESD_D2D.CDM.P.1.2.2.1gU,
+                                ESD_D2D.CDM.P.2.1.1.1gU, ESD_D2D.CDM.P.2.1.2.1gU, ESD_D2D.CDM.P.2.2.1.1gU, ESD_D2D.CDM.P.2.2.2.1gU
+                                ESD_D2D.CDM.P.3.1.1.1gU, ESD_D2D.CDM.P.3.1.2.1gU, ESD_D2D.CDM.P.3.2.1.1gU, ESD_D2D.CDM.P.3.2.2.1gU
+
+RULES NOT IMPLEMENTED:
+    N/A
+
+ABOUT PERC P2P ACCURACY:
+    Calibre PERC uses enhanced Calibre xRC for parasitic extraction to generate SPEF. In Calibre PERC,
+    the parasitic extraction engine uses the physical probe locations and applies the fracturing algorithm
+    and resistance modeling for optimal extraction of layout routing resistance. Device recognition enabled
+    during various stages of PERC and PERC LDL, but disabled during the parasitic extraction stage, and the
+    current direction modeling is dependent on the routing shapes. For this reason, it is possible that the
+    reported effective resistance can be conservative when compared to the output of a signal extractor.
+    The difference in P2P effective resistance is apparent on paths having values less than one ohm.
+    If you need more information, please consult your Siemens technical sales representative.
+
+KNOWN ISSUE:
+    1. In CD/P2P check, when there is simulation dropped due to particular error, it may not be shown on RVE.
+       Please must check the ERRORs/WARNINGs in report file (perc.rep.cd/p2p) and log to prevent from missing.
+
+    2. In CD/P2P check, for the path starts from device pin on substrate layer (e.g. psub/nwell), the probes
+       will be moved to nearby pick-up straps. However the function has some problems:
+       a. The sink may become single probe and result in abnormally high P2P result
+       b. When the probes has overlap on multiple paths, the probes will be merged and result in optimistic P2P result (less than real value)
+
+    3. In P2P check, when ENABLE_R0_CHECK switch is on, it may has long runtime issue in chip level design.
+
+
+LICENSE INFORMATION:
+    Additional Calibre license may be required for certain special PERC feature. For example, PERC Advanced license is required for R0 calculation.
+    If switch 'ENABLE_R0_CHECK' is enabled but PERC Advanced license is not available, below error message would show:
+
+    "   //  ERROR: The following products could not be licensed sufficiently:
+        //  ERROR: - PERC LDL CUSTOM R0
+
+        PERC LDL WARNING: PERC Advanced license is not available. Running without R0 analysis"
+
+    The run would continue but there would be no R0 result. Different feature may require different type of license.
+    If you see similar error message and no function of certain PERC feature, please contact Siemens' AE to check your license coverage.
+

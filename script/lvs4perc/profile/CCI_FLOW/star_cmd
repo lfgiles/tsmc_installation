@@ -1,0 +1,148 @@
+* StarRCXT extraction options template, for customer reference only.
+
+*** Database options
+BLOCK: top_cellname
+
+*** Hercules flow
+* MILKYWAY_DATABASE: MILKYWAY_OUTPUT
+* MILKYWAY_EXTRACT_VIEW: YES
+
+*** CCI flow
+CALIBRE_RUNSET: 
+CALIBRE_QUERY_FILE: query_cmd
+
+*** Metal fill extraction 
+METAL_FILL_POLYGON_HANDLING: FLOATING
+* METAL_FILL_GDS_FILE: 
+* GDS_LAYER_MAP_FILE: 
+
+CASE_SENSITIVE: YES
+HIERARCHICAL_SEPARATOR: /
+
+*** RC Extraction options
+TCAD_GRD_FILE: ./clnxxg+_1p0xm+alrdl_typical.nxtgrd
+MAPPING_FILE:  ./starrcxt_mapping
+EXTRACTION: RC
+REDUCTION: YES
+***  Process thickness is density based, please don't touch this option, or it will impact RC accuracy.
+DENSITY_BASED_THICKNESS: YES
+* NETLIST_DEVICE_LOCATION_ORIENTATION : COMMENT
+
+*** For 90nm and below process
+EXTRACT_VIA_CAPS: YES
+*** For 0.13um and above process
+* EXTRACT_VIA_CAPS: NO
+ 
+*** DataBase Processing
+REMOVE_FLOATING_NETS: YES
+*** Keeps the PODE cap network
+REMOVE_DANGLING_NETS: YES
+*REMOVE_FLOATING_PORTS: YES
+POWER_NETS: VDD VSS
+SKIP_CELLS: !*
+
+TRANSLATE_RETAIN_BULK_LAYERS: CONLY
+ 
+*** Netlist options
+NETLIST_FORMAT: SPF
+NETLIST_PASSIVE_PARAMS: YES
+* NETLIST_FILE:
+* NETLIST_COMPRESS_COMMAND: gzip
+ 
+*** Coupling Caps options
+COUPLE_TO_GROUND: NO
+COUPLING_REPORT_FILE: cc.rep
+* COUPLING_ABS_THRESHOLD: 3e-15
+* COUPLING_REL_THRESHOLD: 0.03
+* COUPLING_REPORT_NUMBER: 1000
+ 
+*** Subcket Pin's order for Simulation
+* SPICE_SUBCKT_FILE: <user_define_file>
+ 
+* XREF options
+XREF: YES
+XREF_USE_LAYOUT_DEVICE_NAME: YES
+CELL_TYPE: LAYOUT
+NET_TYPE: LAYOUT
+
+*** For shrink flow
+* MAGNIFICATION_FACTOR : 0.9
+* MAGNIFY_DEVICE_PARAMS : NO
+SKIP_PCELLS : crtmom_2t* crtmom_ary* crtmom_ary_sm* crtmom_ary_sm_4t* crtmom_mx_4t* crtmom_sm_4t_rf* crtmom_sm_rf* crtmom_wo* crtmom_wo_mx* crtmom_wo_rf* moscap_rf* moscap_rf12* moscap_rf12_nw* moscap_rf_nw* 
+
+*** For gate to diffusion coupling capacitance
+IGNORE_CAPACITANCE: DIFF
+
+
+*** Uncomment this line to extract resistor body capacitance
+EXTRACT_RES_BODY_COUPLING: YES
+CALIBRE_LVS_DEVICE_TYPE_RES: rhim rmsp
+
+
+IGNORE_GATE_CHANNEL_CAPACITANCE:YES
+
+
+REMOVE_DIFFUSION_GATE_OVERLAP: YES
+
+
+TRANSLATE_FLOATING_AS_FILL:YES
+
+
+COUPLE_TO_PCELL_PINS: YES IGNORE_CG
+COUPLE_TO_SPECIFIED_PCELL_PINS: YES KEEP_ALL_CG crtmom_2t* crtmom_ary_sm* crtmom_mx_4t* crtmom_sm_rf* !crtmom_ary_sm_4t* 
+
+DENSITY_OUTSIDE_BLOCK: 0.5
+
+
+*** For distributed virtual VIA ***
+
+TRENCH_CONTACT_VIRTUAL_VIA_SEGMENTATION_RATIO: 1
+
+MAX_VIRTUAL_VIA_SEGMENTATION_NUMBER: 100
+
+*** For double pattern ***
+DPT: YES
+
+LPE_PARAM: ccodflag  NORC 1 C 0 R 1 RC 0 PINEXCEPT 2 3     PINOPERATION OR
+LPE_PARAM: ccosflag  NORC 1 C 0 R 1 RC 0 PINEXCEPT 0 3     PINOPERATION OR
+LPE_PARAM: rcodflag NORC 1 C 1 R 0 RC 0 PINEXCEPT 1 2 3
+LPE_PARAM: rcosflag NORC 1 C 1 R 0 RC 0 PINEXCEPT 0 1 3
+LPE_PARAM: rgflag   NORC 1 C 1 R 0 RC 0 PINEXCEPT 0 2 3
+
+LPE_DEVICES: ccodflag nch_12_mac nch_eflvt_mac nch_efsvt_mac nch_elvt_mac nch_lvt_mac nch_lvtll_mac nch_mpode12_mac nch_mpodeelvt_mac nch_mpodelvt_mac nch_mpodelvtll_mac nch_mpodesvt_mac nch_mpodeulvt_mac nch_mpodeulvtll_mac nch_svt_mac nch_ulvt_mac nch_ulvtll_mac nchpd_10trpsr_mac nchpd_10tsr_mac nchpd_8trpsr_mac nchpd_8tsr_mac nchpd_dpsr_mac nchpd_hc8trpsr_mac nchpd_hc8tsr_mac nchpd_hcsr_mac nchpd_hdsr_mac nchpd_hshcsr_mac nchpd_ulvtll10trpsr_mac nchpd_ulvtll10tsr_mac nchpd_ulvtll8trpsr_mac nchpd_ulvtll8tsr_mac nchpd_ulvtllhc8trpsr_mac nchpd_ulvtllhc8tsr_mac nchpg_10trpsr_mac nchpg_10tsr_mac nchpg_8trpsr_mac nchpg_8tsr_mac nchpg_dpsr_mac nchpg_hc8trpsr_mac nchpg_hc8tsr_mac nchpg_hcsr_mac nchpg_hdsr_mac nchpg_hshcsr_mac nchpg_ulvtll10trpsr_mac nchpg_ulvtll10tsr_mac nchpg_ulvtll8trpsr_mac nchpg_ulvtll8tsr_mac nchpg_ulvtllhc8trpsr_mac nchpg_ulvtllhc8tsr_mac pch_12_mac pch_eflvt_mac pch_efsvt_mac pch_elvt_mac pch_lvt_mac pch_lvtll_mac pch_mpode12_mac pch_mpodeelvt_mac pch_mpodelvt_mac pch_mpodelvtll_mac pch_mpodesvt_mac pch_mpodeulvt_mac pch_mpodeulvtll_mac pch_svt_mac pch_ulvt_mac pch_ulvtll_mac pchpu_10tsr_mac pchpu_8tsr_mac pchpu_dpsr_mac pchpu_hc8tsr_mac pchpu_hcsr_mac pchpu_hdsr_mac pchpu_hshcsr_mac pchpu_ulvtll10tsr_mac pchpu_ulvtll8tsr_mac pchpu_ulvtllhc8tsr_mac nch_hia12_mac
+LPE_DEVICES: ccosflag nch_12_mac nch_eflvt_mac nch_efsvt_mac nch_elvt_mac nch_lvt_mac nch_lvtll_mac nch_mpode12_mac nch_mpodeelvt_mac nch_mpodelvt_mac nch_mpodelvtll_mac nch_mpodesvt_mac nch_mpodeulvt_mac nch_mpodeulvtll_mac nch_svt_mac nch_ulvt_mac nch_ulvtll_mac nchpd_10trpsr_mac nchpd_10tsr_mac nchpd_8trpsr_mac nchpd_8tsr_mac nchpd_dpsr_mac nchpd_hc8trpsr_mac nchpd_hc8tsr_mac nchpd_hcsr_mac nchpd_hdsr_mac nchpd_hshcsr_mac nchpd_ulvtll10trpsr_mac nchpd_ulvtll10tsr_mac nchpd_ulvtll8trpsr_mac nchpd_ulvtll8tsr_mac nchpd_ulvtllhc8trpsr_mac nchpd_ulvtllhc8tsr_mac nchpg_10trpsr_mac nchpg_10tsr_mac nchpg_8trpsr_mac nchpg_8tsr_mac nchpg_dpsr_mac nchpg_hc8trpsr_mac nchpg_hc8tsr_mac nchpg_hcsr_mac nchpg_hdsr_mac nchpg_hshcsr_mac nchpg_ulvtll10trpsr_mac nchpg_ulvtll10tsr_mac nchpg_ulvtll8trpsr_mac nchpg_ulvtll8tsr_mac nchpg_ulvtllhc8trpsr_mac nchpg_ulvtllhc8tsr_mac pch_12_mac pch_eflvt_mac pch_efsvt_mac pch_elvt_mac pch_lvt_mac pch_lvtll_mac pch_mpode12_mac pch_mpodeelvt_mac pch_mpodelvt_mac pch_mpodelvtll_mac pch_mpodesvt_mac pch_mpodeulvt_mac pch_mpodeulvtll_mac pch_svt_mac pch_ulvt_mac pch_ulvtll_mac pchpu_10tsr_mac pchpu_8tsr_mac pchpu_dpsr_mac pchpu_hc8tsr_mac pchpu_hcsr_mac pchpu_hdsr_mac pchpu_hshcsr_mac pchpu_ulvtll10tsr_mac pchpu_ulvtll8tsr_mac pchpu_ulvtllhc8tsr_mac nch_hia12_mac
+LPE_DEVICES: rcodflag nch_12_mac nch_eflvt_mac nch_efsvt_mac nch_elvt_mac nch_lvt_mac nch_lvtll_mac nch_mpode12_mac nch_mpodeelvt_mac nch_mpodelvt_mac nch_mpodelvtll_mac nch_mpodesvt_mac nch_mpodeulvt_mac nch_mpodeulvtll_mac nch_svt_mac nch_ulvt_mac nch_ulvtll_mac nchpd_10trpsr_mac nchpd_10tsr_mac nchpd_8trpsr_mac nchpd_8tsr_mac nchpd_dpsr_mac nchpd_hc8trpsr_mac nchpd_hc8tsr_mac nchpd_hcsr_mac nchpd_hdsr_mac nchpd_hshcsr_mac nchpd_ulvtll10trpsr_mac nchpd_ulvtll10tsr_mac nchpd_ulvtll8trpsr_mac nchpd_ulvtll8tsr_mac nchpd_ulvtllhc8trpsr_mac nchpd_ulvtllhc8tsr_mac nchpg_10trpsr_mac nchpg_10tsr_mac nchpg_8trpsr_mac nchpg_8tsr_mac nchpg_dpsr_mac nchpg_hc8trpsr_mac nchpg_hc8tsr_mac nchpg_hcsr_mac nchpg_hdsr_mac nchpg_hshcsr_mac nchpg_ulvtll10trpsr_mac nchpg_ulvtll10tsr_mac nchpg_ulvtll8trpsr_mac nchpg_ulvtll8tsr_mac nchpg_ulvtllhc8trpsr_mac nchpg_ulvtllhc8tsr_mac pch_12_mac pch_eflvt_mac pch_efsvt_mac pch_elvt_mac pch_lvt_mac pch_lvtll_mac pch_mpode12_mac pch_mpodeelvt_mac pch_mpodelvt_mac pch_mpodelvtll_mac pch_mpodesvt_mac pch_mpodeulvt_mac pch_mpodeulvtll_mac pch_svt_mac pch_ulvt_mac pch_ulvtll_mac pchpu_10tsr_mac pchpu_8tsr_mac pchpu_dpsr_mac pchpu_hc8tsr_mac pchpu_hcsr_mac pchpu_hdsr_mac pchpu_hshcsr_mac pchpu_ulvtll10tsr_mac pchpu_ulvtll8tsr_mac pchpu_ulvtllhc8tsr_mac nch_hia12_mac
+LPE_DEVICES: rcosflag nch_12_mac nch_eflvt_mac nch_efsvt_mac nch_elvt_mac nch_lvt_mac nch_lvtll_mac nch_mpode12_mac nch_mpodeelvt_mac nch_mpodelvt_mac nch_mpodelvtll_mac nch_mpodesvt_mac nch_mpodeulvt_mac nch_mpodeulvtll_mac nch_svt_mac nch_ulvt_mac nch_ulvtll_mac nchpd_10trpsr_mac nchpd_10tsr_mac nchpd_8trpsr_mac nchpd_8tsr_mac nchpd_dpsr_mac nchpd_hc8trpsr_mac nchpd_hc8tsr_mac nchpd_hcsr_mac nchpd_hdsr_mac nchpd_hshcsr_mac nchpd_ulvtll10trpsr_mac nchpd_ulvtll10tsr_mac nchpd_ulvtll8trpsr_mac nchpd_ulvtll8tsr_mac nchpd_ulvtllhc8trpsr_mac nchpd_ulvtllhc8tsr_mac nchpg_10trpsr_mac nchpg_10tsr_mac nchpg_8trpsr_mac nchpg_8tsr_mac nchpg_dpsr_mac nchpg_hc8trpsr_mac nchpg_hc8tsr_mac nchpg_hcsr_mac nchpg_hdsr_mac nchpg_hshcsr_mac nchpg_ulvtll10trpsr_mac nchpg_ulvtll10tsr_mac nchpg_ulvtll8trpsr_mac nchpg_ulvtll8tsr_mac nchpg_ulvtllhc8trpsr_mac nchpg_ulvtllhc8tsr_mac pch_12_mac pch_eflvt_mac pch_efsvt_mac pch_elvt_mac pch_lvt_mac pch_lvtll_mac pch_mpode12_mac pch_mpodeelvt_mac pch_mpodelvt_mac pch_mpodelvtll_mac pch_mpodesvt_mac pch_mpodeulvt_mac pch_mpodeulvtll_mac pch_svt_mac pch_ulvt_mac pch_ulvtll_mac pchpu_10tsr_mac pchpu_8tsr_mac pchpu_dpsr_mac pchpu_hc8tsr_mac pchpu_hcsr_mac pchpu_hdsr_mac pchpu_hshcsr_mac pchpu_ulvtll10tsr_mac pchpu_ulvtll8tsr_mac pchpu_ulvtllhc8tsr_mac nch_hia12_mac
+LPE_DEVICES: rgflag nch_12_mac nch_eflvt_mac nch_efsvt_mac nch_elvt_mac nch_lvt_mac nch_lvtll_mac nch_mpode12_mac nch_mpodeelvt_mac nch_mpodelvt_mac nch_mpodelvtll_mac nch_mpodesvt_mac nch_mpodeulvt_mac nch_mpodeulvtll_mac nch_svt_mac nch_ulvt_mac nch_ulvtll_mac nchpd_10trpsr_mac nchpd_10tsr_mac nchpd_8trpsr_mac nchpd_8tsr_mac nchpd_dpsr_mac nchpd_hc8trpsr_mac nchpd_hc8tsr_mac nchpd_hcsr_mac nchpd_hdsr_mac nchpd_hshcsr_mac nchpd_ulvtll10trpsr_mac nchpd_ulvtll10tsr_mac nchpd_ulvtll8trpsr_mac nchpd_ulvtll8tsr_mac nchpd_ulvtllhc8trpsr_mac nchpd_ulvtllhc8tsr_mac nchpg_10trpsr_mac nchpg_10tsr_mac nchpg_8trpsr_mac nchpg_8tsr_mac nchpg_dpsr_mac nchpg_hc8trpsr_mac nchpg_hc8tsr_mac nchpg_hcsr_mac nchpg_hdsr_mac nchpg_hshcsr_mac nchpg_ulvtll10trpsr_mac nchpg_ulvtll10tsr_mac nchpg_ulvtll8trpsr_mac nchpg_ulvtll8tsr_mac nchpg_ulvtllhc8trpsr_mac nchpg_ulvtllhc8tsr_mac pch_12_mac pch_eflvt_mac pch_efsvt_mac pch_elvt_mac pch_lvt_mac pch_lvtll_mac pch_mpode12_mac pch_mpodeelvt_mac pch_mpodelvt_mac pch_mpodelvtll_mac pch_mpodesvt_mac pch_mpodeulvt_mac pch_mpodeulvtll_mac pch_svt_mac pch_ulvt_mac pch_ulvtll_mac pchpu_10tsr_mac pchpu_8tsr_mac pchpu_dpsr_mac pchpu_hc8tsr_mac pchpu_hcsr_mac pchpu_hdsr_mac pchpu_hshcsr_mac pchpu_ulvtll10tsr_mac pchpu_ulvtll8tsr_mac pchpu_ulvtllhc8tsr_mac nch_hia12_mac
+
+
+
+LPE_PARAM: ccopflag  NORC 1 C 0 R 1 RC 0 PINEXCEPT 2     PINOPERATION OR
+LPE_PARAM: rcopflag  NORC 1 C 1 R 0 RC 0 PINEXCEPT 1 2
+LPE_PARAM: rgpflag   NORC 1 C 1 R 0 RC 0 PINEXCEPT 0 2
+
+LPE_DEVICES: ccopflag npode_12_mac npode_eflvt_mac npode_efsvt_mac npode_elvt_mac npode_lvt_mac npode_lvtll_mac npode_svt_mac npode_ulvt_mac npode_ulvtll_mac ppode_12_mac ppode_eflvt_mac ppode_efsvt_mac ppode_elvt_mac ppode_lvt_mac ppode_lvtll_mac ppode_svt_mac ppode_ulvt_mac ppode_ulvtll_mac
+LPE_DEVICES: rcopflag npode_12_mac npode_eflvt_mac npode_efsvt_mac npode_elvt_mac npode_lvt_mac npode_lvtll_mac npode_svt_mac npode_ulvt_mac npode_ulvtll_mac ppode_12_mac ppode_eflvt_mac ppode_efsvt_mac ppode_elvt_mac ppode_lvt_mac ppode_lvtll_mac ppode_svt_mac ppode_ulvt_mac ppode_ulvtll_mac
+LPE_DEVICES: rgpflag npode_12_mac npode_eflvt_mac npode_efsvt_mac npode_elvt_mac npode_lvt_mac npode_lvtll_mac npode_svt_mac npode_ulvt_mac npode_ulvtll_mac ppode_12_mac ppode_eflvt_mac ppode_efsvt_mac ppode_elvt_mac ppode_lvt_mac ppode_lvtll_mac ppode_svt_mac ppode_ulvt_mac ppode_ulvtll_mac
+LPE_PARAM: ccoflag NORC 1 C 0 R 1 RC 0 PINOPERATION OR
+LPE_PARAM: rgateflag NORC 1 C 1 R 0 RC 0 PINEXCEPT 1
+LPE_DEVICES: ccoflag nmoscap_12 nmoscap
+LPE_DEVICES: rgateflag nmoscap_12 nmoscap
+LPE_PARAM: rcoflag NORC 1 C 1 R 0 RC 0 PINEXCEPT 2
+LPE_DEVICES: rcoflag rhim
+LPE_PARAM: capflag3t NORC 1 C 0 R 1 RC 0 PINOPERATION OR
+LPE_DEVICES: capflag3t mimcap_sin_shd_3t
+
+LPE_PARAM: capflag4t  NORC 1 C 0 R 1 RC 0 PINOPERATION OR
+LPE_DEVICES: capflag4t mimcap_shp1_4tlv mimcap_shp2_4thv mimcap_shp2_4tlv
+
+LPE_PARAM: capflag5t  NORC 1 C 0 R 1 RC 0 PINOPERATION OR
+LPE_DEVICES: capflag5t mimcap_shp1_5thv mimcap_shp2_5thv
+
+
+MULTIGATE_MODELS: YES
+
+
+CALIBRE_LVS_DEVICE_TYPE_MOS: npode_12_mac npode_eflvt_mac npode_efsvt_mac npode_elvt_mac npode_lvt_mac npode_lvtll_mac npode_svt_mac npode_ulvt_mac npode_ulvtll_mac ppode_12_mac ppode_eflvt_mac ppode_efsvt_mac ppode_elvt_mac ppode_lvt_mac ppode_lvtll_mac ppode_svt_mac ppode_ulvt_mac ppode_ulvtll_mac 
+CALIBRE_OPTIONAL_DEVICE_PIN_FILE: pin_file.txt
+

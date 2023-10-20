@@ -1,0 +1,14 @@
+   @(#) ****************** MODEL CARD SUPPORT ************************ 
+   @(#) (1)  PROCESS : TSMC 3NM CMOS LOGIC FINFET 0.75/1.2V SPICE MODEL
+   @(#)      DOC. NO.:  N/A
+   @(#)      SPICE MODEL VERSION: v1d0_eval0121
+   @(#)      SPICE MODEL RELEASE DATE: Jan. 21, 2022
+   @(#) (2)  PROCESS : TSMC 3NM SHPMIM SPICE MODEL (0.75V/1.8V) (CLN3)  
+   @(#)      DOC. NO.: N/A  
+   @(#)      SPICE MODEL VERSION: V1d0p1_eval0805 
+   @(#)      SPICE MODEL RELEASE DATE: Aug.  05, 2021 
+   @(#) (3)  PROCESS : TSMC 3NM CMOS LOGIC FINFET 0.75/1.2V SPICE MODEL 
+   @(#)      DOC. NO.: N/A  
+   @(#)      SPICE MODEL VERSION: v0d9_eval0423 
+   @(#)      SPICE MODEL RELEASE DATE: Apr. 23, 2021 
+ 

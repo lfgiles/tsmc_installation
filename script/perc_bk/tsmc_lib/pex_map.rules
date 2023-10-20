@@ -1,0 +1,295 @@
+////////////////////////////////////////////////////////////////////////////////
+// DISCLAIMER
+//
+// The information contained herein is provided by TSMC on an "AS IS" basis
+// without any warranty, and TSMC has no obligation to support or otherwise
+// maintain the information.  TSMC disclaims any representation that the
+// information does not infringe any intellectual property rights or proprietary
+// rights of any third parties.  There are no other warranties given by TSMC,
+// whether express, implied or statutory, including, without limitation, implied
+// warranties of merchantability and fitness for a particular purpose.
+//
+// STATEMENT OF USE
+//
+// This information contains confidential and proprietary information of TSMC.
+// No part of this information may be reproduced, transmitted, transcribed,
+// stored in a retrieval system, or translated into any human or computer
+// language, in any form or by any means, electronic, mechanical, magnetic,
+// optical, chemical, manual, or otherwise, without the prior written permission
+// of TSMC.  This information was prepared for informational purpose and is for
+// use by TSMC's customers only.  TSMC reserves the right to make changes in the
+// information at any time and without notice.
+//
+////////////////////////////////////////////////////////////////////////////////
+// Set Resistance
+RESISTANCE SHEET P2P_PAD_FC  [ 99999 0 ]
+RESISTANCE SHEET P2P_PAD_WB  [ 99999 0 ]
+RESISTANCE SHEET P2P_PAD_IN  [ 99999 0 ]
+RESISTANCE SHEET ESD_Mark1   [ 99999 0 ]
+RESISTANCE SHEET ESD_Mark2   [ 99999 0 ]
+RESISTANCE SHEET ESD_Mark3   [ 99999 0 ]
+RESISTANCE SHEET ESD_Mark4   [ 99999 0 ]
+RESISTANCE SHEET Guard       [ 99999 0 ]
+RESISTANCE SHEET Pickup      [ 99999 0 ]
+RESISTANCE SHEET Strap       [ 99999 0 ]
+RESISTANCE SHEET Ring        [ 99999 0 ]
+RESISTANCE SHEET CD31_Mark2f [ 99999 0 ]
+RESISTANCE SHEET CD32_Mark2f [ 99999 0 ]
+RESISTANCE SHEET CD33_Mark2f [ 99999 0 ]
+RESISTANCE SHEET CD34_Mark2f [ 99999 0 ]
+RESISTANCE SHEET CD31_Pact   [ 99999 0 ]
+RESISTANCE SHEET CD31_Nstp   [ 99999 0 ]
+RESISTANCE SHEET CD32_Pact   [ 99999 0 ]
+RESISTANCE SHEET CD32_Nstp   [ 99999 0 ]
+RESISTANCE SHEET CD33_Pact   [ 99999 0 ]
+RESISTANCE SHEET CD33_Nstp   [ 99999 0 ]
+RESISTANCE SHEET CD34_Pact   [ 99999 0 ]
+RESISTANCE SHEET CD34_Nstp   [ 99999 0 ]
+
+RESISTANCE SHEET DNW         [ 99999 0 ]
+RESISTANCE SHEET cnbase1     [ 99999 0 ]
+RESISTANCE SHEET coll1       [ 99999 0 ]
+RESISTANCE SHEET nxwell      [ 99999 0 ]
+RESISTANCE SHEET psub        [ 99999 0 ]
+RESISTANCE SHEET psub_term   [ 99999 0 ]
+
+PEX RESISTANCE OPEN LAYER ESD_Mark1
+PEX RESISTANCE OPEN LAYER ESD_Mark2
+PEX RESISTANCE OPEN LAYER ESD_Mark3
+PEX RESISTANCE OPEN LAYER ESD_Mark4
+PEX RESISTANCE OPEN LAYER CD31_Mark2f
+PEX RESISTANCE OPEN LAYER CD32_Mark2f
+PEX RESISTANCE OPEN LAYER CD33_Mark2f
+PEX RESISTANCE OPEN LAYER CD34_Mark2f
+
+PEX RESISTANCE OPEN LAYER DNW
+PEX RESISTANCE OPEN LAYER cnbase1
+PEX RESISTANCE OPEN LAYER coll1
+PEX RESISTANCE OPEN LAYER nxwell
+PEX RESISTANCE OPEN LAYER psub
+PEX RESISTANCE OPEN LAYER psub_term
+
+PEX UNMAP dnwc
+PEX UNMAP nplug
+PEX UNMAP pplug
+PEX UNMAP psub_term_plug
+
+PEX MAP tpdiff tpdiff_dio_rc
+PEX MAP tndiff tndiff_dio_rc
+
+// Wire-Bond PAD
+P2P_PAD_WB = FLATTEN (EXTENTS (<BUMP> AND CB2_WB) CENTERS 0.001)
+CONNECT <BUMP> P2P_PAD_WB
+DEVICE PAD_D(d_pseudo_wb) P2P_PAD_WB P2P_PAD_WB (PAD_PIN)
+
+// Flip-Chip PAD
+P2P_PAD_FC = FLATTEN (EXTENTS (<BUMP> AND (OR Cu_CB2_FC Cu_CB2_FCU CB2_FC)) CENTERS 0.001)
+CONNECT <BUMP> P2P_PAD_FC
+DEVICE PAD_D(d_pseudo_fc) P2P_PAD_FC P2P_PAD_FC (PAD_PIN)
+
+// InFO PAD
+P2P_PAD_IN = FLATTEN (EXTENTS (<BUMP> AND CB2_IN) CENTERS 0.001)
+CONNECT <BUMP> P2P_PAD_IN
+DEVICE PAD_D(d_pseudo_in) P2P_PAD_IN P2P_PAD_IN (PAD_PIN)
+
+// Move Probe
+tpdiff_dio_rc = tpdiff_dio OR (tpdiff_RC INTERACT (SIZE tndiff_dio BY 1.0))
+tndiff_dio_rc = tndiff_dio OR (tndiff_RC INTERACT (SIZE tpdiff_dio BY 1.0))
+
+CONNECT tpdiff_dio tpdiff_dio_rc
+CONNECT tpdiff_RC  tpdiff_dio_rc
+CONNECT tndiff_dio tndiff_dio_rc
+CONNECT tndiff_RC  tndiff_dio_rc
+
+// For ESD.14.6~8gU, ESD.CDM.P.10gU
+ESD_Mark1 = FLATTEN LUP1_Mark
+ESD_Mark2 = FLATTEN (OR LUP2_Mark LUP21_Mark)
+ESD_Mark3 = FLATTEN LUP14_Mark
+ESD_Mark4 = FLATTEN (OR CDM1_Mark CDM11_Mark CDM2_Mark)
+
+MDs = MDi NOT CMDi
+M0d = ((M0_A OR M0_B) AND MDs) INTERACT (VDi OR VD2i)
+Pickup = M0d INTERACT ESD_Mark1 == 1
+Strap  = M0d INTERACT ESD_Mark2 == 1
+Guard  = M0d INTERACT ESD_Mark3 == 1
+Ring   = M0d INTERACT ESD_Mark4 == 1
+
+CONNECT ESD_Mark1
+CONNECT ESD_Mark2
+CONNECT ESD_Mark3
+CONNECT ESD_Mark4
+
+CONNECT M0_A Pickup
+CONNECT M0_B Pickup
+CONNECT M0_A Strap
+CONNECT M0_B Strap
+CONNECT M0_A Guard
+CONNECT M0_B Guard
+CONNECT M0_A Ring
+CONNECT M0_B Ring
+
+ESD_Mark1_Prop = DFM PROPERTY ESD_Mark1 NOPSEUDO [ id = GLOBALNETID(ESD_Mark1) ]
+ESD_Mark2_Prop = DFM PROPERTY ESD_Mark2 NOPSEUDO [ id = GLOBALNETID(ESD_Mark2) ]
+ESD_Mark3_Prop = DFM PROPERTY ESD_Mark3 NOPSEUDO [ id = GLOBALNETID(ESD_Mark3) ]
+ESD_Mark4_Prop = DFM PROPERTY ESD_Mark4 NOPSEUDO [ id = GLOBALNETID(ESD_Mark4) ]
+DEVICE PICKUP_D Pickup Pickup (PICKUP_PIN) <ESD_Mark1_Prop> [
+  property id
+  id = DFM_NUMeric_VALue( ESD_Mark1_Prop, "id" )
+]
+DEVICE STRAP_D Strap Strap (STRAP_PIN) <ESD_Mark2_Prop> [
+  property id
+  id = DFM_NUMeric_VALue( ESD_Mark2_Prop, "id" )
+]
+DEVICE GUARD_D Guard Guard (GUARD_PIN) <ESD_Mark3_Prop> [
+  property id
+  id = DFM_NUMeric_VALue( ESD_Mark3_Prop, "id" )
+]
+DEVICE RING_D Ring Ring (RING_PIN) <ESD_Mark4_Prop> [
+  property id
+  id = DFM_NUMeric_VALue( ESD_Mark4_Prop, "id" )
+]
+PERC PROPERTY PICKUP_D id
+PERC PROPERTY STRAP_D  id
+PERC PROPERTY GUARD_D  id
+PERC PROPERTY RING_D   id
+
+// For ESD.CD.3.1~4gU
+Pacti = (ODI AND PP) AND nxwell
+Nstpi = (ODI AND NP) AND nxwell
+
+CD31_Pacti = Pacti AND CD31_Mark1
+CD31_Nstpi = Nstpi AND CD31_Mark2
+CD32_Pacti = Pacti AND CD32_Mark1
+CD32_Nstpi = Nstpi AND CD32_Mark2
+CD33_Pacti = Pacti AND CD33_Mark1
+CD33_Nstpi = Nstpi AND CD33_Mark2
+CD34_Pacti = Pacti AND CD34_Mark1
+CD34_Nstpi = Nstpi AND CD34_Mark2
+
+CD31_Pact = M0d INTERACT (MDs INTERACT CD31_Pacti)
+CD31_Nstp = M0d INTERACT (MDs INTERACT CD31_Nstpi)
+CD32_Pact = M0d INTERACT (MDs INTERACT CD32_Pacti)
+CD32_Nstp = M0d INTERACT (MDs INTERACT CD32_Nstpi)
+CD33_Pact = M0d INTERACT (MDs INTERACT CD33_Pacti)
+CD33_Nstp = M0d INTERACT (MDs INTERACT CD33_Nstpi)
+CD34_Pact = M0d INTERACT (MDs INTERACT CD34_Pacti)
+CD34_Nstp = M0d INTERACT (MDs INTERACT CD34_Nstpi)
+
+CD31_Mark2f = FLATTEN CD31_Mark2
+CD32_Mark2f = FLATTEN CD32_Mark2
+CD33_Mark2f = FLATTEN CD33_Mark2
+CD34_Mark2f = FLATTEN CD34_Mark2
+
+CONNECT CD31_Mark2f
+CONNECT CD32_Mark2f
+CONNECT CD33_Mark2f
+CONNECT CD34_Mark2f
+
+CONNECT M0_A CD31_Pact
+CONNECT M0_B CD31_Pact
+CONNECT M0_A CD31_Nstp
+CONNECT M0_B CD31_Nstp
+CONNECT M0_A CD32_Pact
+CONNECT M0_B CD32_Pact
+CONNECT M0_A CD32_Nstp
+CONNECT M0_B CD32_Nstp
+CONNECT M0_A CD33_Pact
+CONNECT M0_B CD33_Pact
+CONNECT M0_A CD33_Nstp
+CONNECT M0_B CD33_Nstp
+CONNECT M0_A CD34_Pact
+CONNECT M0_B CD34_Pact
+CONNECT M0_A CD34_Nstp
+CONNECT M0_B CD34_Nstp
+
+CD31_Mark2_Prop = DFM PROPERTY CD31_Mark2f NOPSEUDO [ id = GLOBALNETID(CD31_Mark2f) ]
+CD32_Mark2_Prop = DFM PROPERTY CD32_Mark2f NOPSEUDO [ id = GLOBALNETID(CD32_Mark2f) ]
+CD33_Mark2_Prop = DFM PROPERTY CD33_Mark2f NOPSEUDO [ id = GLOBALNETID(CD33_Mark2f) ]
+CD34_Mark2_Prop = DFM PROPERTY CD34_Mark2f NOPSEUDO [ id = GLOBALNETID(CD34_Mark2f) ]
+
+DEVICE CD31_PACT_D CD31_Pact CD31_Pact (PACT_PIN)
+DEVICE CD32_PACT_D CD32_Pact CD32_Pact (PACT_PIN)
+DEVICE CD33_PACT_D CD33_Pact CD33_Pact (PACT_PIN)
+DEVICE CD34_PACT_D CD34_Pact CD34_Pact (PACT_PIN)
+
+DEVICE CD31_NSTP_D CD31_Nstp CD31_Nstp (NSTP_PIN) <CD31_Mark2_Prop> [
+  property id
+  id = DFM_NUMeric_VALue( CD31_Mark2_Prop, "id" )
+]
+DEVICE CD32_NSTP_D CD32_Nstp CD32_Nstp (NSTP_PIN) <CD32_Mark2_Prop> [
+  property id
+  id = DFM_NUMeric_VALue( CD32_Mark2_Prop, "id" )
+]
+DEVICE CD33_NSTP_D CD33_Nstp CD33_Nstp (NSTP_PIN) <CD33_Mark2_Prop> [
+  property id
+  id = DFM_NUMeric_VALue( CD33_Mark2_Prop, "id" )
+]
+DEVICE CD34_NSTP_D CD34_Nstp CD34_Nstp (NSTP_PIN) <CD34_Mark2_Prop> [
+  property id
+  id = DFM_NUMeric_VALue( CD34_Mark2_Prop, "id" )
+]
+PERC PROPERTY CD31_NSTP_D id
+PERC PROPERTY CD32_NSTP_D id
+PERC PROPERTY CD33_NSTP_D id
+PERC PROPERTY CD34_NSTP_D id
+
+
+// CD Constrain
+// ==============================
+VARIABLE IMAX_VD2    11.1
+VARIABLE IMAX_M0     11.1
+VARIABLE IMAX_M1     22.8
+VARIABLE IMAX_Mx     18.5
+VARIABLE IMAX_Mxa    18.5
+VARIABLE IMAX_Mxb    25.9
+VARIABLE IMAX_Mxc    25.9
+VARIABLE IMAX_Mxd    27.8
+VARIABLE IMAX_Mya    48.5
+VARIABLE IMAX_Myb    52.3
+VARIABLE IMAX_My     52.3
+VARIABLE IMAX_Myy    100
+VARIABLE IMAX_Myx    150
+VARIABLE IMAX_Mz     466
+VARIABLE IMAX_Mr     656
+VARIABLE IMAX_Mu     932
+VARIABLE IMAX_AP     734
+VARIABLE IMAX_Cu_RDL 1398
+
+VARIABLE IMAX_VC     0.4
+VARIABLE IMAX_VIA0   0.4
+VARIABLE IMAX_VIAx   0.6
+VARIABLE IMAX_VIAxa  0.6
+VARIABLE IMAX_VIAxb  1.2
+VARIABLE IMAX_VIAxc  1.2
+VARIABLE IMAX_VIAxd  2.3
+VARIABLE IMAX_VIAya  2.3
+VARIABLE IMAX_VIAyb  4.8
+VARIABLE IMAX_VIAy   4.8
+VARIABLE IMAX_VIAyy  5.3
+VARIABLE IMAX_VIAyx  16.7
+VARIABLE IMAX_VIAz   110.4
+VARIABLE IMAX_VIAr   175.3
+VARIABLE IMAX_VIAu   102.3
+VARIABLE IMAX_RV     1166.4
+VARIABLE IMAX_Cu_RV  1166.4
+
+VARIABLE VC_W_1      0.012
+VARIABLE VIA0_W_1    0.012
+VARIABLE VIAx_W_1    0.012
+VARIABLE VIAxa_W_1   0.012
+VARIABLE VIAxb_W_1   0.018
+VARIABLE VIAxc_W_1   0.018
+VARIABLE VIAxd_W_1   0.020
+VARIABLE VIAya_W_1   0.020
+VARIABLE VIAyb_W_1   0.038
+VARIABLE VIAy_W_1    0.038
+VARIABLE VIAyy_W_1   0.062
+VARIABLE VIAyx_W_1   0.126
+VARIABLE VIAz_W_1    0.324
+VARIABLE VIAr_W_1    0.414
+VARIABLE VIAu_W_1    0.312
+VARIABLE RV_W_1      2.7
+VARIABLE Cu_RV_W_1   2.7
+
+PERC LDL CD CONSTRAINT VALUE 10000000
+

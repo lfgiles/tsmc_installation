@@ -1,0 +1,2264 @@
+#!tvf
+#3616f72_n3
+
+set calpath [file dirname [info script]]
+set env(TSMC_CAL_PERC_PATH) $calpath
+
+tvf::VERBATIM "VARIABLE TSMC_CAL_PERC_PATH '$calpath'"
+
+
+tvf::VERBATIM {
+//////////////////////////////////////////////////////////////////////////////// 
+// DISCLAIMER 
+// 
+// The information contained herein is provided by TSMC on an "AS IS" basis 
+// without any warranty, and TSMC has no obligation to support or otherwise 
+// maintain the information.  TSMC disclaims any representation that the 
+// information does not infringe any intellectual property rights or proprietary 
+// rights of any third parties.  There are no other warranties given by TSMC, 
+// whether express, implied or statutory, including, without limitation, implied 
+// warranties of merchantability and fitness for a particular purpose. 
+// 
+// STATEMENT OF USE 
+// 
+// This information contains confidential and proprietary information of TSMC. 
+// No part of this information may be reproduced, transmitted, transcribed, 
+// stored in a retrieval system, or translated into any human or computer 
+// language, in any form or by any means, electronic, mechanical, magnetic, 
+// optical, chemical, manual, or otherwise, without the prior written permission 
+// of TSMC.  This information was prepared for informational purpose and is for 
+// use by TSMC's customers only.  TSMC reserves the right to make changes in the 
+// information at any time and without notice. 
+// 
+//////////////////////////////////////////////////////////////////////////////// 
+
+//############################################################
+//
+//            Define Layers & Properties
+//
+//############################################################
+// ==================================
+//   define layers
+// ==================================
+LAYER Cu_CB2_FC  8650     // passivation-2 opening for flip chip (Cu_RDL)
+LAYER MAP 86  DATATYPE 300 8650
+LAYER Cu_CB2_FCU 8675     // passivation-2 opening micro bump (Cu_RDL)
+LAYER MAP 86  DATATYPE 325 8675
+LAYER CB2_FC     8600     // passivation-2 opening for flip chip
+LAYER MAP 86  DATATYPE 0  8600
+LAYER CB2_WB     8620     // passivation-2 opening for wire bond
+LAYER MAP 86  DATATYPE 20 8620
+LAYER CB2_IN     8630     // CB2 pattern under PM0 for InFO package
+LAYER MAP 86  DATATYPE 30 8630
+LAYER UBM        17000    // under bump metal
+LAYER MAP 170 DATATYPE 0  17000
+LAYER LC_DMY     16801    // low capacitance ESD device region
+LAYER MAP 168 DATATYPE 1  16801
+LAYER IHIADMY    16802    // hia diode with optimized layout rule
+LAYER MAP 168 DATATYPE 2  16802
+LAYER LUPWDMY    25501    // latch-up rule waive layer
+LAYER MAP 255 DATATYPE 1  25501
+LAYER RES200     25509    // define resistance over 200ohm
+LAYER MAP 255 DATATYPE 9  25509
+LAYER IODMY      25531    // dummy layer to trigger Latch-Up check
+LAYER MAP 255 DATATYPE 31 25531
+LAYER LUPIEDMY   25556    // dummy layer to waive LUP checks
+LAYER MAP 255 DATATYPE 56 25556
+LAYER SDI_3      12203    // dummy layer to recognize nmos which is cascoded with hia mos
+LAYER MAP 122 DATATYPE 3  12203
+
+LAYER LUP1_Mark   19901    // LUP.1 marker
+LAYER MAP 50999 DATATYPE 1  19901
+LAYER LUP2_Mark   19902    // LUP.2 marker
+LAYER MAP 50999 DATATYPE 2  19902
+LAYER LUP21_Mark  19921    // LUP.2.1 marker
+LAYER MAP 50999 DATATYPE 21 19921
+LAYER LUP14_Mark  19914    // LUP.14 marker
+LAYER MAP 50999 DATATYPE 14 19914
+LAYER CDM1_Mark   19960    // ESD.CDM.1gU marker
+LAYER MAP 50999 DATATYPE 110 19960
+LAYER CDM11_Mark  19961    // ESD.CDM.1.1gU marker
+LAYER MAP 50999 DATATYPE 111 19961
+LAYER CDM2_Mark   19970    // ESD.CDM.2gU marker
+LAYER MAP 50999 DATATYPE 120 19970
+
+LAYER CD31_Mark1  19931    // ESD.CD.3.1gU pact marker
+LAYER MAP 50999 DATATYPE 310 19931
+LAYER CD31_Mark2  19932    // ESD.CD.3.1gU nwell marker
+LAYER MAP 50999 DATATYPE 311 19932
+LAYER CD32_Mark1  19933    // ESD.CD.3.2gU pact marker
+LAYER MAP 50999 DATATYPE 320 19933
+LAYER CD32_Mark2  19934    // ESD.CD.3.2gU nwell marker
+LAYER MAP 50999 DATATYPE 321 19934
+LAYER CD33_Mark1  19935    // ESD.CD.3.3gU pact marker
+LAYER MAP 50999 DATATYPE 330 19935
+LAYER CD33_Mark2  19936    // ESD.CD.3.3gU nwell marker
+LAYER MAP 50999 DATATYPE 331 19936
+LAYER CD34_Mark1  19937    // ESD.CD.3.4gU pact marker
+LAYER MAP 50999 DATATYPE 340 19937
+LAYER CD34_Mark2  19938    // ESD.CD.3.4gU nwell marker
+LAYER MAP 50999 DATATYPE 341 19938
+
+
+// ==================================
+//   define property & pseudo devices
+// ==================================
+PERC PROPERTY D  a p
+PERC PROPERTY MN nfin l
+PERC PROPERTY MP nfin l
+
+// for LDL checks
+#IFDEF LDL
+#IFNDEF DISABLE_IODMY
+IOM1 = (IODMY AND M1_A) OR (IODMY AND M1_B)
+CONNECT M1_A IOM1
+CONNECT M1_B IOM1
+DEVICE PAD_IOM1(d_pseudo_io) IOM1 IOM1 (PAD_PIN)
+#ENDIF
+#ENDIF
+
+// for LC Topology & P2P checks
+LC_DmyP = (HIA_DUMMY INTERACT LC_DMY) INTERACT (nxwell AND tpdiff_dio)
+LC_DmyN = (HIA_DUMMY INTERACT LC_DMY) INTERACT (psub AND tndiff_dio)
+DEVICE LC_DioP LC_DmyP tpdiff_dio(PLUS) nxwell(MINUS)
+DEVICE LC_DioN LC_DmyN psub(PLUS) tndiff_dio(MINUS)
+
+//############################################################
+//            Save Layers Used for LDL-DRC check
+//############################################################
+SAVE {
+    COPY Empty
+    COPY BULK
+    COPY ODI
+    COPY POI
+    COPY NP
+    COPY PP
+    COPY OD2
+    COPY SDI
+    COPY SDI_2
+    COPY SDI_3
+    COPY UBM
+    COPY DNW
+    COPY psub
+    COPY nxwell
+    COPY RES200
+    COPY HIA_DUMMY
+    COPY IBJTDMY
+    COPY LUPWDMY
+    COPY LUPIEDMY
+    COPY IHIADMY
+    COPY PODE_GATEi
+    COPY MDi
+    COPY CMDi
+    COPY VDi
+    COPY VD2i
+    COPY VGi
+    COPY NT_N
+}
+
+//############################################################
+//            Set Switches to Variables
+//############################################################
+#IFDEF CD
+  #DEFINE CD_PRE_CHECK
+#ENDIF
+#IFDEF P2P
+  #DEFINE P2P_PRE_CHECK
+#ENDIF
+#IFDEF CD_PRE_CHECK
+  #DEFINE CD_P2P_PRE_CHECK
+#ENDIF
+#IFDEF P2P_PRE_CHECK
+  #DEFINE CD_P2P_PRE_CHECK
+#ENDIF
+
+#IFDEF CHECK_FULL_PATH_CD
+VARIABLE FULL_PATH_CD 1
+#ELSE
+VARIABLE FULL_PATH_CD 0
+#ENDIF
+#IFDEF SET_PWR_CLAMP_RON
+VARIABLE SET_PC_RON 1
+#ENDIF
+#IFDEF SET_DIODE_RON
+VARIABLE SET_DIODE_RON 1
+#ENDIF
+#IFDEF GROUP_PWR_CLAMP
+VARIABLE PC_GROUPING 1
+#ENDIF
+#IFDEF GROUP_HIA_DIODE
+VARIABLE DIO_GROUPING 1
+#ENDIF
+#IFDEF EXPORT_ONE_VICTIM
+VARIABLE EXPORT_ONE_VICTIM 1
+#ENDIF
+#IFDEF USE_SUB_PROPERTY
+VARIABLE USE_SUB_PROPERTY 1
+#ENDIF
+#IFDEF ENABLE_R0_CHECK
+VARIABLE ENABLE_R0_CHECK 1
+#ELSE
+VARIABLE ENABLE_R0_CHECK 0
+#ENDIF
+VARIABLE CDM_7A 1
+VARIABLE TOP_NAME_COUNT 1
+
+//############################################################
+//
+//            Define Topology Rules
+//
+//############################################################
+// ============================================
+//   Rule grouping
+// ============================================
+PERC GROUP INFO_Nets_Group
+    INFO_Power_Net
+    INFO_Ground_Net
+    INFO_Signal_Net
+    INFO_IO_M1_Net
+    INFO_Internal_Net
+    INFO_Global_ESD_Net
+    INFO_Virtual_Power_Net
+    INFO_PoP_Pad_Net
+    INFO_Ultra_Low_Noise_Pad_Net
+    INFO_D2D_Interface_Net
+    INFO_D2D_VDD_Net
+
+    INFO_LC_Pad_Net
+    INFO_LC_Power_Net
+    INFO_Pad
+    INFO_MIMCAP
+
+
+// ============================================
+//   Topology checks
+// ============================================
+#IFDEF TOPO
+PERC LOAD perc_lib INIT input_pad_init SELECT
+    INFO_Nets_Group         // must be enabled
+    INFO_Power_Clamp        // must be enabled
+    ESD.NET.1gu
+    ESD.WARN.3gu
+    ESD.WARN.3.1gu
+    ESD.WARN.4.1gu
+    ESD.WARN.4.1gu:3stack
+    ESD.WARN.4.2gu
+    ESD.8gu
+    ESD.8.1gu
+    ESD.9gu
+    ESD.15gu
+    ESD.31g
+    ESD.43gu
+    ESD.40.3.1gu
+    ESD.LC.5gu
+    ESD.LC.5.1gu
+  #IFDEF Hi_CDM
+    ESD.CDM.1gu
+    ESD.CDM.1.1gu
+    ESD.CDM.1.3gu
+    ESD.CDM.2gu
+    ESD.CDM.2.1gu
+    #IFNDEF LDL
+      ESD.CDM.2gu_topo
+    #ENDIF
+    ESD.CDM.4gu
+    ESD.CDM.6g
+    ESD.CDM.B.1gu
+    #IFDEF COMMON_GROUND
+      ESD.XDM.VIC.3gu
+      ESD.XDM.VIC.4gu
+    #ENDIF
+    ESD_D2D.CDM.NET.1gu
+  #ENDIF
+    LUP.WARN.4u
+    SELECTTYPE INFO INFO_Power_Clamp INFO_Nets_Group
+  #DEFINE INFO_NETS_CHECKED
+
+  #IFNDEF COMMON_GROUND
+    PERC LOAD perc_lib INIT cross_domain_init SELECT
+      INFO_Net_Iterator       // must be enabled
+      ESD.45gu
+      ESD.45.0.1gu
+    #IFDEF Hi_CDM
+      ESD.CDM.B.2gu
+      ESD.CDM.X.1gu
+      ESD.XDM.VIC.3gu:gsd
+      ESD.XDM.VIC.3gu:sdg
+      ESD.XDM.VIC.4gu:sd
+    #ENDIF
+      SELECTTYPE INFO INFO_Net_Iterator
+    #DEFINE XDM_CHECKED
+  #ENDIF
+
+#ENDIF
+
+// ============================================
+//   LDL checks
+// ============================================
+#IFDEF LDL
+  #IFNDEF XDM_CHECKED
+    #IFNDEF COMMON_GROUND
+      PERC LOAD perc_lib INIT cross_domain_init SELECT
+        ESD.CDM.X.1gu:export    // must be enabled for ESD.CDM.C.4gu, ESD.CDM.C.4.1gu checks
+    #ENDIF
+    #DEFINE XDM_CHECKED
+  #ENDIF
+
+PERC LOAD perc_lib INIT esd_ldl_init SELECT
+  #IFNDEF INFO_NETS_CHECKED
+    INFO_Nets_Group         // must be enabled
+  #ENDIF
+    INFO_Power_Clamp        // must be enabled for power-clamp related checks
+    Power_Clamp:export      // must be enabled for power-clamp related checks
+    ESD_LUP:export          // must be enabled for all checks
+    ESD.7gu:export          // must be enabled for ESD.7gu, ESD.7.1gu, ESD.CD.3.1~4gu checks
+    ESD.9.5gu:export        // must be enabled for ESD.9.5gu check
+    ESD.35gu:export         // must be enabled for ESD.35gu check
+    LUP.WARN.3:export       // must be enabled for LUP.WARN.3 check
+    LUP.WARN.3.1:export     // must be enabled for LUP.WARN.3.1 check
+  #IFDEF Hi_CDM
+    ESD.CDM.1gu:export      // must be enabled for ESD.CDM.1gu check
+    ESD.CDM.1.1gu:export    // must be enabled for ESD.CDM.1.1gu check
+    ESD.CDM.2gu:export      // must be enabled for ESD.CDM.2gu check
+    ESD.CDM.C.3gu:export    // must be enabled for ESD.CDM.C.3.1gu, ESD.CDM.C.3.2gu checks
+    #IFNDEF COMMON_GROUND
+      ESD.CDM.C.4gu:export      // must be enabled for ESD.CDM.C.4gu check
+      ESD.CDM.C.4.1gu:export    // must be enabled for ESD.CDM.C.4.1gu check
+    #ENDIF
+    ESD.CDM.C.5gu:export    // must be enabled for ESD.CDM.C.5gu check
+  #ENDIF
+    LDL_DATA:export         // must be enabled for all checks
+    SELECTTYPE INFO INFO_Power_Clamp
+  #IFNDEF INFO_NETS_CHECKED
+      INFO_Nets_Group
+  #ENDIF
+#ENDIF
+
+// ============================================
+//   CD/P2P checks
+// ============================================
+#IFDEF P2P_PRE_CHECK
+  #IFNDEF XDM_CHECKED
+    #IFNDEF COMMON_GROUND
+      PERC LOAD perc_lib INIT cross_domain_init SELECT
+        ESD.CDM.X.1gu:export    // must be enabled for ESD.XDM.P.1gu check
+    #ENDIF
+  #ENDIF
+#ENDIF
+
+#IFDEF CD_P2P_PRE_CHECK
+PERC LOAD perc_lib INIT esd_cdp2p_init SELECT
+  #IFNDEF INFO_NETS_CHECKED
+    INFO_Nets_Group         // must be enabled
+  #ENDIF
+    INFO_Net_Iterator       // must be enabled
+    INFO_Power_Clamp        // must be enabled for power-clamp related checks
+
+  #IFDEF CD_PRE_CHECK
+    #IFDEF CD_GROUP1
+      ESD.CD.1gu:dio:up
+      ESD.CD.1gu:dio:dn
+      ESD.CD.1gu:mos:up
+      ESD.CD.1gu:mos:dn
+    #ENDIF
+    #IFDEF CD_GROUP2
+      #IFDEF CHECK_FULL_PATH_CD
+      ESD.CD.1gu:pc
+      ESD.CD.1gu:b2b
+      ESD.CD.1.1gu
+      #ENDIF
+    #ENDIF
+    #IFDEF CD_GROUP3
+      ESD.CD.2gu:dio:up
+      ESD.CD.2gu:dio:dn
+      ESD.CD.2gu:mos:up
+      ESD.CD.2gu:mos:dn
+    #ENDIF
+    #IFDEF CHECK_SCR_PATH_CD
+      ESD.CD.3.1gu:pact
+      ESD.CD.3.1gu:nstp
+      ESD.CD.3.2gu:pact
+      ESD.CD.3.2gu:nstp
+      ESD.CD.3.3gu:pact
+      ESD.CD.3.3gu:nstp
+      ESD.CD.3.4gu:pact
+      ESD.CD.3.4gu:nstp
+    #ENDIF
+    #IFDEF CD_GROUP4
+    #IFDEF Hi_CDM
+      ESD_D2D.CDM.CD.1gu_05V:dio:up
+      ESD_D2D.CDM.CD.1gu_05V:dio:dn
+      ESD_D2D.CDM.CD.1gu_05V:mos:up
+      ESD_D2D.CDM.CD.1gu_05V:mos:dn
+      ESD_D2D.CDM.CD.1gu_35V:dio:up
+      ESD_D2D.CDM.CD.1gu_35V:dio:dn
+      ESD_D2D.CDM.CD.1gu_35V:mos:up
+      ESD_D2D.CDM.CD.1gu_35V:mos:dn
+    #ENDIF
+    #ENDIF
+
+  #ENDIF
+
+  #IFDEF P2P_PRE_CHECK
+    #IFDEF Hi_CDM
+      #IFDEF P2P_GROUP1
+        ESD.CDM.P.3.0.1gu
+        ESD.CDM.P.3.0.2gu
+        ESD.CDM.P.4.0.1gu
+        ESD.CDM.P.4.0.2gu
+        ESD.CDM.P.5.0.1gu
+        ESD.CDM.P.5.0.2gu
+        ESD.CDM.P.5.1.0.1gu
+        ESD.CDM.P.5.1.0.2gu
+      #ENDIF
+      #IFDEF P2P_GROUP2
+        ESD.CDM.P.1.0.1gu
+        ESD.CDM.P.1.0.2gu
+        ESD.CDM.P.1.0.3gu
+        ESD.CDM.P.1.2.0.1gu
+        ESD.CDM.P.1.2.0.2gu
+      #ENDIF
+      #IFDEF P2P_GROUP3
+        ESD.CDM.P.1.1.0.1gu
+        ESD.CDM.P.1.1.0.2gu
+        ESD.CDM.P.1.1.0.3gu
+        ESD.CDM.P.2.0.1gu
+        ESD.CDM.P.2.0.2gu
+        ESD.CDM.P.2.0.3gu
+        ESD.CDM.P.2.1gu
+      #ENDIF
+      #IFDEF P2P_GROUP4
+        ESD.CDM.P.7.0.1gu
+        ESD.CDM.P.7.0.2gu
+        ESD.CDM.P.7.1.0.1gu
+        ESD.CDM.P.7.1.0.2gu
+        ESD.CDM.P.7.2.0.1gu
+        ESD.CDM.P.7.2.0.2gu
+      #ENDIF
+      #IFDEF P2P_GROUP5
+        ESD.CDM.P.7.3gu
+        ESD.CDM.P.7.4gu
+        ESD.CDM.P.7.5gu
+      #ENDIF
+      #IFDEF P2P_GROUP6
+        #IFNDEF COMMON_GROUND
+          ESD.CDM.P.8gu
+          ESD.CDM.P.9gu
+          ESD.XDM.P.1gu
+        #ENDIF
+      #ENDIF
+      #IFDEF CHECK_PICK_UP_P2P
+        ESD.CDM.P.10gu
+      #ENDIF
+      #IFDEF CHECK_FULL_PATH_P2P
+        ESD.DISTP2P.1.0.1gu
+        ESD.DISTP2P.1.0.2gu
+        ESD.DISTP2P.1.1.0.1gu
+        ESD.DISTP2P.1.1.0.2gu
+        ESD.DISTP2P.1.2.0.1gu
+        ESD.DISTP2P.1.2.0.2gu
+        ESD.DISTP2P.1.3.0.1gu
+        ESD.DISTP2P.1.3.0.2gu
+      #ENDIF
+      #IFDEF P2P_GROUP2
+        ESD_D2D.CDM.P.1.1.1gu_05V
+        ESD_D2D.CDM.P.1.1.2gu_05V
+        ESD_D2D.CDM.P.1.2.1gu_05V
+        ESD_D2D.CDM.P.1.2.2gu_05V
+      #ENDIF
+      #IFDEF P2P_GROUP3
+        ESD_D2D.CDM.P.2.1.1gu_05V
+        ESD_D2D.CDM.P.2.1.2gu_05V
+        ESD_D2D.CDM.P.2.2.1gu_05V
+        ESD_D2D.CDM.P.2.2.2gu_05V
+        ESD_D2D.CDM.P.3.1.1gu_05V
+        ESD_D2D.CDM.P.3.1.2gu_05V
+        ESD_D2D.CDM.P.3.2.1gu_05V
+        ESD_D2D.CDM.P.3.2.2gu_05V
+      #ENDIF
+      #IFDEF P2P_GROUP2
+        ESD_D2D.CDM.P.1.1.1gu_35V
+        ESD_D2D.CDM.P.1.1.2gu_35V
+        ESD_D2D.CDM.P.1.2.1gu_35V
+        ESD_D2D.CDM.P.1.2.2gu_35V
+      #ENDIF
+      #IFDEF P2P_GROUP3
+        ESD_D2D.CDM.P.2.1.1gu_35V
+        ESD_D2D.CDM.P.2.1.2gu_35V
+        ESD_D2D.CDM.P.2.2.1gu_35V
+        ESD_D2D.CDM.P.2.2.2gu_35V
+        ESD_D2D.CDM.P.3.1.1gu_35V
+        ESD_D2D.CDM.P.3.1.2gu_35V
+        ESD_D2D.CDM.P.3.2.1gu_35V
+        ESD_D2D.CDM.P.3.2.2gu_35V
+      #ENDIF
+    #ELSE
+      #IFDEF P2P_GROUP1
+        ESD.14.4gu
+      #ENDIF
+      #IFDEF P2P_GROUP2
+        ESD.14.3.1gu:dio
+        ESD.14.3.1gu:mos
+        ESD.14.3.2gu
+      #ENDIF
+    #ENDIF
+      #IFDEF P2P_GROUP3
+        ESD.14.5.1gu
+        ESD.14.5.2gu
+      #ENDIF
+      #IFDEF CHECK_PICK_UP_P2P
+        ESD.14.6gu
+        ESD.14.7gu
+        ESD.14.8gu
+      #ENDIF
+      #IFDEF P2P_GROUP2
+        ESD.LCP2P.1.1gu
+        ESD.LCP2P.1.2gu
+      #ENDIF
+      #IFDEF P2P_GROUP3
+        ESD.LCP2P.2.1gu
+        ESD.LCP2P.2.2gu
+      #ENDIF
+  #ENDIF
+
+      SELECTTYPE INFO INFO_Power_Clamp INFO_Net_Iterator
+  #IFNDEF INFO_NETS_CHECKED
+        INFO_Nets_Group
+  #ENDIF
+#ENDIF
+
+
+//############################################################
+//
+//            Define LDL-DRC/CD/P2P Rules
+//
+//############################################################
+
+DFM YS AUTOSTART ldl_lib
+#IFDEF CD
+    run_cd
+#ENDIF
+
+#IFDEF P2P
+    run_p2p
+#ENDIF
+
+#IFDEF LDL
+    import_data         // must be enabled
+    LUP.WARN.3
+    LUP.WARN.3.1
+    LUP.1.0.1
+    LUP.2.0.1
+    LUP.2.1
+    LUP.4.2
+    LUP.14.0.1
+    LUP.IHIA.1.0.1
+    LUP.IHIA.14.0.1
+    SR_ESD.R.7u_ldl
+    ESD.7gu_ldl         // must be enabled for ESD.7.0.1~4gu, ESD.7.1.1~4gu, ESD.CD.3.1~4gu checks
+    ESD.7.0.1gu_ldl
+    ESD.7.0.1.1gu_ldl
+    ESD.7.0.2gu_ldl
+    ESD.7.0.2.1gu_ldl
+    ESD.7.0.3gu_ldl
+    ESD.7.0.4gu_ldl
+    ESD.7.1gu_ldl       // must be enabled for ESD.7.1.1~4gu checks
+    ESD.7.1.1gu_ldl
+    ESD.7.1.2gu_ldl
+    ESD.7.1.3gu_ldl
+    ESD.7.1.4gu_ldl
+    ESD.9.5gu_ldl
+    ESD.35gu_ldl
+    ESD.43.1gu_ldl
+    ESD.CD.3gu_ldl      // must be enabled for ESD.CD.3.1~4gu checks
+  #IFDEF Hi_CDM
+    ESD.CDM.1gu_ldl
+    ESD.CDM.1.1gu_ldl
+    ESD.CDM.2gu_ldl
+    ESD.CDM.C.2gu_ldl   // must be enabled for ESD.CDM.C.5gu check
+    ESD.CDM.C.3.1gu_ldl
+    ESD.CDM.C.3.2gu_ldl
+    #IFNDEF COMMON_GROUND
+      ESD.CDM.C.4gu_ldl
+      ESD.CDM.C.4.1gu_ldl
+    #ENDIF
+    ESD.CDM.C.5gu_ldl
+  #ENDIF
+    run_ldl_drc         // must be enabled
+#ENDIF
+
+    done
+
+//############################################################
+//
+//            Define Rule Checks
+//
+//############################################################
+
+// ================
+//   Topology
+// ================
+TVF FUNCTION perc_lib [/*
+    package require CalibreLVS_PERC
+ 	#modified by nrichaud@intel
+	set TSMC_CAL_PERC_PATH_tvf [tvf::svrf_var TSMC_CAL_PERC_PATH]
+     if [catch {source $env(TSMC_CAL_PERC_CONSTANT_PATH_tvf)} msg] { puts $msg; source [glob ${TSMC_CAL_PERC_PATH_tvf}/perc_*constant.tcl]} else {puts "WARNING: local constant file set by env variable TSMC_CAL_PERC_CONSTANT_PATH_tvf : $env(TSMC_CAL_PERC_CONSTANT_PATH_tvf)"}
+    #source "${TSMC_CAL_PERC_PATH_tvf}/perc_n03_constant.tcl"
+    source "${TSMC_CAL_PERC_PATH_tvf}/perc_n03_lib.tbc"
+
+    proc ESD.NET.1gu {} {
+        set rule    "ESD.CDM7A.NET.1gU: For I/O pin ESD protection scheme, the primary ESD protection (1st ESD) devices are required\n"
+        append rule "and it should be HIA diode (single stage or 2-stacked) (refer to HIA.1~18g).\n"
+        append rule "Drain-ballasted NMOS (single stage and cascoded) is not allowed.\n"
+        append rule "ESD.NET.1.1gU: For 1.8V I/O pin ESD protection scheme, single stage Drain-ballasted NMOS is not allowed.\n"
+        append rule "ESD.NET.1.2gU: For 3.3V I/O pin ESD protection scheme, drain-ballasted NMOS and non-NT_N N-HIA diode are not allowed.\n"
+        append rule "ESD.18g: Total finger width of NMOS in same connection of I/O PAD >= 490\n"
+        append rule "ESD.20g: Channel length of 1.2V drain-ballasted NMOS (in OD12) == 0.135\n"
+        append rule "ESD.27g: Total finger width of 2-stage cascoded NMOS in same connection of drain >= 540\n"
+        append rule "ESD.29g: Channel length of 1.2V drain-ballasted 2-stage cascoded NMOS == 0.135\n"
+        append rule "HIA.1g:  Width of NACT and PACT inside HIA_DUMMY = 0.202~0.314\n"
+        append rule "HIA.CDM7A.3g: Total perimeter of NACT or PACT inside HIA_DUMMY (Except LC_DMY) >= 400\n"
+        append rule "ESD.CDM7A.LC.3g: Total perimeter of NACT or PACT inside LC_DMY >= 260\n"
+        append rule "HIA.CDM7A.3.1g:  Total OD area of NACT or PACT inside HIA_DUMMY (Except LC_DMY) >= 60\n"
+        append rule "ESD.CDM7A.LC.3.1g: Total OD area of NACT or PACT inside LC_DMY >= 30\n"
+        perc::check_net -netType {Signal} -condition 1st_protection_condition -comment $rule
+    }
+
+    proc ESD_D2D.CDM.NET.1gu {} {
+        set rule    "ESD_D2D.CDM.NET.1gU: For D2D Net design in common power and common ground,\n"
+        append rule "either MOS based or HIA diode based D2D ESD protection is required. If there is no ESD protection on D2D Net,\n"
+        append rule "ESD protection is required for internal circuits connected to D2D Net through resistor and with MOS junction or gate connected.\n"
+        append rule "The following ESD scheme should be followed:\n"
+        append rule "  1. Common power and common ground is required.\n"
+        append rule "  2. Driver PMOS and NMOS with sufficient size are required.\n"
+        append rule "  3. Diode-based ESD protection with sufficient size are required.\n"
+        append rule "ESD_D2D.CDM.RD2D.1gU: Value of resistor RD2D between D2D Net and internal circuits <= 30\n"
+        append rule "ESD_D2D.CDM.RD2D.2gU: Minimum width of RD2D resister >= 10.72\n"
+        append rule "ESD_D2D.CDM.PHIA.5gU: Total perimeter of pull-up protection P-type HIA Diode >= 7.928(05V), 18.654(35V)\n"
+        append rule "ESD_D2D.CDM.NHIA.5gU: Total perimeter of pull-down protection N-type HIA Diode >= 7.928(05V), 18.654(35V)\n"
+        append rule "ESD_D2D.CDM.PMOS.5gU: Channel width of pull-up protection PMOS >= 22.304(05V), 51.408(35V)\n"
+        append rule "ESD_D2D.CDM.NMOS.5gU: Channel width of pull-down protection NMOS >= 22.304(05V), 51.408(35V)\n"
+        perc::check_net -netType {D2D_Interface} -condition d2d_protection_condition_2 -comment $rule
+    }
+
+    proc ESD.WARN.3gu {} {
+        set rule    "ESD.WARN.3gU: If the circuits have core gate directly tie to VDD(VSS) and source/drain tie to VSS(VDD),\n"
+        append rule "rules below must be followed to get ESD design scheme robust.\n"
+        append rule "  1. ESD.14.4gU, ESD.40.1g and ESD.43gU for HBM\n"
+        append rule "  2. ESD.CDM.P.3.0.1gU, ESD.CDM.P.3.0.2gU, ESD.CDM.P.7.1.0.1gU, ESD.CDM.P.7.1.0.2gU, ESD.40.1g, ESD.43gU, ESD.CDM.C.2gU and ESD.CDM.C.3.1gU for CDM\n"
+        append rule "This rule checks on MOS/MPODE gate. Dummy device (D/G/S shorted) is exempted.\n"
+        append rule "As for Decap and footer/header design, they can be exempted\n"
+        perc::check_device -type { MN MP } -pinNetType { g { Power || Ground } { s d } { Power || Ground } } \
+                           -condition pwrgnd_core_mos_condition -comment $rule
+    }
+
+    proc ESD.WARN.3.1gu {} {
+        set rule    "ESD.WARN.3.1gU:\n"
+        append rule "As core gate connects to IOPAD directly or through resistor,\n"
+        append rule "the source/drain can't connect to any power/ground directly or through resistor.\n"
+        append rule "As source/drain connects to IOPAD directly or through resistor,\n"
+        append rule "the core gate can't connect to any power/ground directly or through resistor.\n"
+        append rule "This rule checks on MOS/MPODE gate. Dummy device (D/G/S shorted) is exempted.\n"
+        perc::check_net -pathType Signal -condition signal_core_mos_condition -comment $rule
+    }
+
+    proc ESD.WARN.4.1gu {} {
+        set rule    "ESD.WARN.4.1gU: For cascoded (2-stage) snapback based primary protection,\n"
+        append rule "all gate oxide ESD path should be >= 3 stage between IOPAD and power/ground.\n"
+        append rule "Pure core GOX path is not allowed. For > 3 stage design, this rule only checks on first three stages.\n"
+        append rule "Exception:\n"
+        append rule "  1. Dummy device (D/G/S shorted) is exempted from this rule check.\n"
+        append rule "  2. Cascoded (2-stage) snapback NMOS as primary or secondary ESD protection is exempted.\n"
+        append rule "  3. Gate oxide ESD path through two or more I/O gate oxide.\n"
+        append rule "This rule checks on MOS/MPODE gate.\n"
+        perc::check_net -netType Signal -condition hv_gox_esd_path_condition -comment $rule
+    }
+
+    proc ESD.WARN.4.1gu:3stack {} {
+        set rule    "ESD.WARN.4.1gU: For cascoded (2-stage) snapback based primary protection,\n"
+        append rule "all gate oxide ESD path should be >= 3 stage between IOPAD and power/ground.\n"
+        append rule "Pure core GOX path is not allowed. For > 3 stage design, this rule only checks on first three stages.\n"
+        append rule "Exception:\n"
+        append rule "  1. Dummy device (D/G/S shorted) is exempted from this rule check.\n"
+        append rule "  2. Cascoded (2-stage) snapback NMOS as primary or secondary ESD protection is exempted.\n"
+        append rule "  3. Gate oxide ESD path through two or more I/O gate oxide.\n"
+        append rule "This rule checks on MOS/MPODE gate.\n"
+        perc::check_net -netType Signal -condition hv_gox_esd_path3_condition -comment $rule
+    }
+
+    proc ESD.WARN.4.2gu {} {
+        set rule    "ESD.WARN.4.2gU: For cascoded power clamp protected power domain,\n"
+        append rule "As I/O gate connects to power directly, the source/drain can't connect to ground directly.\n"
+        append rule "As source/drain connects to power directly or through resistor, the I/O gate can't connect to ground directly.\n"
+        append rule "This rule checks on MOS/MPODE gate.\n"
+        append rule "Exception:\n"
+        append rule "  1. Dummy device (Drain/Gate/Source shorted)\n"
+        perc::check_net -pathType Power -condition power_caspc_io_mos_condition -comment $rule
+    }
+
+    proc ESD.8gu {} {
+        set rule    "ESD.8gU: Value of resistor RESD (ohm) between the internal circuits with gate oxide ESD path and I/O pad >= 200\n"
+        perc::check_net -netType Signal -condition pad_res_condition -comment $rule
+    }
+
+
+    proc ESD.8.1gu {} {
+        set rule    "ESD.CDM7A.8.1gU: Minimum width of RESD (rhim) resistor >= 3.3\n"
+        perc::check_net -netType Signal -condition pad_res_width_condition -comment $rule
+    }
+
+
+    proc LUP.WARN.4u {} {
+        set rule    "LUP.WARN.4U: For LUP OD injector blocking purpose, the resistor between internal device and IOPAD should be >= 200\n"
+        append rule "  The internal device includes all devices except gate of MOS and high-R resistor(rhim).\n"
+        perc::check_net -netType Signal -condition pad_res_device_condition -comment $rule
+    }
+
+    proc ESD.9gu {} {
+        set rule    "ESD.CDM7A.9.0gU: For internal circuits with gate oxide ESD path between IOPAD and power/ground PAD,\n"
+        append rule "secondary ESD protection (2nd ESD) with ESD resistor is required. Refer to ESD.9.0gU for details.\n"
+        append rule "For CDM7A, 2nd ESD should be realized by HIA diode. HIANMOS (single stage and 2-stage cascoded) is not allowed.\n"
+        append rule "ESD.9.0.1gU: For 1.8V application, single stage drain-ballasted NMOS based secondary ESD protection is not allowed.\n"
+        append rule "ESD.9.0.2gU: For 3.3V application, drain-ballasted NMOS and non-NT_N N-HIA diode based secondary ESD protection are not allowed.\n"
+        append rule "ESD.9.0.3gU: ESD protection is required for internal circuits with gate oxide connected to IOPAD through single stage NMOS/PMOS.\n"
+        append rule "ESD.9.1gU:   Channel length for single and cascoded drain-ballasted NMOS of MOS based ESD secondary protection (2nd ESD) = 0.135\n"
+        append rule "ESD.9.1.1gU: Channel width for single and cascoded drain-ballasted NMOS of MOS based ESD secondary protection (2nd ESD) >= 4\n"
+        append rule "ESD.9.1.2gU: Unit OD width of single and cascoded drain-ballasted NMOS of MOS based ESD secondary protection (2nd ESD) = 0.090\n"
+        append rule "ESD.9.1.3gU: 2-stage cascoded drain-ballasted NMOS of MOS based ESD secondary protection (2nd ESD) needs to be common OD structure.\n"
+        append rule "ESD.9.3gU:   Total perimeter of HIA diode (D3/D4) of diode based ESD secondary protection (2nd ESD) >= 4\n"
+        append rule "ESD.1.1gU:   Thick oxide ESD protection or power clamp connect to thin oxide transistor is not allowed.\n"
+        perc::check_net -netType Signal -condition 2nd_protection_condition -comment $rule
+    }
+
+
+    proc ESD.15gu {} {
+        set rule    "ESD.15gU: Bypass discharge cells should be inserted between each separate VSS to avoid ESD damage to internal circuits.\n"
+        append rule "  The suggested bypass discharge cell is back-to-back (B2B) diode and it can be HIA diode.\n"
+        append rule "  The perimeter of back-to-back (B2B) diodes (Db1/Db2) needs to meet HIA.CDM7A.3g >= 400\n"
+        perc::check_data -condition b2b_diode_condition -comment $rule
+    }
+
+    proc ESD.31g {} {
+        set rule    "ESD.31g: As PMOS is connected between I/O PAD and VDD/VSS PAD, the PMOS must be cascoded structure.\n"
+        perc::check_device -type { MP } -pinNetType { { s d } { Signal } { s d } { Power || Ground } } -comment $rule
+    }
+
+    proc ESD.43gu {} {
+        set rule    "ESD.43gU: Each set of VDD and VSS must have it's own power clamp cells and active Power Clamp is required.\n"
+        append rule "ESD.CDM7A.40g:    Total fin number of I/O Power Clamp (in OD2) >= 122300\n"
+        append rule "ESD.CDM7A.40.1g:  Total fin number of core Power Clamp (not in OD2) >= 134400\n"
+        append rule "ESD.CDM7A.40.2gU: Total fin number of 1.8V Power Clamp (2-stack cascoded 1.2V NMOS or PMOS) >= 134400\n"
+        append rule "ESD.CDM7A.40.4gU: Total fin number of 3.3V Power Clamp (3-stack cascoded 1.2V NMOS or PMOS) >= 222000\n"
+        append rule "ESD_D2D.CDM.40gU: Total fin number of I/O power clamp (in OD2) used for D2D_VDD net >= 20880\n"
+        append rule "ESD_D2D.CDM.40.1gU: Total fin number of core power clamp used for D2D_VDD net >= 34320\n"
+        append rule "ESD.42g:    Channel length of I/O Power Clamp (in OD2) = 0.055~0.135\n"
+        append rule "ESD.42.1gU: Channel length of 1.8V/3.3V Power Clamp (cascoded 1.2V NMOS or PMOS) = 0.055~0.135\n"
+        append rule "ESD.42.2g:  Channel length of core Power Clamp (not in OD2) = 0.055~0.100\n"
+        perc::check_net -netType {Power} -condition power_clamp_condition -comment $rule
+    }
+
+    proc ESD.40.3.1gu {} {
+        set rule    "ESD.CDM7A.40.3.1gU: Total fin number of the unit cell power clamp >= 38000\n"
+        perc::check_net -netType {Power} -condition power_clamp_group_nfin_condition -comment $rule
+    }
+
+    proc ESD.45gu {} {
+        array set ::g_cdm_path1 ""
+        array set ::g_cdm_path2 ""
+        set rule    "ESD.45.0gU:\n"
+        append rule "  1. For cross domain with separated grounds, diode based secondary protection with interface resistor is required.\n"
+        append rule "  2. If the receiver is I/O device, the secondary protection is not required.\n"
+        append rule "  3. As the cross domain with on-rule power clamp added between vdda and vssb, the secondary protection is not required.\n"
+        append rule "  Exception: COMMON_GROUND protection scheme.\n"
+        append rule "ESD.45.1gU: Total perimeter of cross-domain diode based secondary protection >= 4\n"
+        append rule "ESD.47gU:   Recommended interface voltage clamping resistor resistance for cross-domain with separated ground >= 200\n"
+        append rule "ESD.1.1gU:  Thick oxide ESD protection or power clamp connect to thin oxide transistor is not allowed.\n"
+        perc::check_net -netType {CDM_RX} -condition cdm_protection_condition -comment $rule
+    }
+
+    proc ESD.45.0.1gu {} {
+        set rule    "ESD.45.0.1gU: Single stage NMOS/PMOS in series under cross domain scenario is not allowed.\n"
+        append rule "ESD.45.0.2gU: Cascoded (2-stage) NMOS/PMOS under cross domain scenario is not allowed.\n"
+        append rule "  As cross domain with on-rule power clamp, these rules can be waived.\n"
+        append rule "  Exception: COMMON_GROUND protection scheme.\n"
+        perc::check_net -netType {CDM_HEAD && CDM_FOOT} -condition cdm_npmos_condition -comment $rule
+    }
+
+    proc ESD.LC.5gu {} {
+        set rule    "ESD.LC.5gU: Cascoded power clamp is not allowed as the primary protection is dual diode inside LC_DMY\n"
+        perc::check_net -netType {Power} -condition lc_power_clamp_stack_condition -comment $rule
+    }
+
+    proc ESD.LC.5.1gu {} {
+        set rule    "ESD.LC.5.1gU: For LC diode based primary protection scheme, power clamp total width should be 2 times larger than ESD.40g, ESD.40.1g defined\n"
+        perc::check_net -netType {Power} -condition lc_power_clamp_size_condition -comment $rule
+    }
+
+    proc ESD.CDM.1gu {} {
+        set rule    "ESD.CDM.1gU: For single stage snapback NMOS based primary protection,\n"
+        append rule "Output driving NMOS should be >= 2 stack I/O device (Lg >= 86nm) with separated OD structure.\n"
+        append rule "Output driving PMOS should be >= 3 stack I/O device (Lg >= 86nm) with separated OD structure and two separated NW.\n"
+        append rule "Core device or core-I/O device in cascoded scheme is not allowed. For I/O NMOS cascoded with I/O PMOS scheme, it is not allowed.\n"
+        append rule "Exception:\n"
+        append rule "  1. Single stage I/O NMOS, whose source side does not connect to VDD/VSS.\n"
+        append rule "  2. Single stage I/O PMOS, whose source side does not connect to VDD/VSS, with NW does not tie to VDD.\n"
+        append rule "  3. 2-stage cascoded I/O NMOS/PMOS (including NMOS/PMOS mixed scenario), whose source side of 2nd-stage MOS does not connect to VDD/VSS,\n"
+        append rule "     with NW of PMOS does not tie VDD.\n"
+        append rule "  4. Devices without ESD path (S/D shorted) is exempted from this rule check.\n"
+        append rule "  5. Single stage snapback NMOS as secondary ESD protection with Rout (RESD) in series.\n"
+        append rule "     Total channel width multiplies with Rout (RESD) value should be >= 3200um*ohm.\n"
+        append rule "Definition of two separated NW:\n"
+        append rule "  1. The NW of each PMOS (P1a/P1b/P1c) of 3 stack PMOS cannot tie to VDD.\n"
+        append rule "  2. The NW of each PMOS (P1a/P1b/P1c) of 3 stack PMOS cannot tie to its active OD.\n"
+        append rule "  3. The NW of each PMOS (P1a/P1b/P1c) of 3 stack PMOS cannot tie to active OD of the other PMOS.\n"
+        append rule "  4. The NW of first-stage and third stage PMOS (P1a/P1c) of 3 stack PMOS cannot tie to each other.\n"
+        perc::check_net -netType {Signal} -condition hc_mos_based_victim_condition -comment $rule
+    }
+
+    proc ESD.CDM.1.1gu {} {
+        set rule    "ESD.CDM.1.1gU: For 2-stage cascoded snapback NMOS based primary protection,\n"
+        append rule "Output driving NMOS/PMOS should be >= 3 stack I/O device (Lg >= 86nm) with separated OD structure on NMOS and three separated NWs on PMOS.\n"
+        append rule "Core device or core-I/O device in cascoded scheme is not allowed. For I/O NMOS cascoded with I/O PMOS scheme, it is not allowed.\n"
+        append rule "Exception:\n"
+        append rule "  1. Single stage I/O NMOS, whose source side does not connect to VDD/VSS.\n"
+        append rule "  2. Single stage I/O PMOS, whose source side does not connect to VDD/VSS, with NW does not tie to VDD.\n"
+        append rule "  3. 2-stage cascoded I/O NMOS/PMOS (including NMOS/PMOS mixed scenario), whose source side of 2nd-stage MOS does not connect to VDD/VSS,\n"
+        append rule "     with NW of PMOS does not tie VDD.\n"
+        append rule "  4. Devices without ESD path (S/D shorted) is exempted from this rule check.\n"
+        append rule "  5. 2-stage cascoded snapback NMOS as secondary ESD protection (common OD) with Rout (RESD) in series.\n"
+        append rule "     Total channel width multiplies with Rout (RESD) value should be >= 3200um*ohm.\n"
+        append rule "Definition of three separated NWs:\n"
+        append rule "  1. The NW of each PMOS (P1a/P1b/P1c) of 3 stack PMOS cannot tie to VDD.\n"
+        append rule "  2. The NW of each PMOS (P1a/P1b/P1c) of 3 stack PMOS cannot tie to its active OD.\n"
+        append rule "  3. The NW of each PMOS (P1a/P1b/P1c) of 3 stack PMOS cannot tie to active OD of the other PMOS.\n"
+        append rule "  4. The NW of each PMOS (P1a/P1b/P1c) of 3 stack PMOS cannot tie to each other.\n"
+        perc::check_net -netType {Signal} -condition hc_cas_mos_based_victim_condition -comment $rule
+    }
+
+    proc ESD.CDM.1.3gu {} {
+        set rule    "ESD.CDM.1.3gU: For snapback NMOS protected IOPAD, it's primary ESD protection and secondary ESD protection should be on the common ground.\n"
+        perc::check_net -netType {Signal} -condition hc_hia_nmos_gnd_condition -comment $rule
+    }
+
+    proc ESD.CDM.2gu {} {
+        set rule    "ESD.CDM.2gU: For diode based primary protection,\n"
+        append rule "output driving NMOS/PMOS need >= 2 stack for pure I/O device scheme and >= 3 stack for pure core device scheme.\n"
+        append rule "For NMOS cascoded with PMOS scheme, additional Rout in series is required.\n"
+        append rule "For core device cascoded with I/O device, additional Rout in series is required.\n"
+        append rule "Exception:\n"
+        append rule "  1. Single stage NMOS/PMOS connected VDD/VSS with Rout in series.\n"
+        append rule "     The Rout value depends on the total width of NMOS/PMOS, please refer to network calculator.\n"
+        append rule "  2. Cascoded NMOS/PMOS with Rout in series.\n"
+        append rule "     The Rout value depends on the total width of cas-NMOS/PMOS, please refer to network calculator.\n"
+        append rule "  3. Devices without ESD path (S/D shorted) is exempted from this rule check.\n"
+        perc::check_net -netType {Signal} -condition hc_dio_based_victim_condition -comment $rule
+    }
+
+    proc ESD.CDM.2gu_topo {} {
+        set rule    "ESD.CDM.2gU: For diode based primary protection,\n"
+        append rule "output driving NMOS/PMOS need >= 2 stack for pure I/O device scheme and >= 3 stack for pure core device scheme.\n"
+        append rule "For NMOS cascoded with PMOS scheme, additional Rout in series is required.\n"
+        append rule "For core device cascoded with I/O device, additional Rout in series is required.\n"
+        append rule "Exception:\n"
+        append rule "  1. Single stage NMOS/PMOS connected VDD/VSS with Rout in series.\n"
+        append rule "     The Rout value depends on the total width of NMOS/PMOS, please refer to network calculator.\n"
+        append rule "  2. Cascoded NMOS/PMOS with Rout in series.\n"
+        append rule "     The Rout value depends on the total width of cas-NMOS/PMOS, please refer to network calculator.\n"
+        append rule "  3. Devices without ESD path (S/D shorted) is exempted from this rule check.\n"
+        append rule "\n"
+        append rule "* There are two options to pass this rule check.\n"
+        append rule "* (a) meet Rout*Width criteria. (b) meet separate OD requirement.\n"
+        append rule "* Please ensure the final layout implementation can meet separate OD requirement in LDL check,\n"
+        append rule "* otherwise, please modify circuit scheme to pass Rout*width criteria in this check.\n"
+        append rule "* If the device can meet separate OD requirement, the violatin in this check can be ignored.\n"
+        append rule "* For details, please refer to methodology doc.\n"
+        perc::check_net -netType {Signal} -condition hc_dio_based_victim_topo -comment $rule
+    }
+
+
+    proc ESD.CDM.2.1gu {} {
+        set rule    "ESD.CDM.2.1gU: For diode based primary protection, snapback NMOS can't connect to IOPAD directly or through resistor.\n"
+        append rule "The checked devices include all snapback NMOS for ESD-purpose or function-purpose.\n"
+        perc::check_net -netType {Signal} -condition hc_dio_based_mos_condition -comment $rule
+    }
+
+    proc ESD.CDM.4gu {} {
+        set rule    "ESD.CDM.4gU: For cascoded power clamp protected power domain, additional reverse HIA diode\n"
+        append rule "(in parallel with cascoded power clamp) is needed. The area of HIA diode needs to meet HIA.CDM7A.3.1g >= 60\n"
+        perc::check_net -netType {Power} -condition power_clamp_diode_condition -comment $rule
+    }
+
+    proc ESD.CDM.6g {} {
+        set rule    "ESD.CDM.6.0g: Core ESD power clamp (not in OD2) can't be used for > 0.96V application.\n"
+        append rule "ESD.CDM.6.1g: Single stage I/O ESD power clamp can't be used for > 1.65V application.\n"
+        perc::check_net -netType {Power} -condition power_clamp_voltage_condition -comment $rule
+    }
+
+    proc ESD.CDM.B.1gu {} {
+        set rule    "ESD.CDM.B.1gU: On-chip global ESD bus (user defined) is required.\n"
+        append rule "Each Ground bus need connecting the global bus with back-to-back (B2B) diode or metal in short scheme.\n"
+        append rule "The back-to-back (B2B) diode can be HIA diode with perimeter meet HIA.CDM7A.3g >= 400\n"
+        perc::check_net -netType {Ground} -condition global_b2b_diode_condition -comment $rule
+    }
+
+    proc ESD.CDM.B.2gu {} {
+        set rule    "ESD.CDM.B.2gU: Cross domain back-to-back (B2B) diode is needed.\n"
+        append rule "The back-to-back (B2B) diode can be HIA diode with perimeter meet HIA.CDM7A.3g >= 400\n"
+        append rule "Exception: COMMON_GROUND protection scheme.\n"
+        perc::check_net -netType {Power} -condition cdm_b2b_diode_condition -comment $rule
+    }
+
+    proc ESD.CDM.X.1gu {} {
+        set rule    "ESD.CDM.X.1gU: For cross domain interface with core receiver (non-footer/header design), secondary ESD with ESD resistor is required.\n"
+        append rule "The secondary ESD requirement follows ESD.1.1gU, ESD.8.1gU~ESD.9.3gU and ESD.45.0gU ~ ESD.47gU.\n"
+        append rule "For IO/core cross domain interface, cross domain power clamps between vdda-to-vssb and vddb-to-vssa are required.\n"
+        append rule "This rule checks on both core/IO receiver without footer/header design.\n"
+        append rule "Exception: COMMON_GROUND protection scheme.\n"
+        perc::check_net -netType {CDM_RX} -condition xdm_protection_condition -comment $rule
+    }
+
+    proc ESD.XDM.VIC.3gu {} {
+        set rule    "ESD.XDM.VIC.3gU: NMOS/PMOS with gate connected to power directly,\n"
+        append rule "and source/drain connected to different power directly is not allowed, vice versa.\n"
+        append rule "Both I/O and core device are checked. This rule checks for common ground scenario.\n"
+        append rule "For COMMON_GROUND protection scheme, this rule can be relaxed. Checker checks only single-stage internal circuit scheme.\n"
+        append rule "Exception:\n"
+        append rule "  1. For single-stage internal circuit scheme, power clamps between both vdda/vss and vddb/vss (on the same ground plane) are two times larger than ESD.40g, ESD.40.1g, ESD.40.2gU defined.\n"
+        append rule "  2. For stacked internal circuit scheme, power clamps between both vdda/vss and vddb/vss are on the same ground plane.\n"
+        append rule "  3. For stacked internal circuit scheme, power clamps between both vdda/vssa and vddb/vssb are two times larger than ESD.40g, ESD.40.1g, ESD.40.2gU defined.\n"
+        perc::check_device -type {MP MN} -pinNetType {g Power {s d} Power} -condition gsd_diff_pwr_condition_1 -comment $rule
+    }
+
+    proc ESD.XDM.VIC.4gu {} {
+        set rule    "ESD.XDM.VIC.4gU: NMOS/PMOS with source connected to power directly,\n"
+        append rule "and drain connected to different power directly is not allowed.\n"
+        append rule "Both I/O and core device are checked. This rule checks for common ground scenario.\n"
+        append rule "For COMMON_GROUND protection scheme, this rule can be relaxed. Checker checks only single-stage internal circuit scheme.\n"
+        append rule "Exception:\n"
+        append rule "  1. For single-stage internal circuit scheme, power clamps between both vdda/vss and vddb/vss (on the same ground plane) are two times larger than ESD.40g, ESD.40.1g, ESD.40.2gU defined.\n"
+        append rule "  2. For stacked internal circuit scheme, power clamps between both vdda/vss and vddb/vss are on the same ground plane.\n"
+        append rule "  3. For stacked internal circuit scheme, power clamps between both vdda/vssa and vddb/vssb are two times larger than ESD.40g, ESD.40.1g, ESD.40.2gU defined.\n"
+        perc::check_device -type {MP MN} -pinNetType {s Power d Power} -condition sd_diff_pwr_condition_1 -comment $rule
+    }
+
+    proc ESD.XDM.VIC.3gu:gsd {} {
+        set rule    "ESD.XDM.VIC.3gU: NMOS/PMOS with gate connected to power directly,\n"
+        append rule "and source/drain connected to different power through MOS/MPODE source/drain or resistor is not allowed, vice versa.\n"
+        append rule "Both I/O and core device are checked. This rule checks for both common ground and separated ground scenario.\n"
+        append rule "For COMMON_GROUND protection scheme, this rule can be relaxed. Checker checks only single-stage internal circuit scheme.\n"
+        append rule "Exception:\n"
+        append rule "  1. For single-stage internal circuit scheme, power clamps between both vdda/vss and vddb/vss (on the same ground plane) are two times larger than ESD.40g, ESD.40.1g, ESD.40.2gU defined.\n"
+        append rule "  2. For stacked internal circuit scheme, power clamps between both vdda/vss and vddb/vss are on the same ground plane.\n"
+        append rule "  3. For stacked internal circuit scheme, power clamps between both vdda/vssa and vddb/vssb are two times larger than ESD.40g, ESD.40.1g, ESD.40.2gU defined.\n"
+        perc::check_device -type {MP MN} -pinNetType {g Power} -pinPathType {{s d} Power} -condition gsd_diff_pwr_condition -comment $rule
+    }
+
+    proc ESD.XDM.VIC.3gu:sdg {} {
+        set rule    "ESD.XDM.VIC.3gU: NMOS/PMOS with gate connected to power directly,\n"
+        append rule "and source/drain connected to different power through MOS/MPODE source/drain or resistor is not allowed, vice versa.\n"
+        append rule "Both I/O and core device are checked. This rule checks for both common ground and separated ground scenario.\n"
+        append rule "For COMMON_GROUND protection scheme, this rule can be relaxed. Checker checks only single-stage internal circuit scheme.\n"
+        append rule "Exception:\n"
+        append rule "  1. For single-stage internal circuit scheme, power clamps between both vdda/vss and vddb/vss (on the same ground plane) are two times larger than ESD.40g, ESD.40.1g, ESD.40.2gU defined.\n"
+        append rule "  2. For stacked internal circuit scheme, power clamps between both vdda/vss and vddb/vss are on the same ground plane.\n"
+        append rule "  3. For stacked internal circuit scheme, power clamps between both vdda/vssa and vddb/vssb are two times larger than ESD.40g, ESD.40.1g, ESD.40.2gU defined.\n"
+        perc::check_device -type {MP MN} -pinNetType {{s d} Power} -pinPathType {g Power} -condition sdg_diff_pwr_condition -comment $rule
+    }
+
+    proc ESD.XDM.VIC.4gu:sd {} {
+        set rule    "ESD.XDM.VIC.4gU: NMOS/PMOS with source connected to power directly,\n"
+        append rule "and drain connected to different power through MOS/MPODE source/drain or resistor is not allowed.\n"
+        append rule "Both I/O and core device are checked. This rule checks for both common ground and separated ground scenario.\n"
+        append rule "For COMMON_GROUND protection scheme, this rule can be relaxed. Checker checks only single-stage internal circuit scheme.\n"
+        append rule "Exception:\n"
+        append rule "  1. For single-stage internal circuit scheme, power clamps between both vdda/vss and vddb/vss (on the same ground plane) are two times larger than ESD.40g, ESD.40.1g, ESD.40.2gU defined.\n"
+        append rule "  2. For stacked internal circuit scheme, power clamps between both vdda/vss and vddb/vss are on the same ground plane.\n"
+        append rule "  3. For stacked internal circuit scheme, power clamps between both vdda/vssa and vddb/vssb are two times larger than ESD.40g, ESD.40.1g, ESD.40.2gU defined.\n"
+        perc::check_device -type {MP MN} -pinNetType {{s d} Power} -condition sd_diff_pwr_condition -comment $rule
+    }
+
+    ##  For LDL
+    ## ============
+    proc Power_Clamp:export {} {
+        perc::check_net -netType {Power} -condition export_power_clamp \
+                        -comment "Export power-clamp devices"
+    }
+    proc ESD_LUP:export {} {
+        perc::check_net -netType {Power || Ground || Signal || IOM1 || VirtualPower} -condition export_pad_res_path \
+                        -comment "Export power/ground nets, and signal path with resistance < 200 ohm"
+    }
+    proc ESD.CDM.1gu:export {} {
+        perc::check_net -netType {Signal || IOM1} -condition hc_mos_based_victim_export \
+                        -comment "For snapback based primary protection, export cascoded NMOS/PMOS connected to IO PAD directly or through resistor"
+    }
+    proc ESD.CDM.1.1gu:export {} {
+        perc::check_net -netType {Signal || IOM1} -condition hc_cas_mos_based_victim_export \
+                        -comment "For cascoded snapback based primary protection, export cascoded NMOS/PMOS connected to IO PAD directly or through resistor"
+    }
+    proc ESD.CDM.2gu:export {} {
+        perc::check_net -netType {Signal || IOM1} -condition hc_dio_based_victim_export \
+                        -comment "For diode based primary protection, export cascoded NMOS/PMOS connected to IO PAD directly or through resistor"
+    }
+
+
+    proc ESD.7gu:export {} {
+        perc::check_net -netType {Signal || IOM1} -condition export_io_path \
+                        -comment "Export IOPAD path through resistors"
+    }
+    proc ESD.9.5gu:export {} {
+        perc::check_net -pathType {Signal || IOM1} -condition export_pad_res_gox \
+                        -comment "Export gate oxide connected to IOPAD directly or through resistor"
+    }
+    proc ESD.35gu:export {} {
+        perc::check_net -pathType {Signal || IOM1} -condition export_cascoded_nmos \
+                        -comment "Export cascoded NMOS"
+    }
+    proc LUP.WARN.3:export {} {
+        perc::check_device -type R -pinPathType {{p n} Signal} -pinNetType {{p n} Ground} -condition export_io_ground_res \
+                        -comment "Export resistor between IOPAD and Ground nets"
+    }
+    proc LUP.WARN.3.1:export {} {
+        perc::check_device -type R -pinPathType {{p n} Signal} -pinNetType {{p n} Power} -condition export_io_power_res \
+                        -comment "Export resistor between IOPAD and Power nets"
+    }
+    proc ESD.CDM.C.3gu:export {} {
+        perc::check_device -type {MP MN} -pinNetType {{s d g} Power {s d g} Ground} -condition export_power_ground_mos \
+                        -comment "Export MOS with gate and source/drain connected between power and ground"
+    }
+    proc ESD.CDM.X.1gu:export {} {
+        perc::check_net -netType {CDM_RX} -condition export_xdm_interface \
+                        -comment "Export cross-domain interface devices"
+    }
+    proc ESD.CDM.C.4gu:export {} {
+        perc::check_net -netType {Power}  -condition export_xdm_pg_pair \
+                        -comment "Export cross-domain power-ground pairs"
+    }
+    proc ESD.CDM.C.4.1gu:export {} {
+        perc::check_net -netType {Ground} -condition export_xdm_b2b_dio \
+                        -comment "Export cross-domain back-to-back (B2B) diode"
+    }
+    proc ESD.CDM.C.5gu:export {} {
+        perc::check_data -condition export_small_power_domain -comment "Export small power domain"
+    }
+    proc LDL_DATA:export {} {
+        perc::check_data -condition export_ldl_data -comment "Export data for LDL checks"
+    }
+
+    ##  For CD
+    ## ============
+    proc ESD.CD.1gu:dio:up {} {
+        set rule    "ESD.CD.1gU: Suggested minimum ESD current (IESD) for the primary ESD discharge path >= 1800mA\n"
+        append rule "Primary ESD devices include: dual-diode\n"
+        append rule "Primary ESD discharge current path includes:\n"
+        append rule "  1. Metal line width connecting the 'bond pad' and the primary ESD device.\n"
+        append rule "  2. The Via number in the primary ESD device.\n"
+        perc::check_net -netType {Signal} -condition export_dio_cd_path_up -comment $rule
+    }
+    proc ESD.CD.1gu:dio:dn {} {
+        set rule    "ESD.CD.1gU: Suggested minimum ESD current (IESD) for the primary ESD discharge path >= 1800mA\n"
+        append rule "Primary ESD devices include: dual-diode\n"
+        append rule "Primary ESD discharge current path includes:\n"
+        append rule "  1. Metal line width connecting the 'bond pad' and the primary ESD device.\n"
+        append rule "  2. The Via number in the primary ESD device.\n"
+        perc::check_net -netType {Signal} -condition export_dio_cd_path_dn -comment $rule
+    }
+    proc ESD.CD.1gu:mos:up {} {
+        set rule    "ESD.CD.1gU: Suggested minimum ESD current (IESD) for the primary ESD discharge path >= 1800mA\n"
+        append rule "Primary ESD devices include: PMOS\n"
+        append rule "Primary ESD discharge current path includes:\n"
+        append rule "  1. Metal line width connecting the 'bond pad' and the primary ESD device.\n"
+        append rule "  2. The Via number in the primary ESD device.\n"
+        perc::check_net -netType {Signal} -condition export_mos_cd_path_up -comment $rule
+    }
+    proc ESD.CD.1gu:mos:dn {} {
+        set rule    "ESD.CD.1gU: Suggested minimum ESD current (IESD) for the primary ESD discharge path >= 1800mA\n"
+        append rule "Primary ESD devices include: drain-ballasted NMOS, drain-ballasted cascoded NMOS\n"
+        append rule "Primary ESD discharge current path includes:\n"
+        append rule "  1. Metal line width connecting the 'bond pad' and the primary ESD device.\n"
+        append rule "  2. The Via number in the primary ESD device.\n"
+        perc::check_net -netType {Signal} -condition export_mos_cd_path_dn -comment $rule
+    }
+    proc ESD.CD.1gu:pc {} {
+        set rule    "ESD.CD.1gU: Suggested minimum ESD current (IESD) for the primary ESD discharge path >= 1800mA\n"
+        append rule "Primary ESD devices include: power clamp\n"
+        append rule "Primary ESD discharge current path includes:\n"
+        append rule "  1. Metal line width connecting the 'bond pad' and the primary ESD device.\n"
+        append rule "  2. The Via number in the primary ESD device.\n"
+        perc::check_net -netType {Power} -condition export_pc_cd_path -comment $rule
+    }
+    proc ESD.CD.1gu:b2b {} {
+        set rule    "ESD.CD.1gU: Suggested minimum ESD current (IESD) for the primary ESD discharge path >= 1800mA\n"
+        append rule "Primary ESD devices include: back-to-back (B2B) diode\n"
+        append rule "Primary ESD discharge current path includes:\n"
+        append rule "  1. Metal line width connecting the 'bond pad' and the primary ESD device.\n"
+        append rule "  2. The Via number in the primary ESD device.\n"
+        perc::check_net -netType {Ground} -condition export_b2b_cd_path -comment $rule
+    }
+    proc ESD.CD.1.1gu {} {
+        set rule    "ESD.CD.1.1gU: Suggested minimum ESD current (IESD) for the ESD discharge path of the reverse HIA diode between Power and Ground >= 1800mA\n"
+        append rule "ESD discharge current path includes metal line width and the Via number connecting the 'bond pad'\n"
+        append rule "and the reverse HIA device.\n"
+        perc::check_net -netType {Power} -condition export_dio_cd_path -comment $rule
+    }
+    proc ESD.CD.2gu:dio:up {} {
+        set    rule "ESD.CD.2gU: Suggested minimum ESD current (IESD) for the secondary ESD discharge path >= 22mA\n"
+        append rule "Secondary ESD devices include: ESD resistor and diode based secondary protection\n"
+        append rule "Secondary ESD discharge current path includes:\n"
+        append rule "  1. Metal line width connecting the 'bond pad' and the secondary ESD device.\n"
+        append rule "  2. The Via number in the secondary ESD device.\n"
+        perc::check_net -netType {!TopPorts} -pathType {Signal} -condition export_dio_cd_path_up -comment $rule
+    }
+    proc ESD.CD.2gu:dio:dn {} {
+        set    rule "ESD.CD.2gU: Suggested minimum ESD current (IESD) for the secondary ESD discharge path >= 22mA\n"
+        append rule "Secondary ESD devices include: ESD resistor and diode based secondary protection\n"
+        append rule "Secondary ESD discharge current path includes:\n"
+        append rule "  1. Metal line width connecting the 'bond pad' and the secondary ESD device.\n"
+        append rule "  2. The Via number in the secondary ESD device.\n"
+        perc::check_net -netType {!TopPorts} -pathType {Signal} -condition export_dio_cd_path_dn -comment $rule
+    }
+    proc ESD.CD.2gu:mos:up {} {
+        set    rule "ESD.CD.2gU: Suggested minimum ESD current (IESD) for the secondary ESD discharge path >= 22mA\n"
+        append rule "Secondary ESD devices include: ESD resistor and MOS based secondary protection\n"
+        append rule "Secondary ESD discharge current path includes:\n"
+        append rule "  1. Metal line width connecting the 'bond pad' and the secondary ESD device.\n"
+        append rule "  2. The Via number in the secondary ESD device.\n"
+        perc::check_net -netType {!TopPorts} -pathType {Signal} -condition export_mos_cd_path_up -comment $rule
+    }
+    proc ESD.CD.2gu:mos:dn {} {
+        set    rule "ESD.CD.2gU: Suggested minimum ESD current (IESD) for the secondary ESD discharge path >= 22mA\n"
+        append rule "Secondary ESD devices include: ESD resistor and MOS based secondary protection\n"
+        append rule "Secondary ESD discharge current path includes:\n"
+        append rule "  1. Metal line width connecting the 'bond pad' and the secondary ESD device.\n"
+        append rule "  2. The Via number in the secondary ESD device.\n"
+        perc::check_net -netType {!TopPorts} -pathType {Signal} -condition export_mos_cd_path_dn -comment $rule
+    }
+    proc ESD.CD.3.1gu:pact {} {
+        set    rule "ESD.CD.3.1gU: For single stage snapback NMOS protected IOPAD,\n"
+        append rule "minimum ESD current for parasitic SCR discharging path through 200ohm ESD resistor >= 7mA\n"
+        append rule "Parasitic SCR path forms by followings,\n"
+        append rule "  1. ESD_SCR_ANODE = PACT \[connected to IOPAD (state above) through 200ohm resistor]\n"
+        append rule "  2. ESD_SCR_CATHODE = (NW AND OD) \[space to ESD_SCR_ANODE (state above) <= 6 um]\n"
+        append rule "     \[connected to any different I/O (directly or through any resistor) or power/ground pad (directly)]\n"
+        perc::check_net -netType {Signal} -condition export_pact_cd_path_cd31 -comment $rule
+    }
+    proc ESD.CD.3.1gu:nstp {} {
+        set    rule "ESD.CD.3.1gU: For single stage snapback NMOS protected IOPAD,\n"
+        append rule "minimum ESD current for parasitic SCR discharging path through 200ohm ESD resistor >= 7mA\n"
+        append rule "Parasitic SCR path forms by followings,\n"
+        append rule "  1. ESD_SCR_ANODE = PACT \[connected to IOPAD (state above) through 200ohm resistor]\n"
+        append rule "  2. ESD_SCR_CATHODE = (NW AND OD) \[space to ESD_SCR_ANODE (state above) <= 6 um]\n"
+        append rule "     \[connected to any different I/O (directly or through any resistor) or power/ground pad (directly)]\n"
+        perc::check_net -netType {Power || Ground || Signal} -condition export_nstp_cd_path_cd31 -comment $rule
+    }
+    proc ESD.CD.3.2gu:pact {} {
+        set    rule "ESD.CD.3.2gU: For single stage snapback NMOS protected IOPAD,\n"
+        append rule "minimum ESD current for parasitic SCR discharging path not through 200ohm ESD resistor >= 12mA\n"
+        append rule "Parasitic SCR path forms by followings,\n"
+        append rule "  1. ESD_SCR_ANODE = PACT \[connected to IOPAD (state above) directly or through < 200ohm resistor]\n"
+        append rule "  2. ESD_SCR_CATHODE = (NW AND OD) \[space to ESD_SCR_ANODE (state above) <= 6 um]\n"
+        append rule "     \[connected to any different I/O (directly or through any resistor) or power/ground pad (directly)]\n"
+        perc::check_net -netType {Signal} -condition export_pact_cd_path_cd32 -comment $rule
+    }
+    proc ESD.CD.3.2gu:nstp {} {
+        set    rule "ESD.CD.3.2gU: For single stage snapback NMOS protected IOPAD,\n"
+        append rule "minimum ESD current for parasitic SCR discharging path not through 200ohm ESD resistor >= 12mA\n"
+        append rule "Parasitic SCR path forms by followings,\n"
+        append rule "  1. ESD_SCR_ANODE = PACT \[connected to IOPAD (state above) directly or through < 200ohm resistor]\n"
+        append rule "  2. ESD_SCR_CATHODE = (NW AND OD) \[space to ESD_SCR_ANODE (state above) <= 6 um]\n"
+        append rule "     \[connected to any different I/O (directly or through any resistor) or power/ground pad (directly)]\n"
+        perc::check_net -netType {Power || Ground || Signal} -condition export_nstp_cd_path_cd32 -comment $rule
+    }
+    proc ESD.CD.3.3gu:pact {} {
+        set    rule "ESD.CD.3.3gU: For cascoded snapback NMOS protected IOPAD,\n"
+        append rule "minimum ESD current for parasitic SCR discharging path through 200ohm ESD resistor >= 12mA\n"
+        append rule "Parasitic SCR path forms by followings,\n"
+        append rule "  1. ESD_SCR_ANODE = PACT \[connected to IOPAD (state above) through 200ohm resistor]\n"
+        append rule "  2. ESD_SCR_CATHODE = (NW AND OD) \[space to ESD_SCR_ANODE (state above) <= 9 um]\n"
+        append rule "     \[connected to any different I/O (directly or through any resistor) or power/ground pad (directly)]\n"
+        perc::check_net -netType {Signal} -condition export_pact_cd_path_cd33 -comment $rule
+    }
+    proc ESD.CD.3.3gu:nstp {} {
+        set    rule "ESD.CD.3.3gU: For cascoded snapback NMOS protected IOPAD,\n"
+        append rule "minimum ESD current for parasitic SCR discharging path through 200ohm ESD resistor >= 12mA\n"
+        append rule "Parasitic SCR path forms by followings,\n"
+        append rule "  1. ESD_SCR_ANODE = PACT \[connected to IOPAD (state above) through 200ohm resistor]\n"
+        append rule "  2. ESD_SCR_CATHODE = (NW AND OD) \[space to ESD_SCR_ANODE (state above) <= 9 um]\n"
+        append rule "     \[connected to any different I/O (directly or through any resistor) or power/ground pad (directly)]\n"
+        perc::check_net -netType {Power || Ground || Signal} -condition export_nstp_cd_path_cd33 -comment $rule
+    }
+    proc ESD.CD.3.4gu:pact {} {
+        set    rule "ESD.CD.3.4gU: For cascoded snapback NMOS protected IOPAD,\n"
+        append rule "minimum ESD current for parasitic SCR discharging path not through 200ohm ESD resistor >= 24mA\n"
+        append rule "Parasitic SCR path forms by followings,\n"
+        append rule "  1. ESD_SCR_ANODE = PACT \[connected to IOPAD (state above) directly or through < 200ohm resistor]\n"
+        append rule "  2. ESD_SCR_CATHODE = (NW AND OD) \[space to ESD_SCR_ANODE (state above) <= 9 um]\n"
+        append rule "     \[connected to any different I/O (directly or through any resistor) or power/ground pad (directly)]\n"
+        perc::check_net -netType {Signal} -condition export_pact_cd_path_cd34 -comment $rule
+    }
+    proc ESD.CD.3.4gu:nstp {} {
+        set    rule "ESD.CD.3.4gU: For cascoded snapback NMOS protected IOPAD,\n"
+        append rule "minimum ESD current for parasitic SCR discharging path not through 200ohm ESD resistor >= 24mA\n"
+        append rule "Parasitic SCR path forms by followings,\n"
+        append rule "  1. ESD_SCR_ANODE = PACT \[connected to IOPAD (state above) directly or through < 200ohm resistor]\n"
+        append rule "  2. ESD_SCR_CATHODE = (NW AND OD) \[space to ESD_SCR_ANODE (state above) <= 9 um]\n"
+        append rule "     \[connected to any different I/O (directly or through any resistor) or power/ground pad (directly)]\n"
+        perc::check_net -netType {Power || Ground || Signal} -condition export_nstp_cd_path_cd34 -comment $rule
+    }
+    proc ESD_D2D.CDM.CD.1gu_05V:dio:up {} {
+        set    rule "ESD_D2D.CDM.CD.1gU: Suggested minimum ESD current for the D2D ESD discharge path >= 11mA\n"
+        append rule "D2D ESD devices include dual-diode\n"
+        append rule "D2D ESD discharge current path includes metal width and via numbers connecting the D2D Net and D2D ESD device.\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM05V} -condition export_d2d_dio_cd_path_up -comment $rule
+    }
+    proc ESD_D2D.CDM.CD.1gu_05V:dio:dn {} {
+        set    rule "ESD_D2D.CDM.CD.1gU: Suggested minimum ESD current for the D2D ESD discharge path >= 11mA\n"
+        append rule "D2D ESD devices include dual-diode\n"
+        append rule "D2D ESD discharge current path includes metal width and via numbers connecting the D2D Net and D2D ESD device.\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM05V} -condition export_d2d_dio_cd_path_dn -comment $rule
+    }
+    proc ESD_D2D.CDM.CD.1gu_05V:mos:up {} {
+        set    rule "ESD_D2D.CDM.CD.1gU: Suggested minimum ESD current for the D2D ESD discharge path >= 11mA\n"
+        append rule "D2D ESD devices include MOS\n"
+        append rule "D2D ESD discharge current path includes metal width and via numbers connecting the D2D Net and D2D ESD device.\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM05V} -condition export_d2d_mos_cd_path_up -comment $rule
+    }
+    proc ESD_D2D.CDM.CD.1gu_05V:mos:dn {} {
+        set    rule "ESD_D2D.CDM.CD.1gU: Suggested minimum ESD current for the D2D ESD discharge path >= 11mA\n"
+        append rule "D2D ESD devices include MOS\n"
+        append rule "D2D ESD discharge current path includes metal width and via numbers connecting the D2D Net and D2D ESD device.\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM05V} -condition export_d2d_mos_cd_path_dn -comment $rule
+    }
+    proc ESD_D2D.CDM.CD.1gu_35V:dio:up {} {
+        set    rule "ESD_D2D.CDM.CD.1gU: Suggested minimum ESD current for the D2D ESD discharge path >= 58mA\n"
+        append rule "D2D ESD devices include dual-diode\n"
+        append rule "D2D ESD discharge current path includes metal width and via numbers connecting the D2D Net and D2D ESD device.\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM35V} -condition export_d2d_dio_cd_path_up -comment $rule
+    }
+    proc ESD_D2D.CDM.CD.1gu_35V:dio:dn {} {
+        set    rule "ESD_D2D.CDM.CD.1gU: Suggested minimum ESD current for the D2D ESD discharge path >= 58mA\n"
+        append rule "D2D ESD devices include dual-diode\n"
+        append rule "D2D ESD discharge current path includes metal width and via numbers connecting the D2D Net and D2D ESD device.\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM35V} -condition export_d2d_dio_cd_path_dn -comment $rule
+    }
+    proc ESD_D2D.CDM.CD.1gu_35V:mos:up {} {
+        set    rule "ESD_D2D.CDM.CD.1gU: Suggested minimum ESD current for the D2D ESD discharge path >= 58mA\n"
+        append rule "D2D ESD devices include MOS\n"
+        append rule "D2D ESD discharge current path includes metal width and via numbers connecting the D2D Net and D2D ESD device.\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM35V} -condition export_d2d_mos_cd_path_up -comment $rule
+    }
+    proc ESD_D2D.CDM.CD.1gu_35V:mos:dn {} {
+        set    rule "ESD_D2D.CDM.CD.1gU: Suggested minimum ESD current for the D2D ESD discharge path >= 58mA\n"
+        append rule "D2D ESD devices include MOS\n"
+        append rule "D2D ESD discharge current path includes metal width and via numbers connecting the D2D Net and D2D ESD device.\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM35V} -condition export_d2d_mos_cd_path_dn -comment $rule
+    }
+
+
+    proc export_mos_cd_path_up { p_net } { return [export_esd_path $p_net "cd" "mos" "pad" "src" "up"] }
+    proc export_dio_cd_path_up { p_net } { return [export_esd_path $p_net "cd" "dio" "pad" "src" "up"] }
+    proc export_mos_cd_path_dn { p_net } { return [export_esd_path $p_net "cd" "mos" "pad" "src" "down"] }
+    proc export_dio_cd_path_dn { p_net } { return [export_esd_path $p_net "cd" "dio" "pad" "src" "down"] }
+    proc export_pc_cd_path     { p_net } { return [export_pc_path  $p_net "cd" "all" "full"] }
+    proc export_b2b_cd_path    { p_net } { return [export_b2b_path $p_net "cd" "pad" "full"] }
+    proc export_dio_cd_path    { p_net } { return [export_pc_path  $p_net "cd" "dio" "full"] }
+    proc export_d2d_mos_cd_path_up  { p_net } { return [export_d2d_path $p_net "cd" "mos" "pad" "src" "up"] }
+    proc export_d2d_dio_cd_path_up  { p_net } { return [export_d2d_path $p_net "cd" "dio" "pad" "src" "up"] }
+    proc export_d2d_mos_cd_path_dn  { p_net } { return [export_d2d_path $p_net "cd" "mos" "pad" "src" "down"] }
+    proc export_d2d_dio_cd_path_dn  { p_net } { return [export_d2d_path $p_net "cd" "dio" "pad" "src" "down"] }
+
+    proc export_pact_cd_path_cd31 { p_net } { return [export_scr_path $p_net "cd" "pact" "CD31"] }
+    proc export_pact_cd_path_cd32 { p_net } { return [export_scr_path $p_net "cd" "pact" "CD32"] }
+    proc export_pact_cd_path_cd33 { p_net } { return [export_scr_path $p_net "cd" "pact" "CD33"] }
+    proc export_pact_cd_path_cd34 { p_net } { return [export_scr_path $p_net "cd" "pact" "CD34"] }
+    proc export_nstp_cd_path_cd31 { p_net } { return [export_scr_path $p_net "cd" "nstp" "CD31"] }
+    proc export_nstp_cd_path_cd32 { p_net } { return [export_scr_path $p_net "cd" "nstp" "CD32"] }
+    proc export_nstp_cd_path_cd33 { p_net } { return [export_scr_path $p_net "cd" "nstp" "CD33"] }
+    proc export_nstp_cd_path_cd34 { p_net } { return [export_scr_path $p_net "cd" "nstp" "CD34"] }
+
+    ##  For P2P
+    ## ============
+    proc ESD.14.3.2gu {} {
+        set rule    "ESD.14.3.2gU:\n"
+        append rule "  Resistance of the Power bus line from IOPAD to the closest Power clamp <= 1 ohm\n"
+        perc::check_net -netType {Signal && !LC_Pad} -condition export_io2dio2pc_p2p_path_up -comment $rule
+    }
+    proc ESD.14.3.1gu:dio {} {
+        set rule    "ESD.14.3.1gU:\n"
+        append rule "  Resistance of the ground bus line from IOPAD to the closest Power clamp through Diode <= 1 ohm\n"
+        perc::check_net -netType {Signal && !LC_Pad} -condition export_io2dio2pc_p2p_path_dn -comment $rule
+    }
+    proc ESD.14.3.1gu:mos {} {
+        set rule    "ESD.14.3.1gU:\n"
+        append rule "  Resistance of the ground bus line from IOPAD to the closest Power clamp through NMOS <= 1 ohm\n"
+        perc::check_net -netType {Signal && !LC_Pad} -condition export_io2mos2pc_p2p_path_dn -comment $rule
+    }
+    proc ESD.14.4gu {} {
+        set rule    "ESD.14.4gU:\n"
+        append rule "  Resistance of the bus line from Power pad to the closest Ground Pad <= 1 ohm\n"
+        perc::check_net -netType {Power} -condition export_pwr2gnd_p2p_path -comment $rule
+    }
+    proc ESD.14.5.2gu {} {
+        set rule    "ESD.14.5.2gU:\n"
+        append rule "  Resistance of the power bus line from 2nd ESD Diode to the closest Power Clamp <= 10 ohm\n"
+        perc::check_net -netType {!TopPorts} -pathType {Signal} -condition export_dio2pc_p2p_path_up -comment $rule
+    }
+    proc ESD.14.5.1gu {} {
+        set rule    "ESD.14.5.1gU:\n"
+        append rule "  Resistance of the ground bus line from 2nd ESD Diode to the closest Power clamp <= 10 ohm\n"
+        perc::check_net -netType {!TopPorts} -pathType {Signal} -condition export_dio2pc_p2p_path_dn -comment $rule
+    }
+    proc ESD.14.6gu {} {
+        set rule    "ESD.14.6gU:\n"
+        append rule "  Resistance of bus line from the Pick-up_ring of LUP.1.0.1U to the closest Power/Ground Pad <= 1 ohm\n"
+        perc::check_net -netType {Power || Ground} -condition export_pad2pickup_p2p_path -comment $rule
+    }
+    proc ESD.14.7gu {} {
+        set rule    "ESD.14.7gU:\n"
+        append rule "  Resistance of bus line from the Pick-up_ring/Guard-ring/LUP_STRAP of LUP.2.0.1U and LUP.2.1U to the closest Power/Ground Pad <= 10 ohm\n"
+        perc::check_net -netType {Power || Ground} -condition export_pad2strap_p2p_path -comment $rule
+    }
+    proc ESD.14.8gu {} {
+        set rule    "ESD.14.8gU:\n"
+        append rule "  Resistance of bus line from the Guard-ring of LUP.14.0.1U to the closest Power/Ground Pad <= 10 ohm\n"
+        perc::check_net -netType {Power || Ground} -condition export_pad2guard_p2p_path -comment $rule
+    }
+
+    ## For LC
+    proc ESD.LCP2P.1.2gu {} {
+        set rule    "ESD.LCP2P.1.2gU: Metal Bus resistance of IOPAD to ESD pull-up diode inside LC_DMY <= 0.07 ohm\n"
+        append rule "ESD.LCP2P.1.0gU: Metal Bus resistance of R0 in ESD.LCP2P.1.1gU, ESD.LCP2P.1.2gU <= 2.1 ohm\n"
+        perc::check_net -netType {Signal && LC_Pad} -condition export_io2dioi_p2p_path_up -comment $rule
+    }
+    proc ESD.LCP2P.1.1gu {} {
+        set rule    "ESD.LCP2P.1.1gU: Metal Bus resistance of IOPAD to ESD pull-down diode inside LC_DMY <= 0.07 ohm\n"
+        append rule "ESD.LCP2P.1.0gU: Metal Bus resistance of R0 in ESD.LCP2P.1.1gU, ESD.LCP2P.1.2gU <= 2.1 ohm\n"
+        perc::check_net -netType {Signal && LC_Pad} -condition export_io2dioi_p2p_path_dn -comment $rule
+    }
+    proc ESD.LCP2P.2.2gu {} {
+        set rule    "ESD.LCP2P.2.2gU: Metal Bus resistance of ESD pull-up diode inside LC_DMY to power clamp <= 0.07 ohm\n"
+        perc::check_net -netType {Signal && LC_Pad} -condition export_dioi2pc_p2p_path_up -comment $rule
+    }
+    proc ESD.LCP2P.2.1gu {} {
+        set rule    "ESD.LCP2P.2.1gU: Metal Bus resistance of ESD pull-down diode inside LC_DMY to power clamp <= 0.07 ohm\n"
+        perc::check_net -netType {Signal && LC_Pad} -condition export_dioi2pc_p2p_path_dn -comment $rule
+    }
+
+    ## For Hi-CDM
+    proc ESD.CDM.P.1.0.1gu {} {
+        set rule    "ESD.CDM.P.1.0.1gU: Metal Bus resistance of IOPAD to ESD pull-down diode <= 0.07 ohm\n"
+        append rule "ESD.CDM.P.1.0gU: Metal Bus resistance of R0 in ESD.CDM.P.1.0.1gU <= 2.1 ohm\n"
+        perc::check_net -netType {Signal && !LC_Pad} -condition export_io2dio_p2p_path_dn -comment $rule
+    }
+    proc ESD.CDM.P.1.0.2gu {} {
+        set rule    "ESD.CDM.P.1.0.2gU: Metal Bus resistance of IOPAD to ESD pull-up diode <= 0.07 ohm\n"
+        append rule "ESD.CDM.P.1.0gU: Metal Bus resistance of R0 in ESD.CDM.P.1.0.2gU <= 2.1 ohm\n"
+        perc::check_net -netType {Signal && !LC_Pad} -condition export_io2dio_p2p_path_up -comment $rule
+    }
+    proc ESD.CDM.P.1.0.3gu {} {
+        set rule    "ESD.CDM.P.1.0.3gU: Metal Bus resistance of IOPAD to ESD snapback NMOS <= 0.07 ohm\n"
+        append rule "ESD.CDM.P.1.0gU: Metal Bus resistance of R0 in ESD.CDM.P.1.0.3gU <= 2.1 ohm\n"
+        perc::check_net -netType {Signal && !LC_Pad} -condition export_io2mos_p2p_path_dn -comment $rule
+    }
+    proc ESD.CDM.P.1.1.0.1gu {} {
+        set rule    "ESD.CDM.P.1.1.0.1gU: Metal Bus resistance from primary ESD pull-down diode to closest ground pad <= 0.7 ohm\n"
+        perc::check_net -netType {Signal} -condition export_dio2pad_p2p_path_dn -comment $rule
+    }
+    proc ESD.CDM.P.1.1.0.2gu {} {
+        set rule    "ESD.CDM.P.1.1.0.2gU: Metal Bus resistance from primary ESD pull-up diode to closest power pad <= 0.7 ohm\n"
+        perc::check_net -netType {Signal} -condition export_dio2pad_p2p_path_up -comment $rule
+    }
+    proc ESD.CDM.P.1.1.0.3gu {} {
+        set rule    "ESD.CDM.P.1.1.0.3gU: Metal Bus resistance from primary ESD snapback NMOS to closest ground pad <= 0.7 ohm\n"
+        perc::check_net -netType {Signal} -condition export_mos2pad_p2p_path_dn -comment $rule
+    }
+    proc ESD.CDM.P.1.2.0.1gu {} {
+        set rule    "ESD.CDM.P.1.2.0.1gU: Metal Bus resistance between stacked diode of primary ESD pull-down diodes <= 0.07 ohm\n"
+        perc::check_net -netType {Signal} -condition export_stack_dio_p2p_path_dn -comment $rule
+    }
+    proc ESD.CDM.P.1.2.0.2gu {} {
+        set rule    "ESD.CDM.P.1.2.0.2gU: Metal Bus resistance between stacked diode of primary ESD pull-up diodes <= 0.07 ohm\n"
+        perc::check_net -netType {Signal} -condition export_stack_dio_p2p_path_up -comment $rule
+    }
+    proc ESD.CDM.P.2.0.1gu {} {
+        set rule    "ESD.CDM.P.2.0.1gU: Metal Bus resistance of ESD pull-down diode to power clamp <= 0.2 ohm\n"
+        perc::check_net -netType {Signal && !LC_Pad} -condition export_dio2pc_p2p_path_dn -comment $rule
+    }
+    proc ESD.CDM.P.2.0.2gu {} {
+        set rule    "ESD.CDM.P.2.0.2gU: Metal Bus resistance of ESD pull-up diode to power clamp <= 0.2 ohm\n"
+        perc::check_net -netType {Signal && !LC_Pad} -condition export_dio2pc_p2p_path_up -comment $rule
+    }
+    proc ESD.CDM.P.2.0.3gu {} {
+        set rule    "ESD.CDM.P.2.0.3gU: Metal Bus resistance of ESD snapback NMOS to power clamp <= 0.2 ohm\n"
+        perc::check_net -netType {Signal && !LC_Pad} -condition export_mos2pc_p2p_path_dn -comment $rule
+    }
+    proc ESD.CDM.P.2.1gu {} {
+        set rule    "ESD.CDM.P.2.1gU: Metal Bus resistance of ESD 2-stage snapback NMOS to reverse HIA diode <= 0.2 ohm\n"
+        perc::check_net -netType {Signal} -condition export_cas_mos2dio_p2p_path_dn -comment $rule
+    }
+    proc ESD.CDM.P.3.0.1gu {} {
+        set rule    "ESD.CDM.P.3.0.1gU: Metal Bus resistance of Ground pad to core power clamp <= 0.07 ohm\n"
+        perc::check_net -netType {Power} -condition export_pc2gnd_core_p2p_path -comment $rule
+    }
+    proc ESD.CDM.P.3.0.2gu {} {
+        set rule    "ESD.CDM.P.3.0.2gU: Metal Bus resistance of Power pad to core power clamp <= 0.07 ohm\n"
+        perc::check_net -netType {Power} -condition export_pwr2pc_core_p2p_path -comment $rule
+    }
+    proc ESD.CDM.P.4.0.1gu {} {
+        set rule    "ESD.CDM.P.4.0.1gU: Metal Bus resistance of Ground pad to I/O power clamp <= 0.14 ohm\n"
+        perc::check_net -netType {Power} -condition export_pc2gnd_io_p2p_path -comment $rule
+    }
+    proc ESD.CDM.P.4.0.2gu {} {
+        set rule    "ESD.CDM.P.4.0.2gU: Metal Bus resistance of Power pad to I/O power clamp <= 0.14 ohm\n"
+        perc::check_net -netType {Power} -condition export_pwr2pc_io_p2p_path -comment $rule
+    }
+    proc ESD.CDM.P.5.0.1gu {} {
+        set rule    "ESD.CDM.P.5.0.1gU: Metal Bus resistance of Ground pad to cascoded I/O power clamp <= 0.14 ohm\n"
+        perc::check_net -netType {Power} -condition export_pc2gnd_cas_p2p_path -comment $rule
+    }
+    proc ESD.CDM.P.5.0.2gu {} {
+        set rule    "ESD.CDM.P.5.0.2gU: Metal Bus resistance of Power pad to cascoded I/O power clamp <= 0.14 ohm\n"
+        perc::check_net -netType {Power} -condition export_pwr2pc_cas_p2p_path -comment $rule
+    }
+    proc ESD.CDM.P.5.1.0.1gu {} {
+        set rule    "ESD.CDM.P.5.1.0.1gU: Metal Bus resistance of Ground pad to reverse HIA diode <= 0.14 ohm\n"
+        perc::check_net -netType {Power} -condition export_dio2gnd_p2p_path -comment $rule
+    }
+    proc ESD.CDM.P.5.1.0.2gu {} {
+        set rule    "ESD.CDM.P.5.1.0.2gU: Metal Bus resistance of Power pad to reverse HIA diode <= 0.14 ohm\n"
+        perc::check_net -netType {Power} -condition export_pwr2dio_p2p_path -comment $rule
+    }
+    proc ESD.CDM.P.7.0.1gu {} {
+        set rule    "ESD.CDM.P.7.0.1gU: Metal Bus resistance from I/O Power clamp to the closest I/O power clamp on ground net <= 1.4 ohm\n"
+        perc::check_net -netType {Ground} -condition export_pc2pc_io_p2p_path -comment $rule
+    }
+    proc ESD.CDM.P.7.0.2gu {} {
+        set rule    "ESD.CDM.P.7.0.2gU: Metal Bus resistance from I/O Power clamp to the closest I/O power clamp on power net <= 1.4 ohm\n"
+        perc::check_net -netType {Power} -condition export_pc2pc_io_p2p_path -comment $rule
+    }
+    proc ESD.CDM.P.7.1.0.1gu {} {
+        set rule    "ESD.CDM.P.7.1.0.1gU: Metal Bus resistance from core Power clamp to the closest core power clamp on ground net <= 0.7 ohm\n"
+        perc::check_net -netType {Ground} -condition export_pc2pc_core_p2p_path -comment $rule
+    }
+    proc ESD.CDM.P.7.1.0.2gu {} {
+        set rule    "ESD.CDM.P.7.1.0.2gU: Metal Bus resistance from core Power clamp to the closest core power clamp on power net <= 1 ohm\n"
+        perc::check_net -netType {Power} -condition export_pc2pc_core_p2p_path -comment $rule
+    }
+    proc ESD.CDM.P.7.2.0.1gu {} {
+        set rule    "ESD.CDM.P.7.2.0.1gU: Metal Bus resistance from cascoded I/O Power clamp to the closest cascoded I/O power clamp on ground net <= 1.4 ohm\n"
+        perc::check_net -netType {Ground} -condition export_pc2pc_cas_p2p_path -comment $rule
+    }
+    proc ESD.CDM.P.7.2.0.2gu {} {
+        set rule    "ESD.CDM.P.7.2.0.2gU: Metal Bus resistance from cascoded I/O Power clamp to the closest cascoded I/O power clamp on power net <= 1.4 ohm\n"
+        perc::check_net -netType {Power} -condition export_pc2pc_cas_p2p_path -comment $rule
+    }
+    proc ESD.CDM.P.7.3gu {} {
+        set rule    "ESD.CDM.P.7.3gU: Metal Bus resistance from I/O Power clamp to the closest cascoded I/O power clamp <= 1.4 ohm\n"
+        perc::check_net -netType {Power || Ground} -condition export_pc2pc_io2cas_p2p_path -comment $rule
+    }
+    proc ESD.CDM.P.7.4gu {} {
+        set rule    "ESD.CDM.P.7.4gU: Metal Bus resistance from I/O Power clamp to the closest core power clamp <= 0.7 ohm\n"
+        perc::check_net -netType {Power || Ground} -condition export_pc2pc_io2core_p2p_path -comment $rule
+    }
+    proc ESD.CDM.P.7.5gu {} {
+        set rule    "ESD.CDM.P.7.5gU: Metal Bus resistance from core Power clamp to the closest cascoded I/O power clamp <= 0.7 ohm\n"
+        perc::check_net -netType {Power || Ground} -condition export_pc2pc_core2cas_p2p_path -comment $rule
+    }
+    proc ESD.CDM.P.8gu {} {
+        set rule    "ESD.CDM.P.8gU: Metal Bus resistance from back-to-back (B2B) diode to closest ground pad <= 0.2 ohm\n"
+        append rule "Exception: COMMON_GROUND protection scheme.\n"
+        perc::check_net -netType {Ground} -condition export_b2b2pad_p2p_path -comment $rule
+    }
+    proc ESD.CDM.P.9gu {} {
+        set rule    "ESD.CDM.P.9gU: Metal Bus resistance from back-to-back (B2B) diode to closest power clamp <= 0.2 ohm\n"
+        append rule "Exception: COMMON_GROUND protection scheme.\n"
+        perc::check_net -netType {Ground} -condition export_b2b2pc_p2p_path -comment $rule
+    }
+    proc ESD.CDM.P.10gu {} {
+        set rule    "ESD.CDM.P.10gU: Metal Bus resistance of Guard-rings for internal circuits ESD isolation purpose <= 10 ohm\n"
+        append rule "  Guard-rings definitions are illustrated in ESD.CDM.1gU, ESD.CDM.1.1gU, ESD.CDM.2gU.\n"
+        append rule "  N+ Guard-ring for separated NW PMOS in ESD.CDM.1gU and ESD.CDM.1.1gU are exempeted from this rule check.\n"
+        perc::check_net -netType {Power || Ground} -condition export_pad2ring_p2p_path -comment $rule
+    }
+    proc ESD.XDM.P.1gu {} {
+        set rule    "ESD.XDM.P.1gU: Metal Bus resistance of back-to-back (B2B) diode to local power clamp of cross domain interface <= 0.17 ohm\n"
+        append rule "Exception: COMMON_GROUND protection scheme.\n"
+        perc::check_net -netType {Power} -condition export_xdm_b2b2pc_p2p_path -comment $rule
+    }
+
+    ## For Full-Path
+    proc ESD.DISTP2P.1.0.2gu {} {
+        set rule "ESD.DISTP2P.1.0.2gU: ESD discharging path resistance of IOPAD to ground bump through ESD pull-up diode and core power clamp <= 0.78 ohm\n"
+        append rule "ESD.DISTP2P.1.0gU: Metal Bus resistance of R0 in ESD.DISTP2P.1.0.1gU, ESD.DISTP2P.1.0.2gU <= 2.1 ohm\n"
+        perc::check_net -netType {Signal && !LC_Pad} -condition export_io2pcc2pad_p2p_path_up -comment $rule
+    }
+    proc ESD.DISTP2P.1.0.1gu {} {
+        set rule "ESD.DISTP2P.1.0.1gU: ESD discharging path resistance of IOPAD to power bump through ESD pull-down diode and core power clamp <= 0.78 ohm\n"
+        append rule "ESD.DISTP2P.1.0gU: Metal Bus resistance of R0 in ESD.DISTP2P.1.0.1gU, ESD.DISTP2P.1.0.2gU <= 2.1 ohm\n"
+        perc::check_net -netType {Signal && !LC_Pad} -condition export_io2pcc2pad_p2p_path_dn -comment $rule
+    }
+    proc ESD.DISTP2P.1.1.0.2gu {} {
+        set rule "ESD.DISTP2P.1.1.0.2gU: ESD discharging path resistance of IOPAD to ground bump through ESD pull-up diode and I/O power clamp <= 0.94 ohm\n"
+        append rule "ESD.DISTP2P.1.1.0gU: Metal Bus resistance of R0 in ESD.DISTP2P.1.1.0.1gU, ESD.DISTP2P.1.1.0.2gU <= 2.1 ohm\n"
+        perc::check_net -netType {Signal && !LC_Pad} -condition export_io2pci2pad_p2p_path_up -comment $rule
+    }
+    proc ESD.DISTP2P.1.1.0.1gu {} {
+        set rule "ESD.DISTP2P.1.1.0.1gU: ESD discharging path resistance of IOPAD to power bump through ESD pull-down diode and I/O power clamp <= 0.94 ohm\n"
+        append rule "ESD.DISTP2P.1.1.0gU: Metal Bus resistance of R0 in ESD.DISTP2P.1.1.0.1gU, ESD.DISTP2P.1.1.0.2gU <= 2.1 ohm\n"
+        perc::check_net -netType {Signal && !LC_Pad} -condition export_io2pci2pad_p2p_path_dn -comment $rule
+    }
+    proc ESD.DISTP2P.1.2.0.2gu {} {
+        set rule "ESD.DISTP2P.1.2.0.2gU: ESD discharging path resistance of Low-Cap IOPAD to ground bump through Low-Cap ESD dual diode and core power clamp <= 0.65 ohm\n"
+        append rule "ESD.DISTP2P.1.2.0gU: Metal Bus resistance of R0 in ESD.DISTP2P.1.2.0.1gU, ESD.DISTP2P.1.2.0.2gU <= 2.1 ohm\n"
+        perc::check_net -netType {Signal && LC_Pad} -condition export_io2pcc2pad_p2p_path_up -comment $rule
+    }
+    proc ESD.DISTP2P.1.2.0.1gu {} {
+        set rule "ESD.DISTP2P.1.2.0.1gU: ESD discharging path resistance of Low-Cap IOPAD to power bump through Low-Cap ESD dual diode and core power clamp <= 0.65 ohm\n"
+        append rule "ESD.DISTP2P.1.2.0gU: Metal Bus resistance of R0 in ESD.DISTP2P.1.2.0.1gU, ESD.DISTP2P.1.2.0.2gU <= 2.1 ohm\n"
+        perc::check_net -netType {Signal && LC_Pad} -condition export_io2pcc2pad_p2p_path_dn -comment $rule
+    }
+    proc ESD.DISTP2P.1.3.0.2gu {} {
+        set rule "ESD.DISTP2P.1.3.0.2gU: ESD discharging path resistance of Low-Cap IOPAD to ground bump through Low-Cap ESD dual diode and I/O power clamp <= 0.81 ohm\n"
+        append rule "ESD.DISTP2P.1.3.0gU: Metal Bus resistance of R0 in ESD.DISTP2P.1.3.0.1gU, ESD.DISTP2P.1.3.0.2gU <= 2.1 ohm\n"
+        perc::check_net -netType {Signal && LC_Pad} -condition export_io2pci2pad_p2p_path_up -comment $rule
+    }
+    proc ESD.DISTP2P.1.3.0.1gu {} {
+        set rule "ESD.DISTP2P.1.3.0.1gU: ESD discharging path resistance of Low-Cap IOPAD to power bump through Low-Cap ESD dual diode and I/O power clamp <= 0.81 ohm\n"
+        append rule "ESD.DISTP2P.1.3.0gU: Metal Bus resistance of R0 in ESD.DISTP2P.1.3.0.1gU, ESD.DISTP2P.1.3.0.2gU <= 2.1 ohm\n"
+        perc::check_net -netType {Signal && LC_Pad} -condition export_io2pci2pad_p2p_path_dn -comment $rule
+    }
+    proc ESD_D2D.CDM.P.1.1.2gu_05V {} {
+        set rule    "ESD_D2D.CDM.P.1.1.2gU: Metal Bus resistance of D2D Net to pull-up P-type HIA diode <= 4 ohm\n"
+        append rule "ESD_D2D.CDM.P.1.0gU: Metal Bus resistance of the sum of (R0_D2D, R0'_D2D) <= 70 ohm\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM05V} -condition export_d2d_io2dio_p2p_path_up -comment $rule
+    }
+    proc ESD_D2D.CDM.P.1.1.1gu_05V {} {
+        set rule    "ESD_D2D.CDM.P.1.1.1gU: Metal Bus resistance of D2D Net to pull-down N-type HIA diode <= 4 ohm\n"
+        append rule "ESD_D2D.CDM.P.1.0gU: Metal Bus resistance of the sum of (R0_D2D, R0'_D2D) <= 70 ohm\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM05V} -condition export_d2d_io2dio_p2p_path_dn -comment $rule
+    }
+    proc ESD_D2D.CDM.P.1.2.2gu_05V {} {
+        set rule    "ESD_D2D.CDM.P.1.2.2gU: Metal Bus resistance of D2D Net to pull-up PMOS <= 4 ohm\n"
+        append rule "ESD_D2D.CDM.P.1.0gU: Metal Bus resistance of the sum of (R0_D2D, R0'_D2D) <= 70 ohm\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM05V} -condition export_d2d_io2mos_p2p_path_up -comment $rule
+    }
+    proc ESD_D2D.CDM.P.1.2.1gu_05V {} {
+        set rule    "ESD_D2D.CDM.P.1.2.1gU: Metal Bus resistance of D2D Net to pull-down NMOS <= 4 ohm\n"
+        append rule "ESD_D2D.CDM.P.1.0gU: Metal Bus resistance of the sum of (R0_D2D, R0'_D2D) <= 70 ohm\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM05V} -condition export_d2d_io2mos_p2p_path_dn -comment $rule
+    }
+    proc ESD_D2D.CDM.P.2.1.2gu_05V {} {
+        set rule    "ESD_D2D.CDM.P.2.1.2gU: Metal Bus resistance of D2D Net pull-up P-type HIA diode to power clamp <= 7.5 ohm\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM05V} -condition export_d2d_dio2pc_p2p_path_up -comment $rule
+    }
+    proc ESD_D2D.CDM.P.2.1.1gu_05V {} {
+        set rule    "ESD_D2D.CDM.P.2.1.1gU: Metal Bus resistance of D2D Net pull-down N-type HIA diode to power clamp <= 7.5 ohm\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM05V} -condition export_d2d_dio2pc_p2p_path_dn -comment $rule
+    }
+    proc ESD_D2D.CDM.P.2.2.2gu_05V {} {
+        set rule    "ESD_D2D.CDM.P.2.2.2gU: Metal Bus resistance of D2D Net NWSTRAP of PMOS to power clamp <= 7.5 ohm\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM05V} -condition export_d2d_mos2pc_p2p_path_up -comment $rule
+    }
+    proc ESD_D2D.CDM.P.2.2.1gu_05V {} {
+        set rule    "ESD_D2D.CDM.P.2.2.1gU: Metal Bus resistance of D2D Net PWSTRAP of NMOS to power clamp <= 7.5 ohm\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM05V} -condition export_d2d_mos2pc_p2p_path_dn -comment $rule
+    }
+    proc ESD_D2D.CDM.P.3.1.2gu_05V {} {
+        set rule    "ESD_D2D.CDM.P.3.1.2gU: Metal Bus resistance of D2D Net pull-up P-type HIA diode to VDD bump <= 16 ohm\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM05V} -condition export_d2d_dio2pad_p2p_path_up -comment $rule
+    }
+    proc ESD_D2D.CDM.P.3.1.1gu_05V {} {
+        set rule    "ESD_D2D.CDM.P.3.1.1gU: Metal Bus resistance of D2D Net pull-down N-type HIA diode to VSS bump <= 16 ohm\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM05V} -condition export_d2d_dio2pad_p2p_path_dn -comment $rule
+    }
+    proc ESD_D2D.CDM.P.3.2.2gu_05V {} {
+        set rule    "ESD_D2D.CDM.P.3.2.2gU: Metal Bus resistance of D2D Net NWSTRAP of PMOS to VDD bump <= 16 ohm\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM05V} -condition export_d2d_mos2pad_p2p_path_up -comment $rule
+    }
+    proc ESD_D2D.CDM.P.3.2.1gu_05V {} {
+        set rule    "ESD_D2D.CDM.P.3.2.1gU: Metal Bus resistance of D2D Net PWSTRAP of NMOS to VSS bump <= 16 ohm\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM05V} -condition export_d2d_mos2pad_p2p_path_dn -comment $rule
+    }
+    proc ESD_D2D.CDM.P.1.1.2gu_35V {} {
+        set rule    "ESD_D2D.CDM.P.1.1.2gU: Metal Bus resistance of D2D Net to pull-up P-type HIA diode <= 0.7 ohm\n"
+        append rule "ESD_D2D.CDM.P.1.0gU: Metal Bus resistance of the sum of (R0_D2D, R0'_D2D) <= 70 ohm\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM35V} -condition export_d2d_io2dio_p2p_path_up -comment $rule
+    }
+    proc ESD_D2D.CDM.P.1.1.1gu_35V {} {
+        set rule    "ESD_D2D.CDM.P.1.1.1gU: Metal Bus resistance of D2D Net to pull-down N-type HIA diode <= 0.7 ohm\n"
+        append rule "ESD_D2D.CDM.P.1.0gU: Metal Bus resistance of the sum of (R0_D2D, R0'_D2D) <= 70 ohm\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM35V} -condition export_d2d_io2dio_p2p_path_dn -comment $rule
+    }
+    proc ESD_D2D.CDM.P.1.2.2gu_35V {} {
+        set rule    "ESD_D2D.CDM.P.1.2.2gU: Metal Bus resistance of D2D Net to pull-up PMOS <= 0.7 ohm\n"
+        append rule "ESD_D2D.CDM.P.1.0gU: Metal Bus resistance of the sum of (R0_D2D, R0'_D2D) <= 70 ohm\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM35V} -condition export_d2d_io2mos_p2p_path_up -comment $rule
+    }
+    proc ESD_D2D.CDM.P.1.2.1gu_35V {} {
+        set rule    "ESD_D2D.CDM.P.1.2.1gU: Metal Bus resistance of D2D Net to pull-down NMOS <= 0.7 ohm\n"
+        append rule "ESD_D2D.CDM.P.1.0gU: Metal Bus resistance of the sum of (R0_D2D, R0'_D2D) <= 70 ohm\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM35V} -condition export_d2d_io2mos_p2p_path_dn -comment $rule
+    }
+    proc ESD_D2D.CDM.P.2.1.2gu_35V {} {
+        set rule    "ESD_D2D.CDM.P.2.1.2gU: Metal Bus resistance of D2D Net pull-up P-type HIA diode to power clamp <= 2.55 ohm\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM35V} -condition export_d2d_dio2pc_p2p_path_up -comment $rule
+    }
+    proc ESD_D2D.CDM.P.2.1.1gu_35V {} {
+        set rule    "ESD_D2D.CDM.P.2.1.1gU: Metal Bus resistance of D2D Net pull-down N-type HIA diode to power clamp <= 2.55 ohm\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM35V} -condition export_d2d_dio2pc_p2p_path_dn -comment $rule
+    }
+    proc ESD_D2D.CDM.P.2.2.2gu_35V {} {
+        set rule    "ESD_D2D.CDM.P.2.2.2gU: Metal Bus resistance of D2D Net NWSTRAP of PMOS to power clamp <= 2.55 ohm\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM35V} -condition export_d2d_mos2pc_p2p_path_up -comment $rule
+    }
+    proc ESD_D2D.CDM.P.2.2.1gu_35V {} {
+        set rule    "ESD_D2D.CDM.P.2.2.1gU: Metal Bus resistance of D2D Net PWSTRAP of NMOS to power clamp <= 2.55 ohm\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM35V} -condition export_d2d_mos2pc_p2p_path_dn -comment $rule
+    }
+    proc ESD_D2D.CDM.P.3.1.2gu_35V {} {
+        set rule    "ESD_D2D.CDM.P.3.1.2gU: Metal Bus resistance of D2D Net pull-up P-type HIA diode to VDD bump <= 3.5 ohm\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM35V} -condition export_d2d_dio2pad_p2p_path_up -comment $rule
+    }
+    proc ESD_D2D.CDM.P.3.1.1gu_35V {} {
+        set rule    "ESD_D2D.CDM.P.3.1.1gU: Metal Bus resistance of D2D Net pull-down N-type HIA diode to VSS bump <= 3.5 ohm\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM35V} -condition export_d2d_dio2pad_p2p_path_dn -comment $rule
+    }
+    proc ESD_D2D.CDM.P.3.2.2gu_35V {} {
+        set rule    "ESD_D2D.CDM.P.3.2.2gU: Metal Bus resistance of D2D Net NWSTRAP of PMOS to VDD bump <= 3.5 ohm\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM35V} -condition export_d2d_mos2pad_p2p_path_up -comment $rule
+    }
+    proc ESD_D2D.CDM.P.3.2.1gu_35V {} {
+        set rule    "ESD_D2D.CDM.P.3.2.1gU: Metal Bus resistance of D2D Net PWSTRAP of NMOS to VSS bump <= 3.5 ohm\n"
+        perc::check_net -netType {D2D_Interface && D2D_CDM35V} -condition export_d2d_mos2pad_p2p_path_dn -comment $rule
+    }
+
+    proc export_io2mos2pc_p2p_path_up   { p_net } { return [export_esd_path $p_net "p2p" "mos"  "pc_io_cas" "both" "up"] }
+    proc export_io2dio2pc_p2p_path_up   { p_net } { return [export_esd_path $p_net "p2p" "dio"  "pc"        "both" "up"] }
+    proc export_io2mos2pc_p2p_path_dn   { p_net } { return [export_esd_path $p_net "p2p" "mos"  "pc_io_cas" "both" "down"] }
+    proc export_io2dio2pc_p2p_path_dn   { p_net } { return [export_esd_path $p_net "p2p" "dio"  "pc"        "both" "down"] }
+    proc export_io2mos_p2p_path_up      { p_net } { return [export_esd_path $p_net "p2p" "mos"  "pc_io_cas" "src"  "up"] }
+    proc export_io2dio_p2p_path_up      { p_net } { return [export_esd_path $p_net "p2p" "dio"  "pc"        "src"  "up"] }
+    proc export_io2mos_p2p_path_dn      { p_net } { return [export_esd_path $p_net "p2p" "mos"  "pc_io_cas" "src"  "down"] }
+    proc export_io2dio_p2p_path_dn      { p_net } { return [export_esd_path $p_net "p2p" "dio"  "pc"        "src"  "down"] }
+    proc export_mos2pc_p2p_path_up      { p_net } { return [export_esd_path $p_net "p2p" "mos"  "pc_io_cas" "sink" "up"] }
+    proc export_dio2pc_p2p_path_up      { p_net } { return [export_esd_path $p_net "p2p" "dio"  "pc"        "sink" "up"] }
+    proc export_mos2pc_p2p_path_dn      { p_net } { return [export_esd_path $p_net "p2p" "mos"  "pc_io_cas" "sink" "down"] }
+    proc export_cas_mos2dio_p2p_path_dn { p_net } { return [export_esd_path $p_net "p2p" "cas_mos" "dio"    "sink" "down"] }
+    proc export_dio2pc_p2p_path_dn      { p_net } { return [export_esd_path $p_net "p2p" "dio"  "pc"        "sink" "down"] }
+    proc export_mos2pad_p2p_path_up     { p_net } { return [export_esd_path $p_net "p2p" "mos"  "pad"       "sink" "up"] }
+    proc export_dio2pad_p2p_path_up     { p_net } { return [export_esd_path $p_net "p2p" "dio"  "pad"       "sink" "up"] }
+    proc export_mos2pad_p2p_path_dn     { p_net } { return [export_esd_path $p_net "p2p" "mos"  "pad"       "sink" "down"] }
+    proc export_dio2pad_p2p_path_dn     { p_net } { return [export_esd_path $p_net "p2p" "dio"  "pad"       "sink" "down"] }
+    proc export_io2dioi_p2p_path_up     { p_net } { return [export_esd_path $p_net "p2p" "dioi" "pc"        "src"  "up"] }
+    proc export_io2dioi_p2p_path_dn     { p_net } { return [export_esd_path $p_net "p2p" "dioi" "pc"        "src"  "down"] }
+    proc export_dioi2pc_p2p_path_up     { p_net } { return [export_esd_path $p_net "p2p" "dioi" "pc"        "sink" "up"] }
+    proc export_dioi2pc_p2p_path_dn     { p_net } { return [export_esd_path $p_net "p2p" "dioi" "pc"        "sink" "down"] }
+
+    proc export_pwr2gnd_p2p_path        { p_net } { return [export_pc_path  $p_net "p2p" "all"  "both"] }
+    proc export_pwr2pc_core_p2p_path    { p_net } { return [export_pc_path  $p_net "p2p" "core" "src"]  }
+    proc export_pc2gnd_core_p2p_path    { p_net } { return [export_pc_path  $p_net "p2p" "core" "sink"] }
+    proc export_pwr2pc_io_p2p_path      { p_net } { return [export_pc_path  $p_net "p2p" "io"   "src"]  }
+    proc export_pc2gnd_io_p2p_path      { p_net } { return [export_pc_path  $p_net "p2p" "io"   "sink"] }
+    proc export_pwr2pc_cas_p2p_path     { p_net } { return [export_pc_path  $p_net "p2p" "cas"  "src"]  }
+    proc export_pc2gnd_cas_p2p_path     { p_net } { return [export_pc_path  $p_net "p2p" "cas"  "sink"] }
+    proc export_pwr2dio_p2p_path        { p_net } { return [export_pc_path  $p_net "p2p" "dio"  "src"]  }
+    proc export_dio2gnd_p2p_path        { p_net } { return [export_pc_path  $p_net "p2p" "dio"  "sink"] }
+    proc export_pad2pickup_p2p_path     { p_net } { return [export_pad_path $p_net "p2p" "pickup"] }
+    proc export_pad2strap_p2p_path      { p_net } { return [export_pad_path $p_net "p2p" "strap" ] }
+    proc export_pad2guard_p2p_path      { p_net } { return [export_pad_path $p_net "p2p" "guard" ] }
+    proc export_pad2ring_p2p_path       { p_net } { return [export_pad_path $p_net "p2p" "ring" ] }
+    proc export_pc2pc_io_p2p_path       { p_net } { return [export_pc2pc_path $p_net "p2p" "io"  ] }
+    proc export_pc2pc_core_p2p_path     { p_net } { return [export_pc2pc_path $p_net "p2p" "core"] }
+    proc export_pc2pc_cas_p2p_path      { p_net } { return [export_pc2pc_path $p_net "p2p" "cas"] }
+    proc export_pc2pc_io2cas_p2p_path   { p_net } { return [export_pc2pc_path2 $p_net "p2p" "io" "cas"] }
+    proc export_pc2pc_io2core_p2p_path  { p_net } { return [export_pc2pc_path2 $p_net "p2p" "io" "core"] }
+    proc export_pc2pc_core2cas_p2p_path { p_net } { return [export_pc2pc_path2 $p_net "p2p" "core" "cas"] }
+    proc export_b2b2pad_p2p_path        { p_net } { return [export_b2b_path $p_net "p2p" "pad" "both"] }
+    proc export_b2b2pc_p2p_path         { p_net } { return [export_b2b_path $p_net "p2p" "pc"  "both"] }
+    proc export_xdm_b2b2pc_p2p_path     { p_net } { return [export_xdm_b2b_path $p_net "p2p" "pc"  "both"] }
+
+    proc export_stack_dio_p2p_path_up   { p_net } { return [export_stack_dio_path $p_net "p2p" "up"] }
+    proc export_stack_dio_p2p_path_dn   { p_net } { return [export_stack_dio_path $p_net "p2p" "down"] }
+
+    proc export_io2pcc2pad_p2p_path_up  { p_net } { return [export_esd_path $p_net "p2p" "dio" "pc_core" "full" "up"   "skip_no_sink"] }
+    proc export_io2pcc2pad_p2p_path_dn  { p_net } { return [export_esd_path $p_net "p2p" "dio" "pc_core" "full" "down" "skip_no_sink"] }
+    proc export_io2pci2pad_p2p_path_up  { p_net } { return [export_esd_path $p_net "p2p" "dio" "pc_io"   "full" "up"   "skip_no_sink"] }
+    proc export_io2pci2pad_p2p_path_dn  { p_net } { return [export_esd_path $p_net "p2p" "dio" "pc_io"   "full" "down" "skip_no_sink"] }
+
+    proc export_d2d_io2mos_p2p_path_up  { p_net } { return [export_d2d_path $p_net "p2p" "mos"  "pc" "src"  "up"] }
+    proc export_d2d_io2dio_p2p_path_up  { p_net } { return [export_d2d_path $p_net "p2p" "dio"  "pc" "src"  "up"] }
+    proc export_d2d_io2mos_p2p_path_dn  { p_net } { return [export_d2d_path $p_net "p2p" "mos"  "pc" "src"  "down"] }
+    proc export_d2d_io2dio_p2p_path_dn  { p_net } { return [export_d2d_path $p_net "p2p" "dio"  "pc" "src"  "down"] }
+    proc export_d2d_mos2pc_p2p_path_up  { p_net } { return [export_d2d_path $p_net "p2p" "mos"  "pc" "sink" "up"] }
+    proc export_d2d_dio2pc_p2p_path_up  { p_net } { return [export_d2d_path $p_net "p2p" "dio"  "pc" "sink" "up"] }
+    proc export_d2d_mos2pc_p2p_path_dn  { p_net } { return [export_d2d_path $p_net "p2p" "mos"  "pc" "sink" "down"] }
+    proc export_d2d_dio2pc_p2p_path_dn  { p_net } { return [export_d2d_path $p_net "p2p" "dio"  "pc" "sink" "down"] }
+    proc export_d2d_mos2pad_p2p_path_up { p_net } { return [export_d2d_path $p_net "p2p" "mos" "pad" "sink" "up"] }
+    proc export_d2d_dio2pad_p2p_path_up { p_net } { return [export_d2d_path $p_net "p2p" "dio" "pad" "sink" "up"] }
+    proc export_d2d_mos2pad_p2p_path_dn { p_net } { return [export_d2d_path $p_net "p2p" "mos" "pad" "sink" "down"] }
+    proc export_d2d_dio2pad_p2p_path_dn { p_net } { return [export_d2d_path $p_net "p2p" "dio" "pad" "sink" "down"] }
+
+
+    ##  For Others
+    ## ============
+    proc report_net { p_net } {
+        if { [perc::is_net_of_net_type $p_net TopPorts] } { set vol [get_net_voltage $p_net] } else { set vol "" }
+        if { $vol == 8888 } { set vol "NA" }
+        perc::report_base_result -property [list [list Voltage $vol]] ; return 1
+    }
+    proc report_lc_pad { p_net } {
+        find_lc_power $p_net
+        return [report_net $p_net]
+    }
+    proc report_lc_power { p_net } {
+        if { ![is_lc_power $p_net] } { return 0 }
+        return [report_net $p_net]
+    }
+    proc report_virtual_power { p_net } {
+        set path "" ; set cell ""
+        set name [perc::name $p_net]
+        foreach pair [lindex [perc::path $p_net -cellStack -fromTop] 0] {
+            append path [lindex $pair 0] / ; append cell [lindex $pair 1] /
+        }
+        log "Virtual Power Net: $path$name ($cell$name)"
+        return [report_net $p_net]
+    }
+    proc report_global_esd { p_net } {
+        if { [catch {tvf::svrf_var GLOBAL_ESD_BUS}] } { return 0 }
+        set global_esd [tvf::svrf_var GLOBAL_ESD_BUS]
+        set net_name [perc::name $p_net -fromTop]
+        if { $net_name eq $global_esd } { return 1 } else { return 0 }
+    }
+    proc report_pad { p_dev } {
+        lassign [lindex [perc::xy_coord $p_dev -fromTop] 0] x y
+        set net [perc::get_nets $p_dev -name PAD_PIN]
+        set type ""
+        foreach net_type [perc::type $net] {
+            if { [lsearch -exact {Power Ground Signal D2D_Interface} $net_type] >= 0 } { set type $net_type ; break }
+        }
+        perc::report_base_result -property [list [list Net [get_id $net]] [list Net_Type $type] [list X $x] [list Y $y]] ; return 1
+    }
+    proc INFO_Power_Net    {} { perc::check_net -netType Power    -condition report_net -comment "Power nets"  }
+    proc INFO_Ground_Net   {} { perc::check_net -netType Ground   -condition report_net -comment "Ground nets" }
+    proc INFO_Signal_Net   {} { perc::check_net -netType Signal   -condition report_net -comment "Signal nets" }
+    proc INFO_IO_M1_Net    {} { perc::check_net -netType IOM1     -condition report_net -comment "IO M1 nets" }
+    proc INFO_Internal_Net {} { perc::check_net -netType Internal -condition report_net -comment "Internal nets" }
+    proc INFO_Global_ESD_Net {} { perc::check_net -netType Ground -condition report_global_esd -comment "Global ESD bus" }
+    proc INFO_Virtual_Power_Net {} { perc::check_net -netType VirtualPower -condition report_virtual_power -comment "Virtual Power nets" }
+    proc INFO_PoP_Pad_Net  {} { perc::check_net -netType PoP_Pad  -condition report_net -comment "Package-on-Package IO nets" }
+    proc INFO_Ultra_Low_Noise_Pad_Net {} { perc::check_net -netType ULN_Pad -condition report_net -comment "Ultra-Low Noise IO nets" }
+    proc INFO_D2D_Interface_Net {} { perc::check_net -netType D2D_Interface -condition report_net -comment "Die-to-Die Interface nets" }
+    proc INFO_D2D_VDD_Net {} { perc::check_net -netType D2D_VDD -condition report_net -comment "Die-to-Die Power nets" }
+
+    proc INFO_LC_Pad_Net   {} { perc::check_net -netType LC_Pad   -condition report_lc_pad -comment "LC-PAD nets" }
+    proc INFO_LC_Power_Net {} { perc::check_net -netType Power    -condition report_lc_power -comment "LC-Power nets" }
+    proc INFO_Power_Clamp  {} { perc::check_net -netType {Power}  -condition get_fair_power_clamp -comment "Power Clamp and Ground list" }
+    proc INFO_Net_Iterator {} { perc::check_net -netType {Power || Ground} -condition set_net_itr -comment "Create net iterator collection" }
+    proc INFO_Pad    {} { perc::check_device -type PAD_D -condition report_pad -comment "Pad devices" }
+    proc INFO_MIMCAP {} { perc::check_net -netType Power -condition get_info_mimcap -comment "MIM Cap capacitance between Power and Ground" }
+
+*/]
+
+
+// ============================
+//   LDL (Logic Driven Layout)
+// ============================
+TVF FUNCTION ldl_lib [/*
+ 	#modified by nrichaud@intel
+	set TSMC_CAL_PERC_PATH_tvf [tvf::svrf_var TSMC_CAL_PERC_PATH]
+     if [catch {source $env(TSMC_CAL_PERC_CONSTANT_PATH_tvf)} msg] { puts $msg; source [glob ${TSMC_CAL_PERC_PATH_tvf}/perc_*constant.tcl]} else {puts "WARNING: local constant file set by env variable TSMC_CAL_PERC_CONSTANT_PATH_tvf : $env(TSMC_CAL_PERC_CONSTANT_PATH_tvf)"}
+    #source "${TSMC_CAL_PERC_PATH_tvf}/perc_n03_constant.tcl"
+    source "${TSMC_CAL_PERC_PATH_tvf}/perc_n03_lib.tbc"
+    source "${TSMC_CAL_PERC_PATH_tvf}/perc_n03_ldl.tbc"
+
+    ##  For DRC
+    ## ============
+    set ::svrf_code ""
+    set ::svrf_rdb [list]
+    set ::g_esd_marker [list]
+    array set ::g_ldl_new_layer ""
+
+    proc import_data {} {
+        ldl::export_perc
+        ldl::execute_perc -debug 1
+        ldl::summary_report $::g_ldl_rep
+        append ::svrf_code [LUP.all:import]
+    }
+    proc LUP.WARN.3 {} {
+        set rule    "LUP.WARN.3U: For LUP OD injector blocking purpose, RES200 should be covered on resistors between IOPAD and Ground nets.\n"
+        set check [LUP.WARN.3:ldl]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "LUP.WARN.3U" $rule $check]
+    }
+    proc LUP.WARN.3.1 {} {
+        set rule    "LUP.WARN.3.1U: For LUP OD injector blocking purpose, RES200 should be covered on resistors between IOPAD and Power nets.\n"
+        set check [LUP.WARN.3.1:ldl]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "LUP.WARN.3.1U" $rule $check]
+    }
+    proc LUP.1.0.1 {} {
+        set rule    "LUP.1.0.1U: The N+_Guard-ring/P+_Guard-ring for LUP.1 should be tied to power/ground accordingly.\n"
+        append rule "Except for the devices covered by IHIADMY, IBJTDMY(110;3), or LUPIEDMY(255;56)\n"
+        set check [LUP.1.0.1:ldl]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "LUP.1.0.1U" $rule $check]
+    }
+    proc LUP.2.0.1 {} {
+        set rule    "LUP.2.0.1U: The N+_Guard-ring/P+_Guard-ring for LUP.2 should be tied to power/ground accordingly.\n"
+        append rule "Exception:\n"
+        append rule "  a. ACTIVE OD doesn't connect to VD, VD2 or VG.\n"
+        append rule "  b. If all of the OD injectors connected to specific signal pin are with ultra-low noise, LUP.2 can be excluded.\n"
+        append rule "  c. OD injectors covered by LUPIEDMY (255;56).\n"
+        append rule "  d. OD injectors connected to PoP IOPAD.\n"
+        append rule "  e. NACT/PACT covered by IHIADMY (168;2) or HIA_DUMMY (168;0).\n"
+        set check [LUP.2.0.1:ldl]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "LUP.2.0.1U" $rule $check]
+    }
+    proc LUP.2.1 {} {
+        set rule    "LUP.2.1U: Within 15um space from the OD injector, an PACT in proximity to another NW,\n"
+        append rule "and with higher potential than the NW, a LUP_PWSTRAP is required to be inserted between PACT and NW.\n"
+        append rule "Exceptions:\n"
+        append rule "  a. ACTIVE OD does not connect to VD, VD2 or VG.\n"
+        append rule "  b. If all of the OD injectors connected to specific signal pin are with ultra-low noise, LUP.2.1U can be excluded.\n"
+        append rule "  c. OD injectors connected to PoP IOPAD.\n"
+        set check [LUP.2.1:ldl]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "LUP.2.1U" $rule $check]
+    }
+    proc LUP.4.2 {} {
+        set rule    "LUP.4.2U: OD width of the LUP_PWSTRAP for LUP.2.1U >= 0.084\n"
+        append rule "Exceptions:\n"
+        append rule "  a. ACTIVE OD does not connect to VD, VD2 or VG.\n"
+        append rule "  b. If all of the OD injectors connected to specific signal pin are with ultra-low noise, LUP.4.2 can be excluded.\n"
+        append rule "  c. OD injectors connected to PoP IOPAD.\n"
+        set check [LUP.4.2:ldl]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "LUP.4.2U" $rule $check]
+    }
+    proc LUP.14.0.1 {} {
+        set rule    "LUP.14.0.1U: The N+_Guard-ring/P+_Guard-ring for LUP.14 should be tied to power/ground accordingly.\n"
+        append rule "Exceptions:\n"
+        append rule "  a. OD injectors \[INSIDE {IBJTDMY (110;3) OR LUPIEDMY (255;56) OR IHIADMY (168;2)}]\n"
+        append rule "  b. OD injectors connected to PoP IOPAD.\n"
+        set check [LUP.14.0.1:ldl]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "LUP.14.0.1U" $rule $check]
+    }
+    proc LUP.IHIA.1.0.1 {} {
+        set rule    "LUP.IHIA.1.0.1U: The N+ guard-band {LUP_NWSTRAP} /P+ guard-band {LUP_PWSTRAP} for LUP.IHIA.1 should be tied to power/ground accordingly.\n"
+        set check [LUP.IHIA.1.0.1:ldl]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "LUP.IHIA.1.0.1U" $rule $check]
+    }
+    proc LUP.IHIA.14.0.1 {} {
+        set rule    "LUP.IHIA.14.0.1U: The N+_Guard-ring/P+_Guard-ring for LUP.IHIA.14 should be tied to power/ground accordingly.\n"
+        append rule "Exceptions: OD injectors connected to PoP IOPAD.\n"
+        set check [LUP.IHIA.14.0.1:ldl]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "LUP.IHIA.14.0.1U" $rule $check]
+    }
+    proc SR_ESD.R.7u_ldl {} {
+        set rule    "SR_ESD.R.7U: {OD NOT ALL_PO} inside same {SDI_2 OR SDI_3} should be short together.\n"
+        set check [SR_ESD.R.7:ldl]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "SR_ESD.R.7U" $rule $check]
+    }
+    proc ESD.7gu_ldl {} {
+        set rule    "ESD.7gU: For single stage snapback NMOS protected I/O pad,\n"
+        append rule "specific spacing rules should be followed to avoid low triggering voltage induced issues on parasitic NPN/PNP (ESD.7.0.1gU~ESD.7.0.4gU)\n"
+        append rule "Connections would be broken by resistors \[connected to power or ground pad directly]\n"
+        set check [ESD.7g:ldl]
+        append ::svrf_code [shift check]
+    }
+    proc ESD.7.0.1gu_ldl {} {
+        set rule    "ESD.7.0.1gU: Space between '((NACT NOT ALL_PO) NOT SDI_3)' and '((NACT NOT ALL_PO) NOT SDI_3)' if one of them connect to I/O pad stated above\n"
+        append rule "(directly or through resistor) and the other one connect to any different I/O pad (directly or through resistor) >= 1.2\n"
+        set check [ESD.7.0.1g:ldl]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "ESD.7.0.1gU" $rule $check]
+    }
+    proc ESD.7.0.1.1gu_ldl {} {
+        set rule    "ESD.7.0.1.1gU: Space between '((NACT NOT ALL_PO) NOT SDI)' connect to I/O pad stated above\n"
+        append rule "(directly or should be through resistor with resistance < 200 ohm) and “(NACT in DIODMY)” connect to different I/O pad directly >= 30\n"
+        set check [ESD.7.0.1.1g:ldl]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "ESD.7.0.1.1gU" $rule $check]
+    }
+    proc ESD.7.0.2gu_ldl {} {
+        set rule    "ESD.7.0.2gU: Space between '((NACT NOT ALL_PO) NOT SDI_3)' and 'NW' if one of them connect to I/O pad stated above\n"
+        append rule "(directly or through resistor) and the other one connect to any different I/O pad (directly or through resistor) >= 1.2\n"
+        set check [ESD.7.0.2g:ldl]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "ESD.7.0.2gU" $rule $check]
+    }
+    proc ESD.7.0.2.1gu_ldl {} {
+        set rule    "ESD.7.0.2.1gU: Space between '((NACT NOT ALL_PO) NOT SDI)' connect to I/O pad stated above\n"
+        append rule "(directly or should be through resistor with resistance < 200 ohm) to any LUP_NWSTRAP tie to power >= 10\n"
+        set check [ESD.7.0.2.1g:ldl]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "ESD.7.0.2.1gU" $rule $check]
+    }
+    proc ESD.7.0.3gu_ldl {} {
+        set rule    "ESD.7.0.3gU: Space between '(PACT NOT ALL_PO)' and '(PACT NOT ALL_PO)' if one of them connect to I/O pad stated above\n"
+        append rule "(directly or through resistor) and the other one connect to any different I/O pad (directly or through resistor) >= 1.2\n"
+        set check [ESD.7.0.3g:ldl]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "ESD.7.0.3gU" $rule $check]
+    }
+    proc ESD.7.0.4gu_ldl {} {
+        set rule    "ESD.7.0.4gU: Space between '(PACT NOT ALL_PO)' and 'RW' if one of them connect to I/O pad stated above\n"
+        append rule "(directly or through resistor) and the other one connect to any different I/O pad (directly or through resistor) >= 1.2\n"
+        set check [ESD.7.0.4g:ldl]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "ESD.7.0.4gU" $rule $check]
+    }
+    proc ESD.7.1gu_ldl {} {
+        set rule    "ESD.7.1gU: For cascoded snapback NMOS protected I/O pad,\n"
+        append rule "specific spacing rules should be followed to avoid low triggering voltage induced issues on parasitic NPN/PNP (ESD.7.1.1gU~ESD.7.1.4gU)\n"
+        append rule "Connections would be broken by resistors \[connected to power or ground pad directly]\n"
+        set check [ESD.7.1g:ldl]
+        append ::svrf_code [shift check]
+    }
+    proc ESD.7.1.1gu_ldl {} {
+        set rule    "ESD.7.1.1gU: Space between '((NACT NOT ALL_PO) NOT SDI_3)' and '((NACT NOT ALL_PO) NOT SDI_3)' if one of them connect to I/O pad stated above\n"
+        append rule "(directly or through resistor) and the other one connect to any different I/O (directly or through resistor) or power/ground pad (directly) >= 1.2\n"
+        set check [ESD.7.1.1g:ldl]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "ESD.7.1.1gU" $rule $check]
+    }
+    proc ESD.7.1.2gu_ldl {} {
+        set rule    "ESD.7.1.2gU: Space between '((NACT NOT ALL_PO) NOT SDI_3)' and 'NW' if one of them connect to I/O pad stated above\n"
+        append rule "(directly or through resistor) and the other one connect to any different I/O (directly or through resistor) or power/ground pad (directly) >= 1.2\n"
+        set check [ESD.7.1.2g:ldl]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "ESD.7.1.2gU" $rule $check]
+    }
+    proc ESD.7.1.3gu_ldl {} {
+        set rule    "ESD.7.1.3gU: Space between '(PACT NOT ALL_PO)' and '(PACT NOT ALL_PO)' if one of them connect to I/O pad stated above\n"
+        append rule "(directly or through resistor) and the other one connect to any different I/O (directly or through resistor) or power/ground pad (directly) >= 1.2\n"
+        set check [ESD.7.1.3g:ldl]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "ESD.7.1.3gU" $rule $check]
+    }
+    proc ESD.7.1.4gu_ldl {} {
+        set rule    "ESD.7.1.4gU: Space between '(PACT NOT ALL_PO)' and 'RW' if one of them connect to I/O pad stated above\n"
+        append rule "(directly or through resistor) and the other one connect to any different I/O (directly or through resistor) or power/ground pad (directly) >= 1.2\n"
+        set check [ESD.7.1.4g:ldl]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "ESD.7.1.4gU" $rule $check]
+    }
+    proc ESD.9.5gu_ldl {} {
+        set rule    "ESD.9.5gU: Gate oxide connected to IOPAD directly or through resistor should be surrounded by a P+_Guard-ring.\n"
+        append rule "NMOS/PMOS can share the same ring.\n"
+        set check [ESD.9.5g:ldl]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "ESD.9.5gU" $rule $check]
+    }
+    proc ESD.35gu_ldl {} {
+        set rule    "ESD.35gU: 2-stage cascoded NMOS need to be same OD structure.\n"
+        set check [ESD.35g:ldl]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "ESD.35gU" $rule $check]
+    }
+    proc ESD.43.1gu_ldl {} {
+        set rule    "ESD.43.1gU: The single stage and cascoded power clamp (between VDD and VSS) need to be covered by SDI layer.\n"
+        set check [ESD.43.1g:ldl]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "ESD.43.1gU" $rule $check]
+    }
+    proc ESD.CD.3gu_ldl {} {
+        set    rule "ESD.CD.3.1~4gU: Output marker layers to form pseudo devices in CD check.\n"
+        set check [ESD.CD.3g:ldl]
+        append ::svrf_code [shift check]
+    }
+    proc ESD.CDM.1gu_ldl {} {
+        set rule    "ESD.CDM.1gU: For snapback based primary protection, cascoded NMOS needs to be separated OD structure.\n"
+        append rule "Definition of separated OD:\n"
+        append rule "  1. 1st stage NMOS are surrounded by P+_Guard-ring. All device inside the Guard-ring are the 1st stage ones only.\n"
+        append rule "  2. 2nd stage NMOS are surrounded by P+_Guard-ring.\n"
+        append rule "  3. The Guard-rings are tied to ground accordingly.\n"
+        append rule "  4. For > 3 stack design scheme, the checker only check first three stage only.\n"
+        append rule "Definition of two separated NW:\n"
+        append rule "  5. 1st stage PMOS are surrounded by N+_Guard-ring. All device inside the Guard-ring are the 1st stage ones only.\n"
+        append rule "  6. 2nd stage PMOS are surrounded by N+_Guard-ring. All device inside the Guard-ring are the 2nd stage ones only.\n"
+        append rule "  7. 3rd stage PMOS are surrounded by N+_Guard-ring. \n"
+        append rule "  8. For > 3 stack design scheme, the checker only check first three stage PMOS only.\n"
+        set check [ESD.CDM.1g:ldl]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "ESD.CDM.1gU" $rule $check]
+    }
+    proc ESD.CDM.1.1gu_ldl {} {
+        set rule    "ESD.CDM.1.1gU: For cascoded snapback based primary protection, cascoded NMOS needs to be separated OD structure\n"
+        append rule "Definition of separated OD:\n"
+        append rule "  1. 1st stage NMOS are surrounded by P+_Guard-ring. All device inside the Guard-ring are the 1st stage ones only.\n"
+        append rule "  2. 2nd stage NMOS are surrounded by P+_Guard-ring. All device inside the Guard-ring are the 2nd stage ones only.\n"
+        append rule "  3. 3rd stage NMOS are surrounded by P+_Guard-ring.\n"
+        append rule "  4. The Guard-rings are tied to ground accordingly.\n"
+        append rule "  5. For > 3 stack design scheme, the checker only check first three stage only.\n"
+        append rule "Definition of three separated NWs:\n"
+        append rule "  5. 1st stage PMOS are surrounded by N+_Guard-ring. All device inside the Guard-ring are the 1st stage ones only.\n"
+        append rule "  6. 2nd stage PMOS are surrounded by N+_Guard-ring. All device inside the Guard-ring are the 2nd stage ones only.\n"
+        append rule "  7. 3rd stage PMOS are surrounded by N+_Guard-ring. \n"
+        append rule "  8. For > 3 stack design scheme, the checker only check first three stage PMOS only.\n"
+        set check [ESD.CDM.1.1g:ldl]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "ESD.CDM.1.1gU" $rule $check]
+    }
+    proc ESD.CDM.2gu_ldl {} {
+        set rule    "ESD.CDM.2gU: For diode based primary protection, output driving NMOS/PMOS needs to follow separated OD structure.\n"
+        append rule "Definition of separated OD:\n"
+        append rule "  1. 1st stage NMOS (PMOS) are surrounded by P+_Guard-ring (N+_Guard-ring). All device inside the Guard-ring are the 1st stage ones only.\n"
+        append rule "  2. 2nd stage NMOS (PMOS) are surrounded by P+_Guard-ring (N+_Guard-ring). All device inside the Guard-ring are the 2nd stage ones only.\n"
+        append rule "     For >= 2 stack pure I/O cascoded scheme,\n"
+        append rule "     the 2nd stage NMOS (PMOS) can share Guard-ring with the other internal device except the 1st stage ones.\n"
+        append rule "  3. 3rd stage NMOS (PMOS) are surrounded by P+_Guard-ring (N+_Guard-ring).\n"
+        append rule "  4. The Guard-rings are tied to power/ground accordingly.\n"
+        append rule "  5. For > 3 stack design scheme, the checker only check first three stage only.\n"
+        set check [ESD.CDM.2g:ldl]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "ESD.CDM.2gU" $rule $check]
+    }
+    proc ESD.CDM.C.2gu_ldl {} {
+        set rule    "ESD.CDM.C.2gU: For any MOS connected to Power or Ground, there should be a power clamp with spacing <= 1350 um\n"
+        set check [ESD.CDM.C.2g:ldl]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "ESD.CDM.C.2gU" $rule $check]
+    }
+    proc ESD.CDM.C.3.1gu_ldl {} {
+        set rule    "ESD.CDM.C.3.1gU: For any core MOS with gate and source/drain connected between power and ground,\n"
+        append rule "there should be a single stage core power clamp at the same P/G pair with spacing <= 1350 um\n"
+        append rule "Decap is excluded from this rule.\n"
+        set check [ESD.CDM.C.3g:ldl "core"]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "ESD.CDM.C.3.1gU" $rule $check]
+    }
+    proc ESD.CDM.C.3.2gu_ldl {} {
+        set rule    "ESD.CDM.C.3.2gU: For any I/O MOS with gate and source/drain connected between power and ground,\n"
+        append rule "there should be a single stage I/O or core power clamp at the same P/G pair with spacing <= 1350 um\n"
+        append rule "Decap is excluded from this rule.\n"
+        set check [ESD.CDM.C.3g:ldl "io"]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "ESD.CDM.C.3.2gU" $rule $check]
+    }
+    proc ESD.CDM.C.4gu_ldl {} {
+        set rule    "ESD.CDM.C.4gU: For I/O or core cross domain interface,\n"
+        append rule "there should be a rule compliance cross domain power clamp with spacing <= 500\n"
+        set check [ESD.CDM.C.4g:ldl]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "ESD.CDM.C.4gU" $rule $check]
+    }
+    proc ESD.CDM.C.4.1gu_ldl {} {
+        set rule    "ESD.CDM.C.4.1gU: For I/O or core cross domain interface,\n"
+        append rule "there should be a rule compliance cross domain back-to-back (B2B) diode with spacing <= 500\n"
+        set check [ESD.CDM.C.4.1g:ldl]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "ESD.CDM.C.4.1gU" $rule $check]
+    }
+    proc ESD.CDM.C.5gu_ldl {} {
+        set rule    "ESD.CDM.C.5gU: For any MOS connected to Power or Ground in small power domain,\n"
+        append rule "there should be a power clamp with spacing <= 500\n"
+        append rule "For the power domain with power clamp total fin number less than two times of rule criteria,\n"
+        append rule "ESD.40g, ESD.40.1g and ESD.40.2g group, it is defined as a small power domain.\n"
+        append rule "For those non-small power domain, the spacing between power clamp and MOS can be relaxed and referred to ESD.CDM.C.2gU.\n"
+        set check [ESD.CDM.C.5g:ldl]
+        append ::svrf_code [shift check]
+        lappend ::svrf_rdb [list "ESD.CDM.C.5gU" $rule $check]
+    }
+
+    proc run_ldl_drc {} {
+        # modify svrf code to keep output layers only
+        append ::svrf_code "\nDFM SELECT CHECK SAVING_CHECK\nSAVING_CHECK {\n"
+        foreach rdb $::svrf_rdb {
+            foreach layer [lindex $rdb 2] { append ::svrf_code "    DFM RDB $layer NULL\n" }
+        }
+        set gds_layers ""
+        foreach marker $::g_esd_marker {
+            append gds_layers " -layer_info {$marker}"
+            append ::svrf_code "    DFM RDB [lindex $marker 0] NULL\n"
+        }
+        append ::svrf_code "}"
+
+        # execute svrf code and write result
+        foreach {name layer} [array get ::g_ldl_new_layer] { dfm::new_layer -svrf $layer }
+        ldl::svrf -dfm -svrf $::svrf_code
+        if { [file exists $::g_ldl_rdb] } { file delete -force $::g_ldl_rdb }
+        foreach rdb $::svrf_rdb {
+            foreach layer [lindex $rdb 2] {
+                dfm::write_rdb -checkname [lindex $rdb 0] -comment [lindex $rdb 1] -layer $layer -file $::g_ldl_rdb \
+                               -all_cells -nopseudo -append -maximum_all
+            }
+        }
+        eval "dfm::write_gds $gds_layers -file $::g_esd_mark -noempty -drc_magnify_result 0.1 -drc_results_database_precision 2000"
+
+        ##dfm::save_rev
+        ##set current_rev [dfm::get_current_rev]
+        ##dfm::set_default_rev $current_rev
+    }
+
+    proc move_probe {} {
+        set ndio_list {ndio_hia12_mac ndio_hia12_ntn_mac}
+        set pdio_list {pdio_hia12_mac}
+        set dev [dfm::get_devices]
+        while { $dev ne "" } {
+            set dname [dfm::get_device_data $dev -model_name]
+            if { $dname eq "" } { set dname [dfm::get_device_data $dev -device_name] }
+            if { [lsearch -exact $ndio_list $dname] >= 0 } {
+                ldl::map_pin_layer_to_probe_layer $dev -pin_layer psub   -probe_layer tpdiff_dio_rc -halo_size $::g_move_probe(ndio)
+                puts "PERC INFO: $dname move probe from 'psub' to 'tpdiff_dio_rc'"
+            } elseif { [lsearch -exact $pdio_list $dname] >= 0 } {
+                ldl::map_pin_layer_to_probe_layer $dev -pin_layer nxwell -probe_layer tndiff_dio_rc -halo_size $::g_move_probe(pdio)
+                puts "PERC INFO: $dname move probe from 'nxwell' to 'tndiff_dio_rc'"
+            }
+            if { [info exists ::g_d2d_nets] } {
+                if { [string match {nch_*_mac} $dname] } {
+                    ldl::map_pin_layer_to_probe_layer $dev -pin_layer psub -probe_layer tpdiff_RC -halo_size $::g_move_probe(nmos)
+                    puts "PERC INFO: $dname move probe from 'psub' to 'tpdiff_RC'"
+                } elseif { [string match {pch_*_mac} $dname] } {
+                    ldl::map_pin_layer_to_probe_layer $dev -pin_layer nxwell -probe_layer tndiff_RC -halo_size $::g_move_probe(pmos)
+                    puts "PERC INFO: $dname move probe from 'nxwell' to 'tndiff_RC'"
+                }
+            }
+            dfm::inc dev
+        }
+    }
+
+    ##  For CD
+    ## ============
+    proc run_cd {} {
+        move_probe
+        set experiments [list]
+        if { [tvf::svrf_var FULL_PATH_CD] } { set path path } else { set path rulecheck }
+        lappend experiments [perc_ldl::design_cd_experiment -rulecheck ESD.CD.1gu:dio:up -I $::g_Itest(ESD.CD.1gu)   -V 0 -group_by $path -short_all_sources]
+        lappend experiments [perc_ldl::design_cd_experiment -rulecheck ESD.CD.1gu:dio:dn -I $::g_Itest(ESD.CD.1gu)   -V 0 -group_by $path -short_all_sources]
+        lappend experiments [perc_ldl::design_cd_experiment -rulecheck ESD.CD.1gu:mos:up -I $::g_Itest(ESD.CD.1gu)   -V 0 -group_by $path -short_all_sources]
+        lappend experiments [perc_ldl::design_cd_experiment -rulecheck ESD.CD.1gu:mos:dn -I $::g_Itest(ESD.CD.1gu)   -V 0 -group_by $path -short_all_sources]
+        lappend experiments [perc_ldl::design_cd_experiment -rulecheck ESD.CD.1gu:pc     -I $::g_Itest(ESD.CD.1gu)   -V 0 -group_by $path -short_all_sources]
+        lappend experiments [perc_ldl::design_cd_experiment -rulecheck ESD.CD.1gu:b2b    -I $::g_Itest(ESD.CD.1gu)   -V 0 -group_by $path -short_all_sources]
+        lappend experiments [perc_ldl::design_cd_experiment -rulecheck ESD.CD.1.1gu      -I $::g_Itest(ESD.CD.1.1gu) -V 0 -group_by $path -short_all_sources]
+        lappend experiments [perc_ldl::design_cd_experiment -rulecheck ESD.CD.2gu:dio:up -I $::g_Itest(ESD.CD.2gu)   -V 0 -group_by $path -short_all_sources]
+        lappend experiments [perc_ldl::design_cd_experiment -rulecheck ESD.CD.2gu:dio:dn -I $::g_Itest(ESD.CD.2gu)   -V 0 -group_by $path -short_all_sources]
+        lappend experiments [perc_ldl::design_cd_experiment -rulecheck ESD.CD.2gu:mos:up -I $::g_Itest(ESD.CD.2gu)   -V 0 -group_by $path -short_all_sources]
+        lappend experiments [perc_ldl::design_cd_experiment -rulecheck ESD.CD.2gu:mos:dn -I $::g_Itest(ESD.CD.2gu)   -V 0 -group_by $path -short_all_sources]
+        lappend experiments [perc_ldl::design_cd_experiment -rulecheck ESD.CD.3.1gu:pact -I $::g_Itest(ESD.CD.3.1gu) -V 0 -group_by path -short_all_sources]
+        lappend experiments [perc_ldl::design_cd_experiment -rulecheck ESD.CD.3.1gu:nstp -I $::g_Itest(ESD.CD.3.1gu) -V 0 -group_by path -short_all_sources]
+        lappend experiments [perc_ldl::design_cd_experiment -rulecheck ESD.CD.3.2gu:pact -I $::g_Itest(ESD.CD.3.2gu) -V 0 -group_by path -short_all_sources]
+        lappend experiments [perc_ldl::design_cd_experiment -rulecheck ESD.CD.3.2gu:nstp -I $::g_Itest(ESD.CD.3.2gu) -V 0 -group_by path -short_all_sources]
+        lappend experiments [perc_ldl::design_cd_experiment -rulecheck ESD.CD.3.3gu:pact -I $::g_Itest(ESD.CD.3.3gu) -V 0 -group_by path -short_all_sources]
+        lappend experiments [perc_ldl::design_cd_experiment -rulecheck ESD.CD.3.3gu:nstp -I $::g_Itest(ESD.CD.3.3gu) -V 0 -group_by path -short_all_sources]
+        lappend experiments [perc_ldl::design_cd_experiment -rulecheck ESD.CD.3.4gu:pact -I $::g_Itest(ESD.CD.3.4gu) -V 0 -group_by path -short_all_sources]
+        lappend experiments [perc_ldl::design_cd_experiment -rulecheck ESD.CD.3.4gu:nstp -I $::g_Itest(ESD.CD.3.4gu) -V 0 -group_by path -short_all_sources]
+        lappend experiments [perc_ldl::design_cd_experiment -rulecheck ESD_D2D.CDM.CD.1gu_05V:dio:up -I $::g_Itest(ESD_D2D.CDM.CD.1gu_05V) -V 0 -group_by $path -short_all_sources]
+        lappend experiments [perc_ldl::design_cd_experiment -rulecheck ESD_D2D.CDM.CD.1gu_05V:dio:dn -I $::g_Itest(ESD_D2D.CDM.CD.1gu_05V) -V 0 -group_by $path -short_all_sources]
+        lappend experiments [perc_ldl::design_cd_experiment -rulecheck ESD_D2D.CDM.CD.1gu_05V:mos:up -I $::g_Itest(ESD_D2D.CDM.CD.1gu_05V) -V 0 -group_by $path -short_all_sources]
+        lappend experiments [perc_ldl::design_cd_experiment -rulecheck ESD_D2D.CDM.CD.1gu_05V:mos:dn -I $::g_Itest(ESD_D2D.CDM.CD.1gu_05V) -V 0 -group_by $path -short_all_sources]
+        lappend experiments [perc_ldl::design_cd_experiment -rulecheck ESD_D2D.CDM.CD.1gu_35V:dio:up -I $::g_Itest(ESD_D2D.CDM.CD.1gu_35V) -V 0 -group_by $path -short_all_sources]
+        lappend experiments [perc_ldl::design_cd_experiment -rulecheck ESD_D2D.CDM.CD.1gu_35V:dio:dn -I $::g_Itest(ESD_D2D.CDM.CD.1gu_35V) -V 0 -group_by $path -short_all_sources]
+        lappend experiments [perc_ldl::design_cd_experiment -rulecheck ESD_D2D.CDM.CD.1gu_35V:mos:up -I $::g_Itest(ESD_D2D.CDM.CD.1gu_35V) -V 0 -group_by $path -short_all_sources]
+        lappend experiments [perc_ldl::design_cd_experiment -rulecheck ESD_D2D.CDM.CD.1gu_35V:mos:dn -I $::g_Itest(ESD_D2D.CDM.CD.1gu_35V) -V 0 -group_by $path -short_all_sources]
+
+
+        perc_ldl::execute_cd_checks -cd_experiment_list [list $experiments] -report_threshold 100
+    }
+
+    ##  For P2P
+    ## ============
+    proc run_p2p {} {
+        move_probe
+        set experiments [list]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.14.3.2gu           -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.14.3.1gu:dio       -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.14.3.1gu:mos       -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.14.4gu             -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.14.5.2gu           -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.14.5.1gu           -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.14.6gu             -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.14.7gu             -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.14.8gu             -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.LCP2P.1.2gu        -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.LCP2P.1.1gu        -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.LCP2P.2.2gu        -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.LCP2P.2.1gu        -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.1.0.1gu      -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.1.0.2gu      -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.1.0.3gu      -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.1.1.0.1gu    -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.1.1.0.2gu    -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.1.1.0.3gu    -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.1.2.0.1gu    -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.1.2.0.2gu    -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.2.0.1gu      -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.2.0.2gu      -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.2.0.3gu      -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.2.1gu        -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.3.0.1gu      -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.3.0.2gu      -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.4.0.1gu      -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.4.0.2gu      -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.5.0.1gu      -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.5.0.2gu      -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.5.1.0.1gu    -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.5.1.0.2gu    -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.7.0.1gu      -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.7.0.2gu      -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.7.1.0.1gu    -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.7.1.0.2gu    -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.7.2.0.1gu    -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.7.2.0.2gu    -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.7.3gu        -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.7.4gu        -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.7.5gu        -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.8gu          -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.9gu          -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.CDM.P.10gu         -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.XDM.P.1gu          -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.DISTP2P.1.0.2gu    -group_by path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.DISTP2P.1.0.1gu    -group_by path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.DISTP2P.1.1.0.2gu  -group_by path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.DISTP2P.1.1.0.1gu  -group_by path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.DISTP2P.1.2.0.2gu  -group_by path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.DISTP2P.1.2.0.1gu  -group_by path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.DISTP2P.1.3.0.2gu  -group_by path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD.DISTP2P.1.3.0.1gu  -group_by path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD_D2D.CDM.P.1.1.1gu_05V -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD_D2D.CDM.P.1.1.2gu_05V -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD_D2D.CDM.P.1.2.1gu_05V -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD_D2D.CDM.P.1.2.2gu_05V -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD_D2D.CDM.P.2.1.1gu_05V -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD_D2D.CDM.P.2.1.2gu_05V -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD_D2D.CDM.P.2.2.1gu_05V -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD_D2D.CDM.P.2.2.2gu_05V -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD_D2D.CDM.P.3.1.1gu_05V -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD_D2D.CDM.P.3.1.2gu_05V -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD_D2D.CDM.P.3.2.1gu_05V -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD_D2D.CDM.P.3.2.2gu_05V -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD_D2D.CDM.P.1.1.1gu_35V -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD_D2D.CDM.P.1.1.2gu_35V -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD_D2D.CDM.P.1.2.1gu_35V -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD_D2D.CDM.P.1.2.2gu_35V -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD_D2D.CDM.P.2.1.1gu_35V -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD_D2D.CDM.P.2.1.2gu_35V -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD_D2D.CDM.P.2.2.1gu_35V -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD_D2D.CDM.P.2.2.2gu_35V -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD_D2D.CDM.P.3.1.1gu_35V -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD_D2D.CDM.P.3.1.2gu_35V -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD_D2D.CDM.P.3.2.1gu_35V -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        lappend experiments [perc_ldl::design_p2p_experiment -rulecheck ESD_D2D.CDM.P.3.2.2gu_35V -group_by_annotation Current.Path -short_all_sources -short_all_sinks]
+        if { ![catch {tvf::svrf_var VIRTUAL_CONNECT_P2P}] && [tvf::svrf_var VIRTUAL_CONNECT_P2P] } {
+            set virtual_connect "-short_virtual_connects"
+        } else {
+            set virtual_connect ""
+        }
+        if { [tvf::svrf_var ENABLE_R0_CHECK] } {
+            p2p_custom_report $experiments Current.Path
+            perc_ldl::execute_p2p_checks -p2p_experiment_list [list $experiments] -user_via_reduction -single_edge $virtual_connect
+        } else {
+            perc_ldl::execute_p2p_checks -p2p_experiment_list [list $experiments] -user_via_reduction -single_edge $virtual_connect
+            p2p_results_filter Current.Path
+        }
+    }
+
+    proc done {} { exit -force }
+
+*/]
+
+}

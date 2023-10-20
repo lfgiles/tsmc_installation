@@ -1,0 +1,162 @@
+{
+    #build with .rep for report and RSF_perc, RSF_digital_perc
+  'GLOBAL' : {
+    #'DESTPATH' : '/p/iwdev/esdsup/esd_software/perc_dp_gen/nico_repo/tsmc_esdlup_checker/dev/robert_version/testdir',
+    'DESTPATH' : '/nfs/imu/disks/home002/nrichaud/workspace/tsmc_esdlup_checker/dev/robert_version/testdir',
+    'TEMPLATE' : 'RSF_perc_esd_template',
+    'POWER' : [
+        "VDD", "vdd", "vcc", "AHVDD", "AHVDDB", "AHVDDG", "AHVDDR", "AHVDDWELL", "AVDD", "AVDDB", 
+        "AVDDBG", "AVDDG", "AVDDR", "AVDWELL", "DHVDD", "DVDD", "HVDDWELL", "TACVDD", "TAVD33", 
+        "TAVD33PST", "TAVDD", "TAVDDPST", "TVDD", "VD33", "VDD?", "VDD5V", "VDDESD", "VDDG", "VDDM", 
+        "VDDPST", "VDDSA", "VDWELL", "vdd?", "vcc?", "VCC?"
+    ],
+    'GROUND' : [
+        "VSS", "vss", "gnd", "AGND", "AHVSS", "AHVSSB", "AHVSSG", "AHVSSR", "AHVSSUB", "AVSS", 
+        "AVSSB", "AVSSBG", "AVSSG", "AVSSR", "AVSSUB", "DHVSS", "DVSS", "GND", "HVSSUB", "TACVSS", 
+        "TAVSS", "TAVSSPST", "TVSS", "VS33", "VSS?", "VSSESD", "VSSG", "VSSM", "VSSPST", "VSSUB", "vss?"
+    ],
+    'INCLUDE_AMS_BASEDIR': 'runset/PERC/TSMC',
+    'INCLUDE_R2G_BASEDIR': '$env(LYNX_TECHLIB_DIR)/layoutverification_perc/calibre/',
+    'METAL_STACK': [
+        {            
+            'nbMetal' : 15,
+            'tpName' : '1P15M_1X_h_1Xb_v_1Xe_h_1Ya_v_1Yb_h_5Y_vhvhv_2Yy2Z',
+            'lvsName' : '15M_1X1Xb1Xe1Ya1Yb5Y2Yy2Z',
+            'percName' : '1p15M_1X1Xb1Xe1Ya1Yb5Y2Yy2Z'
+        },
+    ],
+    'SWITCHES': {
+                'TOPO': False, #no default
+                'LDL': False, #no default
+                'CD': False, #no default
+                'P2P': False, #no default
+                'CD_PRE_CHECK': False, #no default
+                'P2P_PRE_CHECK': False, #no default
+                'CDM_9A': False,
+                'Hi_CDM': True,
+                'IN_DIE_MODE': False, #no default
+                'GROUP_PWR_CLAMP': True, #no default
+                'SET_PWR_CLAMP_RON': False,
+                'CHECK_SCR_PATH_CD': False,
+                'CHECK_FULL_PATH_CD': False,
+                'CHECK_VICTIM_CD': False,
+                'CHECK_FULL_PATH_P2P': False, #no default
+                'CHECK_PICK_UP_P2P': False,
+                'CREATE_PAD_BY_TEXT': False,
+                'DISABLE_IODMY': False,
+                'EXPORT_ONE_VICTIM': False
+    },
+  },
+  'LOCAL' : [
+        {
+            'RSFNAME': 'esd_topo_tsmc',
+            'R2G': False,
+            'INPUT': 'layout',
+            'SWITCHES': {
+                'TOPO': True,
+                'CD_PRE_CHECK': True,
+                'P2P_PRE_CHECK': True,
+                'GROUP_PWR_CLAMP': False
+            }
+        },
+        { 
+            'RSFNAME': 'esd_topo_tsmc',
+            'R2G': True,
+            'INPUT': 'layout',
+            'SWITCHES': {
+                'TOPO': True, #no default
+                'CD_PRE_CHECK': True,
+                'P2P_PRE_CHECK': True,
+                'GROUP_PWR_CLAMP': False
+            }
+        },
+        {
+            'RSFNAME': 'esdsch_tsmc',
+            'R2G': False,
+            'INPUT': 'schematic',
+            'SWITCHES': {
+                'TOPO': True,
+                'CD_PRE_CHECK': True,
+                'P2P_PRE_CHECK': True,
+                'GROUP_PWR_CLAMP': False
+            }
+        },
+        { 
+            'RSFNAME': 'esdsch_tsmc',
+            'R2G': True,
+            'INPUT': 'schematic',
+            'SWITCHES': {
+                'TOPO': True, #no default
+                'CD_PRE_CHECK': True,
+                'P2P_PRE_CHECK': True,
+                'GROUP_PWR_CLAMP': False
+            }
+        },
+        {
+            'RSFNAME': 'esd_ldl_tsmc',
+            'R2G': False,
+            'INPUT': 'layout',
+            'SWITCHES': {                
+                'LDL': True, #no default
+                'CD_PRE_CHECK': True,
+                'P2P_PRE_CHECK': True,
+                'GROUP_PWR_CLAMP': False                
+            }
+        },
+        { 
+            'RSFNAME': 'esd_ldl_tsmc',
+            'R2G': True,
+            'INPUT': 'layout',
+            'SWITCHES': {                
+                'LDL': True, #no default
+                'CD_PRE_CHECK': True,
+                'P2P_PRE_CHECK': True,
+                'GROUP_PWR_CLAMP': False
+            },
+        },
+        {
+            'RSFNAME': 'esd_cd_tsmc',
+            'R2G': False,
+            'INPUT': 'layout',
+            'SWITCHES': {
+                'CD': True,
+                'SET_PWR_CLAMP_RON': True,
+                'CHECK_FULL_PATH_CD': True
+            }
+        },
+        { 
+            'RSFNAME': 'esd_cd_tsmc',
+            'R2G': True,
+            'INPUT': 'layout',
+            'SWITCHES': {
+                'CD': True,
+                'SET_PWR_CLAMP_RON': True,
+                'CHECK_FULL_PATH_CD': True
+            }
+        },
+        {
+            'RSFNAME': 'esd_p2p_tsmc',
+            'R2G': False,
+            'INPUT': 'layout',
+            'SWITCHES': {
+                'P2P': True,
+                'SET_PWR_CLAMP_RON': True,
+                'CHECK_FULL_PATH_P2P': True,
+                'CHECK_PICK_UP_P2P': True,
+            }
+        },
+        { 
+            'RSFNAME': 'esd_p2p_tsmc',
+            'R2G': True,
+            'INPUT': 'layout',
+            'SWITCHES': {
+                'LDL': True,
+                'P2P': True,
+                'SET_PWR_CLAMP_RON': True,
+                'CHECK_FULL_PATH_P2P': True,
+                'CHECK_PICK_UP_P2P': True, 
+            }
+        },
+  ] # end LOCAL
+}
+

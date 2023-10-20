@@ -1,0 +1,84 @@
+
+STATEMENT OF USE
+
+This checker catches violations of DRC-uncheckable rules of layout guidelines for IO latch-up and ESD. 
+These violations are not for sign-off purpose but to highlight possible ESD and latch-up design failures.
+ 
+For current density related rules, the tool behaviour is static simulation and is to highlight potential 
+risks but not slow/accurate SPICE simulation. 
+ 
+The tool (Calibre-PERC) is based on LVS extraction; the target layout should be LVS clean 
+and every IO, power, and ground pads should be correctly recognized as top ports.
+
+
+USER GUIDE
+
+1. USAGE OF ESD Checker:
+
+    [ RECOMMENDATION FOR TEXT LABEL PREPARATION ]
+    
+        This checker is good for full chip or IO ring ESD/LUP check. To verify ESD and
+        Latch-Up problem in your design by this checker, it is critical to correctly recognize
+        Signal IO and Power/Ground Ports (Pads) to get accurate result. Top level text
+        labels to be placed on GDS need to be carefully prepared, so the checker can locate
+        right IO pads and Power/Ground Pads. We strongly recommend user to prepare top level 
+        text labels in a file containing statements of "LAYOUT TEXT pin_name coordinate text_layer".
+        This file will be included in top rule file. (Please refer to tsmc_lib/pad_info.rules)
+    
+    [ PERC INSTALLATION ]
+        
+        1) download LVS deck from TSMC on-line
+        2) edit user configuration file: user.config
+        3) execute: %> perl install.pl user.config
+
+    [ PERC EXECUTION ]
+        
+        1) copy top file "perc_n03_<metal_scheme>.top" from installation path to work directory.
+        2) edit top file accordingly. (Please refer to TSMC_DOC_WM/PERC_Userguide_N03.pdf for details)
+        3) run perc:
+            For Pure Topology (only TOPO switch is on):
+                %> calibre -perc -hier -turbo -hyper perc_n03_<metal_scheme>.top
+
+            For LDL/CD/P2P (any of LDL/CD/P2P switch is on):
+                %> calibre -perc -ldl -hier -turbo -hyper -ys_hyper perc_n03_<metal_scheme>.top
+
+    [ HOW TO EDIT PAD voltage ]
+    
+        Please refer to tsmc_lib/pad_info.rules
+        
+    [ HOW TO VIEW PERC RESULT ]
+
+        For CDL check:    %> calibre -rve -perc svdb
+        For Layout check: %> calibredrv -m <Layout> -rve -perc dfmdb
+
+        Note : For P2P, default result database "perc.rep.p2p.rdb" is only for debug purpose.
+               Please refer to "LDL: TSMC.ESD.P2P.rdb" tab in RVE for final result.
+               If there is no violation, "TSMC.ESD.P2P.rdb" will not be reported.
+    
+    [ Note ]
+        
+        1) In this package, it checks current density distribution on Metals and Vias from I/O pad 
+           to ESD devices instead of using DRC-like constraints that are described in DRM. 
+           The tool behavior is static simulation; static current is fed from each I/O pad and 2nd 
+           ESD discharge path as current source. For diodes or mos that connect I/O pad and P/G pad,
+           they are identified as ESD devices and they were viewed as sink. Sinks for the same current
+           source are shorted together for the later simulation.
+
+        2) In DRM, the current density constraint is defined in Reliability chapter. Although the
+           current density constraint for different shapes of vias or metals that lying on different
+           shapes of the other metals will have different constraint values, due to tool limitation,
+           only one constaint value could be defined for each layer. Take M1 for example,
+
+                   VARIABLE IMAX_M1 22.8
+
+                   PERC LDL CD M1 CONSTRAINT VALUE IMAX_M1
+
+           As you can see, all M1's current density is defined as 22.8 mA per micron.
+           In this release, middle-end is not included for current density check.
+
+        3) Based on (1) and (2), current density check is more like a reference results due to its
+           static simulation behavior, constant fed-in current, and the simplified current 
+           density constraint values.
+
+        4) Please contact with Siemens' AE for further help if there is runtime issue.
+

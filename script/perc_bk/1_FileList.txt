@@ -1,0 +1,45 @@
+FILE LIST:
+
+1_FileList.txt: The file you are currently reading. 
+
+2_Copyright.txt: Disclaimer and statement of use.
+
+3_UserGuide.txt: Usage introduction and important application notes.
+
+4_ReleaseNotes.txt: Important release information and revision history.
+
+Recommended_tool_version_number.txt: Recommended tool version.
+
+user.config: User configuration file for install.
+
+install.pl: PERC installation script. Usage: %> install.pl user.config
+
+example.gds: example layout.
+             ========================
+             Topcell Name: EXAMPLE
+             Metal Scheme: 1P18M_1X1Xb1Xc1Xd1Ya1Yb5Y2Yy2Yx1R1U
+             ========================
+
+./tsmc_lib:
+    perc_n03.top            ----> top control file
+    perc_n03.rules          ----> define rule items
+    perc_n03_6a.rules       ----> define rule items for CDM-6A
+    perc_n03_7a.rules       ----> define rule items for CDM-7A
+    perc_n03_9a.rules       ----> define rule items for CDM-9A
+    perc_n03_constant.tcl   ----> define rule value and device list
+    perc_n03_lib.tbc        ----> tcl procedures (encrypted)
+    perc_n03_ldl.tbc        ----> ldl svrf commands (encrypted)
+    pex_map.rules           ----> set constrain for cd/p2p check
+    pad_info.rules          ----> define pad voltgae, text, and so on
+
+./tsmc_ro:                  ----> R-only techfiles for cd/p2p check
+    perc_n03_1p17m_1x1xb1xc1xd1ya1yb6y2yy2r_shdmim_ut-alrdl.ro
+    perc_n03_1p18m_1x1xb1xc1xd1ya1yb5y2yy2yx1r1u_shpmim1_curdl.ro
+    perc_n03_1p18m_1x1xb1xc1xd1ya1yb5y2yy2yx1r1u_shpmim1_ut-curdl.ro
+    perc_n03_1p18m_1x1xb1xc1xd1ya1yb5y2yy2yx1r1u_shpmim2_ut-curdl.ro
+
+./TSMC_DOC_WM:
+    PERC_Userguide_N03.pdf: Userguide for beginner
+    PERC_Methodology_N03.pdf: Checking methodology
+    Terms_of_Use_SiemensEDA_CalibrePERC_Deck_clean.pdf: Terms of Use for SiemensEDA PERC Deck
+

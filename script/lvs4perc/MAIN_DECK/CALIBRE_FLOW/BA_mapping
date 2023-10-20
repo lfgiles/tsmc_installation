@@ -1,0 +1,183 @@
+//version: 2
+%Models
+nmoscap_12	nmoscap_12	PARM @ADD ccoflag rgateflag LPE ccoflag NORC 1 C 0 R 1 RC 0 LPE rgateflag NORC 1 C 1 R 0 RC 0
+nmoscap	nmoscap	PARM @ADD ccoflag rgateflag LPE ccoflag NORC 1 C 0 R 1 RC 0 LPE rgateflag NORC 1 C 1 R 0 RC 0
+rhim	rhim	PARM @ADD rcoflag LPE rcoflag NORC 1 C 1 R 0 RC 0
+mimcap_sin_shd_3t	mimcap_sin_shd_3t	PARM @ADD capflag3t LPE capflag3t NORC 1 C 0 R 1 RC 0
+mimcap_shp2_4tlv	mimcap_shp2_4tlv	PARM @ADD capflag4t LPE capflag4t NORC 1 C 0 R 1 RC 0 PINOPERATION OR
+mimcap_shp2_4thv	mimcap_shp2_4thv	PARM @ADD capflag4t LPE capflag4t NORC 1 C 0 R 1 RC 0 PINOPERATION OR
+mimcap_shp1_4tlv	mimcap_shp1_4tlv	PARM @ADD capflag4t LPE capflag4t NORC 1 C 0 R 1 RC 0 PINOPERATION OR
+
+mimcap_shp2_5thv	mimcap_shp2_5thv	PARM @ADD capflag5t LPE capflag5t NORC 1 C 0 R 1 RC 0 PINOPERATION OR
+mimcap_shp1_5thv	mimcap_shp1_5thv	PARM @ADD capflag5t LPE capflag5t NORC 1 C 0 R 1 RC 0 PINOPERATION OR
+
+nch_12_mac nch_12_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nch_eflvt_mac nch_eflvt_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nch_efsvt_mac nch_efsvt_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nch_elvt_mac nch_elvt_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nch_lvt_mac nch_lvt_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nch_lvtll_mac nch_lvtll_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nch_mpode12_mac nch_mpode12_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nch_mpodeelvt_mac nch_mpodeelvt_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nch_mpodelvt_mac nch_mpodelvt_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nch_mpodelvtll_mac nch_mpodelvtll_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nch_mpodesvt_mac nch_mpodesvt_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nch_mpodeulvt_mac nch_mpodeulvt_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nch_mpodeulvtll_mac nch_mpodeulvtll_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nch_svt_mac nch_svt_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nch_ulvt_mac nch_ulvt_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nch_ulvtll_mac nch_ulvtll_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpd_10trpsr_mac nchpd_10trpsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpd_10tsr_mac nchpd_10tsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpd_8trpsr_mac nchpd_8trpsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpd_8tsr_mac nchpd_8tsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpd_dpsr_mac nchpd_dpsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpd_hc8trpsr_mac nchpd_hc8trpsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpd_hc8tsr_mac nchpd_hc8tsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpd_hcsr_mac nchpd_hcsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpd_hdsr_mac nchpd_hdsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpd_hshcsr_mac nchpd_hshcsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpd_ulvtll10trpsr_mac nchpd_ulvtll10trpsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpd_ulvtll10tsr_mac nchpd_ulvtll10tsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpd_ulvtll8trpsr_mac nchpd_ulvtll8trpsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpd_ulvtll8tsr_mac nchpd_ulvtll8tsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpd_ulvtllhc8trpsr_mac nchpd_ulvtllhc8trpsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpd_ulvtllhc8tsr_mac nchpd_ulvtllhc8tsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpg_10trpsr_mac nchpg_10trpsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpg_10tsr_mac nchpg_10tsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpg_8trpsr_mac nchpg_8trpsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpg_8tsr_mac nchpg_8tsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpg_dpsr_mac nchpg_dpsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpg_hc8trpsr_mac nchpg_hc8trpsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpg_hc8tsr_mac nchpg_hc8tsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpg_hcsr_mac nchpg_hcsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpg_hdsr_mac nchpg_hdsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpg_hshcsr_mac nchpg_hshcsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpg_ulvtll10trpsr_mac nchpg_ulvtll10trpsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpg_ulvtll10tsr_mac nchpg_ulvtll10tsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpg_ulvtll8trpsr_mac nchpg_ulvtll8trpsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpg_ulvtll8tsr_mac nchpg_ulvtll8tsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpg_ulvtllhc8trpsr_mac nchpg_ulvtllhc8trpsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nchpg_ulvtllhc8tsr_mac nchpg_ulvtllhc8tsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+pch_12_mac pch_12_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+pch_eflvt_mac pch_eflvt_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+pch_efsvt_mac pch_efsvt_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+pch_elvt_mac pch_elvt_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+pch_lvt_mac pch_lvt_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+pch_lvtll_mac pch_lvtll_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+pch_mpode12_mac pch_mpode12_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+pch_mpodeelvt_mac pch_mpodeelvt_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+pch_mpodelvt_mac pch_mpodelvt_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+pch_mpodelvtll_mac pch_mpodelvtll_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+pch_mpodesvt_mac pch_mpodesvt_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+pch_mpodeulvt_mac pch_mpodeulvt_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+pch_mpodeulvtll_mac pch_mpodeulvtll_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+pch_svt_mac pch_svt_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+pch_ulvt_mac pch_ulvt_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+pch_ulvtll_mac pch_ulvtll_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+pchpu_10tsr_mac pchpu_10tsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+pchpu_8tsr_mac pchpu_8tsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+pchpu_dpsr_mac pchpu_dpsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+pchpu_hc8tsr_mac pchpu_hc8tsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+pchpu_hcsr_mac pchpu_hcsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+pchpu_hdsr_mac pchpu_hdsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+pchpu_hshcsr_mac pchpu_hshcsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+pchpu_ulvtll10tsr_mac pchpu_ulvtll10tsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+pchpu_ulvtll8tsr_mac pchpu_ulvtll8tsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+pchpu_ulvtllhc8tsr_mac pchpu_ulvtllhc8tsr_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+nch_hia12_mac nch_hia12_mac PARM @ADD ccodflag ccosflag rcodflag rcosflag rgflag LPE ccodflag NORC 1 C 0 R 1 RC 0 LPE ccosflag NORC 1 C 0 R 1 RC 0 LPE rcodflag NORC 1 C 1 R 0 RC 0 LPE rcosflag NORC 1 C 1 R 0 RC 0 LPE rgflag NORC 1 C 1 R 0 RC 0
+
+
+
+npode_12_mac       npode_12_mac       PARM @ADD ccopflag rcopflag rgpflag LPE ccopflag NORC 1 C 0 R 1 RC 0 LPE rcopflag NORC 1 C 1 R 0 RC 0 LPE rgpflag NORC 1 C 1 R 0 RC 0
+npode_eflvt_mac    npode_eflvt_mac    PARM @ADD ccopflag rcopflag rgpflag LPE ccopflag NORC 1 C 0 R 1 RC 0 LPE rcopflag NORC 1 C 1 R 0 RC 0 LPE rgpflag NORC 1 C 1 R 0 RC 0
+npode_efsvt_mac    npode_efsvt_mac    PARM @ADD ccopflag rcopflag rgpflag LPE ccopflag NORC 1 C 0 R 1 RC 0 LPE rcopflag NORC 1 C 1 R 0 RC 0 LPE rgpflag NORC 1 C 1 R 0 RC 0
+npode_elvt_mac     npode_elvt_mac     PARM @ADD ccopflag rcopflag rgpflag LPE ccopflag NORC 1 C 0 R 1 RC 0 LPE rcopflag NORC 1 C 1 R 0 RC 0 LPE rgpflag NORC 1 C 1 R 0 RC 0
+npode_lvt_mac      npode_lvt_mac      PARM @ADD ccopflag rcopflag rgpflag LPE ccopflag NORC 1 C 0 R 1 RC 0 LPE rcopflag NORC 1 C 1 R 0 RC 0 LPE rgpflag NORC 1 C 1 R 0 RC 0
+npode_lvtll_mac    npode_lvtll_mac    PARM @ADD ccopflag rcopflag rgpflag LPE ccopflag NORC 1 C 0 R 1 RC 0 LPE rcopflag NORC 1 C 1 R 0 RC 0 LPE rgpflag NORC 1 C 1 R 0 RC 0
+npode_svt_mac      npode_svt_mac      PARM @ADD ccopflag rcopflag rgpflag LPE ccopflag NORC 1 C 0 R 1 RC 0 LPE rcopflag NORC 1 C 1 R 0 RC 0 LPE rgpflag NORC 1 C 1 R 0 RC 0
+npode_ulvt_mac     npode_ulvt_mac     PARM @ADD ccopflag rcopflag rgpflag LPE ccopflag NORC 1 C 0 R 1 RC 0 LPE rcopflag NORC 1 C 1 R 0 RC 0 LPE rgpflag NORC 1 C 1 R 0 RC 0
+npode_ulvtll_mac   npode_ulvtll_mac   PARM @ADD ccopflag rcopflag rgpflag LPE ccopflag NORC 1 C 0 R 1 RC 0 LPE rcopflag NORC 1 C 1 R 0 RC 0 LPE rgpflag NORC 1 C 1 R 0 RC 0
+ppode_12_mac       ppode_12_mac       PARM @ADD ccopflag rcopflag rgpflag LPE ccopflag NORC 1 C 0 R 1 RC 0 LPE rcopflag NORC 1 C 1 R 0 RC 0 LPE rgpflag NORC 1 C 1 R 0 RC 0
+ppode_eflvt_mac    ppode_eflvt_mac    PARM @ADD ccopflag rcopflag rgpflag LPE ccopflag NORC 1 C 0 R 1 RC 0 LPE rcopflag NORC 1 C 1 R 0 RC 0 LPE rgpflag NORC 1 C 1 R 0 RC 0
+ppode_efsvt_mac    ppode_efsvt_mac    PARM @ADD ccopflag rcopflag rgpflag LPE ccopflag NORC 1 C 0 R 1 RC 0 LPE rcopflag NORC 1 C 1 R 0 RC 0 LPE rgpflag NORC 1 C 1 R 0 RC 0
+ppode_elvt_mac     ppode_elvt_mac     PARM @ADD ccopflag rcopflag rgpflag LPE ccopflag NORC 1 C 0 R 1 RC 0 LPE rcopflag NORC 1 C 1 R 0 RC 0 LPE rgpflag NORC 1 C 1 R 0 RC 0
+ppode_lvt_mac      ppode_lvt_mac      PARM @ADD ccopflag rcopflag rgpflag LPE ccopflag NORC 1 C 0 R 1 RC 0 LPE rcopflag NORC 1 C 1 R 0 RC 0 LPE rgpflag NORC 1 C 1 R 0 RC 0
+ppode_lvtll_mac    ppode_lvtll_mac    PARM @ADD ccopflag rcopflag rgpflag LPE ccopflag NORC 1 C 0 R 1 RC 0 LPE rcopflag NORC 1 C 1 R 0 RC 0 LPE rgpflag NORC 1 C 1 R 0 RC 0
+ppode_svt_mac      ppode_svt_mac      PARM @ADD ccopflag rcopflag rgpflag LPE ccopflag NORC 1 C 0 R 1 RC 0 LPE rcopflag NORC 1 C 1 R 0 RC 0 LPE rgpflag NORC 1 C 1 R 0 RC 0
+ppode_ulvt_mac     ppode_ulvt_mac     PARM @ADD ccopflag rcopflag rgpflag LPE ccopflag NORC 1 C 0 R 1 RC 0 LPE rcopflag NORC 1 C 1 R 0 RC 0 LPE rgpflag NORC 1 C 1 R 0 RC 0
+ppode_ulvtll_mac   ppode_ulvtll_mac   PARM @ADD ccopflag rcopflag rgpflag LPE ccopflag NORC 1 C 0 R 1 RC 0 LPE rcopflag NORC 1 C 1 R 0 RC 0 LPE rgpflag NORC 1 C 1 R 0 RC 0

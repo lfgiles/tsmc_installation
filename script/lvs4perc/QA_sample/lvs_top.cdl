@@ -1,0 +1,6 @@
+*.SCALE METER
+.subckt lvs_top NT2 NT4 NT6 NT7 NT8 NT1 NT3 NT5
+ MI1 NT4 NT7 NT8 NT6  nch_svt_mac  l=3e-09 nfin=1 ppitch=0
+ MI2 NT6 NT7 NT2 NT8  pch_svt_mac  l=3e-09 nfin=1 ppitch=0
+.ends
+

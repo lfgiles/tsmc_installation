@@ -1,0 +1,11 @@
+#!tvf
+
+set calpath [file dirname [info script]]
+set env(TSMC_CAL_PERC_PATH) $calpath
+
+tvf::VERBATIM "VARIABLE TSMC_CAL_PERC_PATH '$calpath'"
+
+
+tvf::VERBATIM {
+TO_REPLACE_1
+}

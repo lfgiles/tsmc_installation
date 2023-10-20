@@ -1,0 +1,28 @@
+**INFO: Calibre mode detected
+**INFO: CCI mode detected
+**INFO: T-N03-CL-SP-005-C1 (N3) Version 1.0b
+**INFO: shpmimcap device detected
+**INFO: switch FLICKER_CORNER_EXTRACTION detected
+**INFO: switch SELF_HEATING_EFFECT_EXTRACTION detected
+
+<SPECIAL NOTICE> : Please do not use reserved layers (refer to MAIN_DECK/CALIBRE_FLOW/reserved_layers_18M_1X1Xb1Xc1Xd1Ya1Yb5Y2Yy2Yx1R1U)!
+
+**INFO: Generate deck DFM_LVS_RC_CALIBRE_N3_1p18M_1X1Xb1Xc1Xd1Ya1Yb5Y2Yy2Yx1R1U_CURDL.1.0b at MAIN_DECK/CALIBRE_FLOW
+
+<SPECIAL NOTICE> : Please do not use reserved layers (refer to MAIN_DECK/CCI_FLOW/reserved_layers_18M_1X1Xb1Xc1Xd1Ya1Yb5Y2Yy2Yx1R1U)!
+
+**INFO: Generate deck DFM_LVS_CCI_CALIBRE_N3_1p18M_1X1Xb1Xc1Xd1Ya1Yb5Y2Yy2Yx1R1U_CURDL.1.0b at MAIN_DECK/CCI_FLOW
+**INFO: COPY profile/CALIBRE_FLOW/XACT_MAP/xact_mapping_18m to MAIN_DECK/CALIBRE_FLOW/xact_mapping_18M_1X1Xb1Xc1Xd1Ya1Yb5Y2Yy2Yx1R1U
+**INFO: Generate XACT mapping file xact_mapping_18M_1X1Xb1Xc1Xd1Ya1Yb5Y2Yy2Yx1R1U at MAIN_DECK/CALIBRE_FLOW
+**INFO: COPY profile/CCI_FLOW/STAR_MAP/starrcxt_mapping_1p18m to MAIN_DECK/CCI_FLOW/starrcxt_mapping_1p18M_1X1Xb1Xc1Xd1Ya1Yb5Y2Yy2Yx1R1U
+**INFO: Generate Star-RCXT mapping file starrcxt_mapping_1p18m at MAIN_DECK/CCI_FLOW/starrcxt_mapping_1p18M_1X1Xb1Xc1Xd1Ya1Yb5Y2Yy2Yx1R1U
+**INFO: COPY profile/CALIBRE_FLOW/DFM to MAIN_DECK/CALIBRE_FLOW
+**INFO: COPY profile/CALIBRE_FLOW/BA_mapping to MAIN_DECK/CALIBRE_FLOW/BA_mapping
+**INFO: COPY profile/CCI_FLOW/DFM to MAIN_DECK/CCI_FLOW
+**INFO: COPY profile/CCI_FLOW/query_cmd to MAIN_DECK/CCI_FLOW
+**INFO: Modify MAIN_DECK/CCI_FLOW/query_cmd for MULTI_DEVICE_EXTRACTION turn on.
+**INFO: COPY profile/CCI_FLOW/star_cmd to MAIN_DECK/CCI_FLOW
+**INFO: COPY profile/CCI_FLOW/pin_file.txt to MAIN_DECK/CCI_FLOW
+**WARNING: No specified setting for SHPmimcap. Use default setting : No mimcap!
+**WARNING: No specified setting for SELF_HEATING_EFFECT_EXTRACTION. Use default setting : Off!
+**INFO: Install Successfully!

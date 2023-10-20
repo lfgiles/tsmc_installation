@@ -1,0 +1,78 @@
+LVS File List :
+===============
+
+1.LVS_Install.pl        : LVS install program, must execute this program to get LVS deck settings.
+                          Please refer to LVS deck usage for detailed information.
+                          Execute the program and select metal scheme step by step
+                          %LVS_Install.pl
+
+                          Then, LVS files will be generated in MAIN_DECK folder.
+
+                          MAIN_DECK/
+                            -- CCI_FLOW/                  : LVS deck for StarRCXT CCI flow
+                               -- DFM/                    : LDE/DFM files
+                               -- DFM_LVS_RC_CCI_XXX      : LVS deck
+                               -- starrcxt_mapping        : StarRCXT mapping file for CCI flow
+                               -- star_cmd                : star_cmd option template for customers' reference
+                               -- query_cmd               : query_cmd option template for customers'reference
+                               -- pin_file.txt            : pin mapping file to map 3T PODE to MOS
+
+                          For help, please execute
+
+                          %LVS_Install.pl -h  
+
+                          for more details.
+
+                                 
+2.GUI_Install.tcl       : LVS install GUI program. (This program will no longer be maintained, so please don't use it anymore.)
+                          The function of this program is the same as LVS_Install.pl except LVS switches can be 
+                          selected by using this program. The deck will be generated to MAIN_DECK directory.
+                          The work station must install TCL 8.4, WISH 8.4 & BWidget package to use this program.
+
+                          %GUI_Install.tcl
+                                 
+3.profile/              : deck DB
+
+4.source.added          : source file for subcircuits.
+
+5.TSMC_DOC_WM/		: TSMC LVS documents. (untar xxx_all.tar.gz file)
+
+6.device_list           : list of device name vs. spice model name. 
+
+7.QA_sample 		: LVS QA sample
+
+8.QAReport              : a brirf summary of QA report
+
+9.DFM_ReleaseNotes     : DFM change history
+
+11.Recommended_tool_version_number.txt :  EDA tool version for this package.
+
+12.Reference_model_card : model card information.
+
+------------------------------------------------------------------------------------
+Release Notes :
+===============
+1. For CCI flow, please follow the StarRC version that specified in latest StarRCXT techfiles.
+   If you are not sure of the version of StarRC, please contact with RC team CAE.
+
+2. CCI LVS deck has some important default changes,
+   a. Remove CCI_DECK and DFM_RULE switches and add CCI_DFM_RULE swites.
+   b. Calibre deck turns on "LVS_DECK" and turns off "CCI_DFM_RULE" by default.
+   c. Turn on "CCI_DFM_RULE" and turn off "LVS_DECK" to do Star RC extraction
+   d. Soft check can only be executed when "CCI_DFM_RULE" switch is turned off and "LVS_DECK" is turned on.
+   e. All the merge functions are turned off by default.
+
+3. By default, VIRTUAL CONNECT COLON is set yes. Please set to "NO" as doing full-chip checking.
+
+4. Move "AP", "AP_pin", "RV" layers to remove_layers in starrcxt_mapping file for RC techfile without RDL.
+
+5. Any OD/PO devices under TCDMMY or ICOVL will not be recognized.
+
+6. Recommend to use "m" instead of "nf" in schematic. 
+   Please check the "FinFET_NF_MOS_Parallel_Reduction.pdf" for details.
+
+7. Because of several RC new features supported, this LVS deck isn't compatible with previous version of RC tchfiles. Please check with TSMC RC teams to get the correct RC techfile version.
+
+8. For correct LVS installation, choosing a metal scheme is a MUST.
+-------------------------------------------------------------------------------------
+If you have any questions, please contact TSMC LVS CAE. Thanks.

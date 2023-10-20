@@ -1,0 +1,15 @@
+//cell name                      	model name                       	Pin2Pin             
+crtmom_2t*                       	crtmom_2t                        	-PCDEF -I            
+crtmom_ary*                      	crtmom_ary                       	-PCDEF -I -INTRINSIC 
+crtmom_ary_sm*                   	crtmom_ary_sm                    	-PCDEF -I            
+crtmom_ary_sm_4t*                	crtmom_ary_sm_4t                 	-PCDEF -I -INTRINSIC 
+crtmom_mx_4t*                    	crtmom_mx_4t                     	-PCDEF -I            
+crtmom_sm_4t_rf*                 	crtmom_sm_4t_rf                  	-PCDEF -I -INTRINSIC 
+crtmom_sm_rf*                    	crtmom_sm_rf                     	-PCDEF -I            
+crtmom_wo*                       	crtmom_wo                        	-PCDEF -I -INTRINSIC 
+crtmom_wo_mx*                    	crtmom_wo_mx                     	-PCDEF -I -INTRINSIC 
+crtmom_wo_rf*                    	crtmom_wo_rf                     	-PCDEF -I -INTRINSIC 
+moscap_rf*                       	moscap_rf                        	-PCDEF -I -INTRINSIC 
+moscap_rf12*                     	moscap_rf12                      	-PCDEF -I -INTRINSIC 
+moscap_rf12_nw*                  	moscap_rf12_nw                   	-PCDEF -I -INTRINSIC 
+moscap_rf_nw*                    	moscap_rf_nw                     	-PCDEF -I -INTRINSIC 

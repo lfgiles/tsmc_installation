@@ -1,0 +1,1184 @@
+conducting_layers
+
+******* General mapping *******
+Cu_RDL                   Cu_RDL          **** move to remove layer if no RDL layer in RC techfiles
+M0_A                     M0                      MASK=1   
+M0_B                     M0                      MASK=2   
+M1_A                     M1                      MASK=1   
+M1_B                     M1                      MASK=2   
+M2_A                     M2                      MASK=1
+M2_B                     M2                      MASK=2
+
+M3                       M3
+
+M4                       M4
+
+M5_A                     M5                      MASK=1
+M5_B                     M5                      MASK=2
+
+M6                       M6
+
+M7                       M7
+
+M8                       M8
+
+M9                       M9
+
+M10                       M10
+
+M11                       M11
+
+M12                       M12
+
+M13                       M13
+
+M14                       M14
+
+M15                       M15
+
+M16                       M16
+
+M17                       M17
+
+M18                       M18
+
+MD_OD_N                  MD_OD_N                          
+MD_OD_P                  MD_OD_P                          
+MD_STI                   MD_STI                           
+MD_OD_N_SRM              MD_OD_N_SRM                      
+MD_OD_P_SRM              MD_OD_P_SRM                      
+MD_STI_SRM               MD_STI_SRM                       
+VD2                      VD2                              
+MP                       MP
+tndiff                   NOD           RPSQ=0.0000001
+tpdiff                   POD           RPSQ=0.0000001
+tndiff_bjt               NOD           RPSQ=0.0000001
+tndiff_dio               NOD           RPSQ=0.0000001
+tpdiff_dio               POD           RPSQ=0.0000001
+tndiff_sdi               NOD           RPSQ=0.0000001
+tndiff_RC                NOD
+tpdiff_RC                POD
+tiod                     NOD
+
+n_fpoly_svt              n_fpoly_svt
+n_fpoly_lvt              n_fpoly_lvt
+n_fpoly_ulvt             n_fpoly_ulvt
+n_fpoly_elvt             n_fpoly_ulvt
+n_fpoly_lvtll            n_fpoly_lvt
+n_fpoly_ulvtll           n_fpoly_ulvt
+
+n_fpoly_io               n_fpoly_io
+n_fpoly_srm              n_fpoly_srm
+
+p_fpoly_svt              p_fpoly_svt
+p_fpoly_lvt              p_fpoly_lvt
+p_fpoly_ulvt             p_fpoly_ulvt
+p_fpoly_elvt             p_fpoly_ulvt
+p_fpoly_lvtll            p_fpoly_lvt
+p_fpoly_ulvtll           p_fpoly_ulvt
+
+p_fpoly_io               p_fpoly_io
+p_fpoly_srm              p_fpoly_srm
+
+n_gpoly_svt              n_gpoly_svt
+n_gpoly_lvt              n_gpoly_lvt
+n_gpoly_ulvt             n_gpoly_ulvt
+n_gpoly_elvt             n_gpoly_ulvt
+n_gpoly_lvtll            n_gpoly_lvt
+n_gpoly_ulvtll           n_gpoly_ulvt
+
+p_gpoly_svt              p_gpoly_svt
+p_gpoly_lvt              p_gpoly_lvt
+p_gpoly_ulvt             p_gpoly_ulvt
+p_gpoly_elvt             p_gpoly_ulvt
+p_gpoly_lvtll            p_gpoly_lvt
+p_gpoly_ulvtll           p_gpoly_ulvt
+
+n_gpoly_io               n_gpoly_io
+p_gpoly_io               p_gpoly_io
+n_gpoly_srm              n_gpoly_srm
+p_gpoly_srm              p_gpoly_srm
+
+n_gpoly_nocg_lvt         n_gpoly_lvt
+p_gpoly_nocg_lvt         p_gpoly_lvt
+n_gpoly_nocg_io          n_gpoly_io
+p_gpoly_nocg_io          p_gpoly_io
+
+psub                     SUBSTRATE       precedence = 1
+nxwell                   SUBSTRATE       precedence = 2
+DNW                      SUBSTRATE
+psub_term                SUBSTRATE       
+psub_term_plug           SUBSTRATE       
+dnwc                     SUBSTRATE
+
+**** SHPMIM client-type
+
+
+
+**** SHPMIM server-type
+
+
+******* MOS mapping *******
+nch_svt_mac_gate         n_gpoly_svt 
+nch_lvt_mac_gate         n_gpoly_lvt
+nch_ulvt_mac_gate        n_gpoly_ulvt
+nch_elvt_mac_gate        n_gpoly_ulvt
+nch_lvtll_mac_gate       n_gpoly_lvt
+nch_ulvtll_mac_gate      n_gpoly_ulvt
+
+nch_12_mac_gate          n_gpoly_io
+ngate_hia12_mac          n_gpoly_io
+
+nch_svt_mac_gate_dnw     n_gpoly_svt 
+nch_lvt_mac_gate_dnw     n_gpoly_lvt
+nch_ulvt_mac_gate_dnw    n_gpoly_ulvt
+nch_elvt_mac_gate_dnw    n_gpoly_ulvt
+nch_lvtll_mac_gate_dnw   n_gpoly_lvt
+nch_ulvtll_mac_gate_dnw  n_gpoly_ulvt
+
+nch_12_mac_gate_dnw      n_gpoly_io
+nch_eflvt_mac_gate_dnw   n_gpoly_lvt
+nch_efsvt_mac_gate_dnw   n_gpoly_svt
+
+pch_svt_mac_gate         p_gpoly_svt
+pch_lvt_mac_gate         p_gpoly_lvt
+pch_ulvt_mac_gate        p_gpoly_ulvt
+pch_elvt_mac_gate        p_gpoly_ulvt
+pch_lvtll_mac_gate       p_gpoly_lvt
+pch_ulvtll_mac_gate      p_gpoly_ulvt
+
+pch_12_mac_gate          p_gpoly_io
+
+nch_eflvt_mac_gate       n_gpoly_lvt
+pch_eflvt_mac_gate       p_gpoly_lvt
+nch_efsvt_mac_gate       n_gpoly_svt
+pch_efsvt_mac_gate       p_gpoly_svt
+
+
+ngate_pg_hdsr_mac         n_gpoly_srm     
+ngate_pd_hdsr_mac         n_gpoly_srm     
+pgate_pu_hdsr_mac         p_gpoly_srm     
+ngate_pg_hcsr_mac         n_gpoly_srm     
+ngate_pd_hcsr_mac         n_gpoly_srm     
+pgate_pu_hcsr_mac         p_gpoly_srm     
+ngate_pg_hshcsr_mac       n_gpoly_srm     
+ngate_pd_hshcsr_mac       n_gpoly_srm     
+pgate_pu_hshcsr_mac       p_gpoly_srm     
+ngate_pg_8tsr_mac         n_gpoly_srm     
+ngate_pd_8tsr_mac         n_gpoly_srm     
+pgate_pu_8tsr_mac         p_gpoly_srm     
+ngate_pg_8trpsr_mac       n_gpoly_srm     
+ngate_pd_8trpsr_mac       n_gpoly_srm     
+ngate_pg_hc8tsr_mac       n_gpoly_srm     
+ngate_pd_hc8tsr_mac       n_gpoly_srm     
+pgate_pu_hc8tsr_mac       p_gpoly_srm     
+ngate_pg_hc8trpsr_mac     n_gpoly_srm     
+ngate_pd_hc8trpsr_mac     n_gpoly_srm     
+ngate_pg_ulvtll8tsr_mac   n_gpoly_srm     
+ngate_pd_ulvtll8tsr_mac   n_gpoly_srm     
+pgate_pu_ulvtll8tsr_mac   p_gpoly_srm     
+ngate_pg_ulvtll8trpsr_mac  n_gpoly_srm     
+ngate_pd_ulvtll8trpsr_mac  n_gpoly_srm     
+ngate_pg_ulvtllhc8tsr_mac  n_gpoly_srm     
+ngate_pd_ulvtllhc8tsr_mac  n_gpoly_srm     
+pgate_pu_ulvtllhc8tsr_mac  p_gpoly_srm     
+ngate_pg_ulvtllhc8trpsr_mac  n_gpoly_srm     
+ngate_pd_ulvtllhc8trpsr_mac  n_gpoly_srm     
+ngate_pg_10tsr_mac        n_gpoly_srm     
+ngate_pd_10tsr_mac        n_gpoly_srm     
+pgate_pu_10tsr_mac        p_gpoly_srm     
+ngate_pg_10trpsr_mac      n_gpoly_srm     
+ngate_pd_10trpsr_mac      n_gpoly_srm     
+ngate_pg_ulvtll10tsr_mac  n_gpoly_srm     
+ngate_pd_ulvtll10tsr_mac  n_gpoly_srm     
+pgate_pu_ulvtll10tsr_mac  p_gpoly_srm     
+ngate_pg_ulvtll10trpsr_mac  n_gpoly_srm     
+ngate_pd_ulvtll10trpsr_mac  n_gpoly_srm     
+ngate_pg_dpsr_mac         n_gpoly_srm     
+ngate_pd_dpsr_mac         n_gpoly_srm     
+pgate_pu_dpsr_mac         p_gpoly_srm     
+
+******* PODE mapping *******
+** 3T PODE
+n_pode_svt               n_pode_svt
+n_pode_lvt               n_pode_lvt
+n_pode_ulvt              n_pode_ulvt
+n_pode_elvt              n_pode_ulvt
+n_pode_lvtll             n_pode_lvt
+n_pode_ulvtll            n_pode_ulvt
+n_pode_io                n_pode_io
+
+p_pode_svt               p_pode_svt
+p_pode_lvt               p_pode_lvt
+p_pode_ulvt              p_pode_ulvt
+p_pode_elvt              p_pode_ulvt
+p_pode_lvtll             p_pode_lvt
+p_pode_ulvtll            p_pode_ulvt
+p_pode_io                p_pode_io
+
+npode_svt_mac_gate       n_pode_svt
+npode_lvt_mac_gate       n_pode_lvt 
+npode_ulvt_mac_gate      n_pode_ulvt
+npode_elvt_mac_gate      n_pode_ulvt
+npode_lvtll_mac_gate     n_pode_lvt
+npode_ulvtll_mac_gate    n_pode_ulvt
+
+npode_12_mac_gate        n_pode_io
+
+ppode_svt_mac_gate       p_pode_svt
+ppode_lvt_mac_gate       p_pode_lvt
+ppode_ulvt_mac_gate      p_pode_ulvt
+ppode_elvt_mac_gate      p_pode_ulvt
+ppode_lvtll_mac_gate     p_pode_lvt
+ppode_ulvtll_mac_gate    p_pode_ulvt
+
+ppode_12_mac_gate        p_pode_io
+
+npode_eflvt_mac_gate     n_pode_lvt 
+ppode_eflvt_mac_gate     p_pode_lvt
+npode_efsvt_mac_gate     n_pode_svt 
+ppode_efsvt_mac_gate     p_pode_svt
+
+nch_mpodesvt_mac_gate    n_gpoly_svt
+nch_mpodelvt_mac_gate    n_gpoly_lvt
+nch_mpodeulvt_mac_gate   n_gpoly_ulvt
+nch_mpodelvtll_mac_gate  n_gpoly_lvt
+nch_mpodeulvtll_mac_gate n_gpoly_ulvt
+nch_mpodeelvt_mac_gate   n_gpoly_ulvt
+
+nch_mpode12_mac_gate     n_gpoly_io
+
+pch_mpodesvt_mac_gate    p_gpoly_svt
+pch_mpodelvt_mac_gate    p_gpoly_lvt
+pch_mpodeulvt_mac_gate   p_gpoly_ulvt
+pch_mpodelvtll_mac_gate  p_gpoly_lvt
+pch_mpodeulvtll_mac_gate p_gpoly_ulvt
+pch_mpodeelvt_mac_gate   p_gpoly_ulvt
+
+pch_mpode12_mac_gate     p_gpoly_io
+
+
+******* VARACTOR mapping *******
+vargt                    n_gpoly_ulvt
+vargt_12                 n_gpoly_io
+
+
+******* BJT mapping *******
+coll1                    SUBSTRATE
+cnbase1                  SUBSTRATE
+tpdiff_bjt               POD                     RPSQ=0.0000001
+
+
+
+
+
+RH_TN_7                  RH_TN_7                 RPSQ=0.0000001
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rhim_r7                  RH_TN_7
+
+
+
+
+
+
+
+
+
+
+
+
+
+mt0res_a                 M0                      MASK=1
+mt0res_b                 M0                      MASK=2
+
+
+mt1res_a                 M1                      MASK=1
+mt1res_b                 M1                      MASK=2
+
+
+
+mt2res_a                 M2                      MASK=1
+mt2res_b                 M2                      MASK=2
+
+
+mt3res_noab              M3
+
+
+mt4res_noab              M4
+
+
+
+mt5res_a                 M5                      MASK=1
+mt5res_b                 M5                      MASK=2
+
+
+mt6res_noab              M6
+
+
+mt7res_noab              M7
+
+
+mt8res_noab              M8
+
+
+mt9res_noab              M9
+
+
+mt10res_noab              M10
+
+
+mt11res_noab              M11
+
+
+mt12res_noab              M12
+
+
+mt13res_noab              M13
+
+
+mt14res_noab              M14
+
+
+mt15res_noab              M15
+
+
+mt16res_noab              M16
+
+
+mt17res_noab              M17
+
+
+mt18res_noab              M18
+
+
+mtCures                  Cu_RDL
+
+
+mom0p1_a                M0                      MASK=1           
+mom0p2_a                M0                      MASK=1           
+mom0m1_a                M0                      MASK=1           
+mom0m2_a                M0                      MASK=1           
+mom0p1_b                M0                      MASK=2           
+mom0p2_b                M0                      MASK=2           
+mom0m1_b                M0                      MASK=2           
+mom0m2_b                M0                      MASK=2           
+mom0plus_a		M0			MASK=1           
+mom0minus_b		M0			MASK=2           
+
+
+mom1p1_a                M1                      MASK=1           
+mom1p2_a                M1                      MASK=1           
+mom1m1_a                M1                      MASK=1           
+mom1m2_a                M1                      MASK=1           
+mom1p1_b                M1                      MASK=2           
+mom1p2_b                M1                      MASK=2           
+mom1m1_b                M1                      MASK=2           
+mom1m2_b                M1                      MASK=2           
+mom1plus_a		M1			MASK=1           
+mom1minus_b		M1			MASK=2           
+
+
+
+mom2p1_a                M2                      MASK=1
+mom2p2_a                M2                      MASK=1
+mom2m1_a                M2                      MASK=1
+mom2m2_a                M2                      MASK=1
+mom2p1_b                M2                      MASK=2
+mom2p2_b                M2                      MASK=2
+mom2m1_b                M2                      MASK=2
+mom2m2_b                M2                      MASK=2
+mom2plus_a		M2			MASK=1
+mom2minus_b		M2			MASK=2
+
+mom3p1                  M3 
+mom3m1                  M3
+mom3p2                  M3
+mom3m2                  M3
+mom3minus		M3
+mom3plus		M3
+
+
+mom4p1                  M4 
+mom4m1                  M4
+mom4p2                  M4
+mom4m2                  M4
+mom4minus		M4
+mom4plus		M4
+
+
+
+mom5p1_a                M5                      MASK=1
+mom5p2_a                M5                      MASK=1
+mom5m1_a                M5                      MASK=1
+mom5m2_a                M5                      MASK=1
+mom5p1_b                M5                      MASK=2
+mom5p2_b                M5                      MASK=2
+mom5m1_b                M5                      MASK=2
+mom5m2_b                M5                      MASK=2
+mom5plus_a		M5			MASK=1
+mom5minus_b		M5			MASK=2
+
+mom6p1                  M6 
+mom6m1                  M6
+mom6p2                  M6
+mom6m2                  M6
+mom6minus		M6
+mom6plus		M6
+
+
+mom7p1                  M7 
+mom7m1                  M7
+mom7p2                  M7
+mom7m2                  M7
+mom7minus		M7
+mom7plus		M7
+
+
+mom8p1                  M8 
+mom8m1                  M8
+mom8p2                  M8
+mom8m2                  M8
+mom8minus		M8
+mom8plus		M8
+
+
+mom9p1                  M9 
+mom9m1                  M9
+mom9p2                  M9
+mom9m2                  M9
+mom9minus		M9
+mom9plus		M9
+
+
+mom10p1                  M10 
+mom10m1                  M10
+mom10p2                  M10
+mom10m2                  M10
+mom10minus		M10
+mom10plus		M10
+
+
+mom11p1                  M11 
+mom11m1                  M11
+mom11p2                  M11
+mom11m2                  M11
+mom11minus		M11
+mom11plus		M11
+
+
+mom12p1                  M12 
+mom12m1                  M12
+mom12p2                  M12
+mom12m2                  M12
+mom12minus		M12
+mom12plus		M12
+
+
+mom13p1                  M13 
+mom13m1                  M13
+mom13p2                  M13
+mom13m2                  M13
+mom13minus		M13
+mom13plus		M13
+
+
+mom14p1                  M14 
+mom14m1                  M14
+mom14p2                  M14
+mom14m2                  M14
+mom14minus		M14
+mom14plus		M14
+
+
+
+mom2_ary_plus_a		M2			MASK=1
+mom2_ary_minus_b	M2			MASK=2
+
+mom3_ary_minus		M3
+mom3_ary_plus		M3
+
+mom4_ary_minus		M4
+mom4_ary_plus		M4
+
+mom5_ary_plus_a		M5			MASK=1
+mom5_ary_minus_b	M5			MASK=2
+
+mom6_ary_minus		M6
+mom6_ary_plus		M6
+
+mom7_ary_minus		M7
+mom7_ary_plus		M7
+
+mom8_ary_minus		M8
+mom8_ary_plus		M8
+
+mom9_ary_minus		M9
+mom9_ary_plus		M9
+
+mom10_ary_minus		M10
+mom10_ary_plus		M10
+
+mom11_ary_minus		M11
+mom11_ary_plus		M11
+
+mom12_ary_minus		M12
+mom12_ary_plus		M12
+
+
+
+via_layers
+nplug                    n_weltap
+pplug                    p_weltap
+VD                       VD              
+VD2_MD_TAP               VD2_MD_TAP         
+M0_VD2_TAP               M0_VD2_TAP         
+VG                       VG  
+MP_MD_TAP                MP_MD_TAP       
+VG_MP                    VG_MP
+
+n_odtap                  n_odtap            
+p_odtap                  p_odtap            
+n_odtap_bjt              n_odtap_bjt     
+p_odtap_bjt              p_odtap_bjt     
+n_odtap_srm              n_odtap_srm          
+p_odtap_srm              p_odtap_srm        
+Cu_RV                    Cu_RV
+
+VIA0                     VIA0            
+VIA1                     VIA1
+VIA2                     VIA2
+VIA3                     VIA3
+VIA4                     VIA4
+VIA5                     VIA5
+VIA6                     VIA6
+VIA7                     VIA7
+VIA8                     VIA8
+VIA9                     VIA9
+VIA10                     VIA10
+VIA11                     VIA11
+VIA12                     VIA12
+VIA13                     VIA13
+VIA14                     VIA14
+VIA15                     VIA15
+VIA16                     VIA16
+VIA17                     VIA17
+
+
+
+
+VTIN_6                   VTIN_6
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+silicon_marker_layers
+n_cpode                                                  ITF=n_gpoly_svt
+p_cpode                                                  ITF=p_gpoly_svt
+n_odtap_fb9b_ext          n_odtap                        ITF=n_odtap_fb9b
+n_odtap_fb8b_cpp45_ext    n_odtap                        ITF=n_odtap_fb8b_cpp45
+n_odtap_fb8c_cpp45_ext    n_odtap                        ITF=n_odtap_fb8c_cpp45
+n_odtap_fb6b_cpp45_ext    n_odtap                        ITF=n_odtap_fb6b_cpp45
+n_odtap_cpp51_ext         n_odtap                        ITF=n_odtap_cpp51
+n_odtap_ext               n_odtap                        ITF=n_odtap
+p_odtap_fb9b_ext          p_odtap                        ITF=p_odtap_fb9b
+p_odtap_fb8b_cpp45_ext    p_odtap                        ITF=p_odtap_fb8b_cpp45
+p_odtap_fb8c_cpp45_ext    p_odtap                        ITF=p_odtap_fb8c_cpp45
+p_odtap_fb6b_cpp45_ext    p_odtap                        ITF=p_odtap_fb6b_cpp45
+p_odtap_cpp51_ext         p_odtap                        ITF=p_odtap_cpp51
+p_odtap_ext               p_odtap                        ITF=p_odtap
+VD_SRM                    VD                             ITF=VD_SRM 
+VD_mkr                    VD                             ITF=VD
+VD2_MD_TAP_FB8P45         VD2_MD_TAP                     ITF=VD2_MD_TAP_FB8P45
+VD2_MD_TAP_FB6P45         VD2_MD_TAP                     ITF=VD2_MD_TAP_FB6P45
+VD2_MD_TAP_FB11           VD2_MD_TAP                     ITF=VD2_MD_TAP_FB11
+VD2_MD_TAP_FB16           VD2_MD_TAP                     ITF=VD2_MD_TAP_FB16
+VD2_MD_TAP_FB18           VD2_MD_TAP                     ITF=VD2_MD_TAP_FB18
+VD2_MD_TAP_P51            VD2_MD_TAP                     ITF=VD2_MD_TAP_P51
+VD2_MD_TAP_mkr            VD2_MD_TAP                     ITF=VD2_MD_TAP
+
+
+
+mkr_cfi_ncore_fb9a           n_gpoly_svt                    ITF=n_gpoly_svt            MASK=1
+mkr_cfi_pcore_fb9a           p_gpoly_svt                    ITF=p_gpoly_svt            MASK=1
+mkr_cfi_ncore_fb9a           nch_svt_mac_gate               ITF=n_gpoly_svt            MASK=1
+mkr_cfi_pcore_fb9a           pch_svt_mac_gate               ITF=p_gpoly_svt            MASK=1
+mkr_cfi_ncore_fb9a           nch_svt_mac_gate_dnw           ITF=n_gpoly_svt            MASK=1
+mkr_cfi_ncore_fb9a           nch_mpodesvt_mac_gate          ITF=n_gpoly_svt            MASK=1
+mkr_cfi_pcore_fb9a           pch_mpodesvt_mac_gate          ITF=p_gpoly_svt            MASK=1
+mkr_cfi_ncore_fb9a           n_pode_svt                     ITF=n_pode_svt             MASK=1
+mkr_cfi_pcore_fb9a           p_pode_svt                     ITF=p_pode_svt             MASK=1
+mkr_cfi_ncore_fb9a           npode_svt_mac_gate             ITF=n_pode_svt             MASK=1
+mkr_cfi_pcore_fb9a           ppode_svt_mac_gate             ITF=p_pode_svt             MASK=1
+
+mkr_cfi_ncore_fb9a           n_gpoly_lvt                    ITF=n_gpoly_lvt            MASK=1
+mkr_cfi_pcore_fb9a           p_gpoly_lvt                    ITF=p_gpoly_lvt            MASK=1
+mkr_cfi_ncore_fb9a           nch_lvt_mac_gate               ITF=n_gpoly_lvt            MASK=1
+mkr_cfi_pcore_fb9a           pch_lvt_mac_gate               ITF=p_gpoly_lvt            MASK=1
+mkr_cfi_ncore_fb9a           nch_lvt_mac_gate_dnw           ITF=n_gpoly_lvt            MASK=1
+mkr_cfi_ncore_fb9a           nch_mpodelvt_mac_gate          ITF=n_gpoly_lvt            MASK=1
+mkr_cfi_pcore_fb9a           pch_mpodelvt_mac_gate          ITF=p_gpoly_lvt            MASK=1
+mkr_cfi_ncore_fb9a           n_pode_lvt                     ITF=n_pode_lvt             MASK=1
+mkr_cfi_pcore_fb9a           p_pode_lvt                     ITF=p_pode_lvt             MASK=1
+mkr_cfi_ncore_fb9a           npode_lvt_mac_gate             ITF=n_pode_lvt             MASK=1
+mkr_cfi_pcore_fb9a           ppode_lvt_mac_gate             ITF=p_pode_lvt             MASK=1
+mkr_cfi_ncore_fb9a           nch_eflvt_mac_gate             ITF=n_gpoly_lvt            MASK=1
+mkr_cfi_pcore_fb9a           pch_eflvt_mac_gate             ITF=p_gpoly_lvt            MASK=1
+mkr_cfi_ncore_fb9a           nch_eflvt_mac_gate_dnw         ITF=n_gpoly_lvt            MASK=1
+mkr_cfi_ncore_fb9a           npode_eflvt_mac_gate           ITF=n_pode_lvt             MASK=1
+mkr_cfi_pcore_fb9a           ppode_eflvt_mac_gate           ITF=p_pode_lvt             MASK=1
+mkr_cfi_ncore_fb9a           nch_efsvt_mac_gate             ITF=n_gpoly_svt            MASK=1
+mkr_cfi_pcore_fb9a           pch_efsvt_mac_gate             ITF=p_gpoly_svt            MASK=1
+mkr_cfi_ncore_fb9a           nch_efsvt_mac_gate_dnw         ITF=n_gpoly_svt            MASK=1
+mkr_cfi_ncore_fb9a           npode_efsvt_mac_gate           ITF=n_pode_svt             MASK=1
+mkr_cfi_pcore_fb9a           ppode_efsvt_mac_gate           ITF=p_pode_svt             MASK=1
+
+mkr_cfi_ncore_fb9a           n_gpoly_lvtll                  ITF=n_gpoly_lvt            MASK=1
+mkr_cfi_pcore_fb9a           p_gpoly_lvtll                  ITF=p_gpoly_lvt            MASK=1
+mkr_cfi_ncore_fb9a           nch_lvtll_mac_gate             ITF=n_gpoly_lvt            MASK=1
+mkr_cfi_pcore_fb9a           pch_lvtll_mac_gate             ITF=p_gpoly_lvt            MASK=1
+mkr_cfi_ncore_fb9a           nch_lvtll_mac_gate_dnw         ITF=n_gpoly_lvt            MASK=1
+mkr_cfi_ncore_fb9a           nch_mpodelvtll_mac_gate        ITF=n_gpoly_lvt            MASK=1
+mkr_cfi_pcore_fb9a           pch_mpodelvtll_mac_gate        ITF=p_gpoly_lvt            MASK=1
+mkr_cfi_ncore_fb9a           n_pode_lvtll                   ITF=n_pode_lvt             MASK=1
+mkr_cfi_pcore_fb9a           p_pode_lvtll                   ITF=p_pode_lvt             MASK=1
+mkr_cfi_ncore_fb9a           npode_lvtll_mac_gate           ITF=n_pode_lvt             MASK=1
+mkr_cfi_pcore_fb9a           ppode_lvtll_mac_gate           ITF=p_pode_lvt             MASK=1
+
+mkr_cfi_ncore_fb9a           n_gpoly_ulvt                   ITF=n_gpoly_ulvt           MASK=1
+mkr_cfi_pcore_fb9a           p_gpoly_ulvt                   ITF=p_gpoly_ulvt           MASK=1
+mkr_cfi_ncore_fb9a           nch_ulvt_mac_gate              ITF=n_gpoly_ulvt           MASK=1
+mkr_cfi_pcore_fb9a           pch_ulvt_mac_gate              ITF=p_gpoly_ulvt           MASK=1
+mkr_cfi_ncore_fb9a           nch_ulvt_mac_gate_dnw          ITF=n_gpoly_ulvt           MASK=1
+mkr_cfi_ncore_fb9a           nch_mpodeulvt_mac_gate         ITF=n_gpoly_ulvt           MASK=1
+mkr_cfi_pcore_fb9a           pch_mpodeulvt_mac_gate         ITF=p_gpoly_ulvt           MASK=1
+mkr_cfi_ncore_fb9a           n_pode_ulvt                    ITF=n_pode_ulvt            MASK=1
+mkr_cfi_pcore_fb9a           p_pode_ulvt                    ITF=p_pode_ulvt            MASK=1
+mkr_cfi_ncore_fb9a           npode_ulvt_mac_gate            ITF=n_pode_ulvt            MASK=1
+mkr_cfi_pcore_fb9a           ppode_ulvt_mac_gate            ITF=p_pode_ulvt            MASK=1
+
+mkr_cfi_ncore_fb9a           n_gpoly_ulvtll                 ITF=n_gpoly_ulvt           MASK=1
+mkr_cfi_pcore_fb9a           p_gpoly_ulvtll                 ITF=p_gpoly_ulvt           MASK=1
+mkr_cfi_ncore_fb9a           nch_ulvtll_mac_gate            ITF=n_gpoly_ulvt           MASK=1
+mkr_cfi_pcore_fb9a           pch_ulvtll_mac_gate            ITF=p_gpoly_ulvt           MASK=1
+mkr_cfi_ncore_fb9a           nch_ulvtll_mac_gate_dnw        ITF=n_gpoly_ulvt           MASK=1
+mkr_cfi_ncore_fb9a           nch_mpodeulvtll_mac_gate       ITF=n_gpoly_ulvt           MASK=1
+mkr_cfi_pcore_fb9a           pch_mpodeulvtll_mac_gate       ITF=p_gpoly_ulvt           MASK=1
+mkr_cfi_ncore_fb9a           n_pode_ulvtll                  ITF=n_pode_ulvt            MASK=1
+mkr_cfi_pcore_fb9a           p_pode_ulvtll                  ITF=p_pode_ulvt            MASK=1
+mkr_cfi_ncore_fb9a           npode_ulvtll_mac_gate          ITF=n_pode_ulvt            MASK=1
+mkr_cfi_pcore_fb9a           ppode_ulvtll_mac_gate          ITF=p_pode_ulvt            MASK=1
+
+mkr_cfi_ncore_fb9a           n_gpoly_elvt                   ITF=n_gpoly_ulvt           MASK=1
+mkr_cfi_pcore_fb9a           p_gpoly_elvt                   ITF=p_gpoly_ulvt           MASK=1
+mkr_cfi_ncore_fb9a           nch_elvt_mac_gate              ITF=n_gpoly_ulvt           MASK=1
+mkr_cfi_pcore_fb9a           pch_elvt_mac_gate              ITF=p_gpoly_ulvt           MASK=1
+mkr_cfi_ncore_fb9a           nch_elvt_mac_gate_dnw          ITF=n_gpoly_ulvt           MASK=1
+mkr_cfi_ncore_fb9a           nch_mpodeelvt_mac_gate         ITF=n_gpoly_ulvt           MASK=1
+mkr_cfi_pcore_fb9a           pch_mpodeelvt_mac_gate         ITF=p_gpoly_ulvt           MASK=1
+mkr_cfi_ncore_fb9a           n_pode_elvt                    ITF=n_pode_ulvt            MASK=1
+mkr_cfi_pcore_fb9a           p_pode_elvt                    ITF=p_pode_ulvt            MASK=1
+mkr_cfi_ncore_fb9a           npode_elvt_mac_gate            ITF=n_pode_ulvt            MASK=1
+mkr_cfi_pcore_fb9a           ppode_elvt_mac_gate            ITF=p_pode_ulvt            MASK=1
+
+mkr_cfi_ncore_fb9a           vargt                          ITF=n_gpoly_ulvt           MASK=1
+mkr_cfi_ncore_fb9a           n_gpoly_nocg_lvt               ITF=n_gpoly_lvt            MASK=1
+mkr_cfi_pcore_fb9a           p_gpoly_nocg_lvt               ITF=p_gpoly_lvt            MASK=1
+
+
+mkr_cfi_ncore_fb8b_fb9b           n_gpoly_svt                    ITF=n_gpoly_svt            MASK=2
+mkr_cfi_pcore_fb8b_fb9b           p_gpoly_svt                    ITF=p_gpoly_svt            MASK=2
+mkr_cfi_ncore_fb8b_fb9b           nch_svt_mac_gate               ITF=n_gpoly_svt            MASK=2
+mkr_cfi_pcore_fb8b_fb9b           pch_svt_mac_gate               ITF=p_gpoly_svt            MASK=2
+mkr_cfi_ncore_fb8b_fb9b           nch_svt_mac_gate_dnw           ITF=n_gpoly_svt            MASK=2
+mkr_cfi_ncore_fb8b_fb9b           nch_mpodesvt_mac_gate          ITF=n_gpoly_svt            MASK=2
+mkr_cfi_pcore_fb8b_fb9b           pch_mpodesvt_mac_gate          ITF=p_gpoly_svt            MASK=2
+mkr_cfi_ncore_fb8b_fb9b           n_pode_svt                     ITF=n_pode_svt             MASK=2
+mkr_cfi_pcore_fb8b_fb9b           p_pode_svt                     ITF=p_pode_svt             MASK=2
+mkr_cfi_ncore_fb8b_fb9b           npode_svt_mac_gate             ITF=n_pode_svt             MASK=2
+mkr_cfi_pcore_fb8b_fb9b           ppode_svt_mac_gate             ITF=p_pode_svt             MASK=2
+
+mkr_cfi_ncore_fb8b_fb9b           n_gpoly_lvt                    ITF=n_gpoly_lvt            MASK=2
+mkr_cfi_pcore_fb8b_fb9b           p_gpoly_lvt                    ITF=p_gpoly_lvt            MASK=2
+mkr_cfi_ncore_fb8b_fb9b           nch_lvt_mac_gate               ITF=n_gpoly_lvt            MASK=2
+mkr_cfi_pcore_fb8b_fb9b           pch_lvt_mac_gate               ITF=p_gpoly_lvt            MASK=2
+mkr_cfi_ncore_fb8b_fb9b           nch_lvt_mac_gate_dnw           ITF=n_gpoly_lvt            MASK=2
+mkr_cfi_ncore_fb8b_fb9b           nch_mpodelvt_mac_gate          ITF=n_gpoly_lvt            MASK=2
+mkr_cfi_pcore_fb8b_fb9b           pch_mpodelvt_mac_gate          ITF=p_gpoly_lvt            MASK=2
+mkr_cfi_ncore_fb8b_fb9b           n_pode_lvt                     ITF=n_pode_lvt             MASK=2
+mkr_cfi_pcore_fb8b_fb9b           p_pode_lvt                     ITF=p_pode_lvt             MASK=2
+mkr_cfi_ncore_fb8b_fb9b           npode_lvt_mac_gate             ITF=n_pode_lvt             MASK=2
+mkr_cfi_pcore_fb8b_fb9b           ppode_lvt_mac_gate             ITF=p_pode_lvt             MASK=2
+mkr_cfi_ncore_fb8b_fb9b           nch_eflvt_mac_gate             ITF=n_gpoly_lvt            MASK=2
+mkr_cfi_pcore_fb8b_fb9b           pch_eflvt_mac_gate             ITF=p_gpoly_lvt            MASK=2
+mkr_cfi_ncore_fb8b_fb9b           nch_eflvt_mac_gate_dnw         ITF=n_gpoly_lvt            MASK=2
+mkr_cfi_ncore_fb8b_fb9b           npode_eflvt_mac_gate           ITF=n_pode_lvt             MASK=2
+mkr_cfi_pcore_fb8b_fb9b           ppode_eflvt_mac_gate           ITF=p_pode_lvt             MASK=2
+mkr_cfi_ncore_fb8b_fb9b           nch_efsvt_mac_gate             ITF=n_gpoly_svt            MASK=2
+mkr_cfi_pcore_fb8b_fb9b           pch_efsvt_mac_gate             ITF=p_gpoly_svt            MASK=2
+mkr_cfi_ncore_fb8b_fb9b           nch_efsvt_mac_gate_dnw         ITF=n_gpoly_svt            MASK=2
+mkr_cfi_ncore_fb8b_fb9b           npode_efsvt_mac_gate           ITF=n_pode_svt             MASK=2
+mkr_cfi_pcore_fb8b_fb9b           ppode_efsvt_mac_gate           ITF=p_pode_svt             MASK=2
+
+mkr_cfi_ncore_fb8b_fb9b           n_gpoly_lvtll                  ITF=n_gpoly_lvt            MASK=2
+mkr_cfi_pcore_fb8b_fb9b           p_gpoly_lvtll                  ITF=p_gpoly_lvt            MASK=2
+mkr_cfi_ncore_fb8b_fb9b           nch_lvtll_mac_gate             ITF=n_gpoly_lvt            MASK=2
+mkr_cfi_pcore_fb8b_fb9b           pch_lvtll_mac_gate             ITF=p_gpoly_lvt            MASK=2
+mkr_cfi_ncore_fb8b_fb9b           nch_lvtll_mac_gate_dnw         ITF=n_gpoly_lvt            MASK=2
+mkr_cfi_ncore_fb8b_fb9b           nch_mpodelvtll_mac_gate        ITF=n_gpoly_lvt            MASK=2
+mkr_cfi_pcore_fb8b_fb9b           pch_mpodelvtll_mac_gate        ITF=p_gpoly_lvt            MASK=2
+mkr_cfi_ncore_fb8b_fb9b           n_pode_lvtll                   ITF=n_pode_lvt             MASK=2
+mkr_cfi_pcore_fb8b_fb9b           p_pode_lvtll                   ITF=p_pode_lvt             MASK=2
+mkr_cfi_ncore_fb8b_fb9b           npode_lvtll_mac_gate           ITF=n_pode_lvt             MASK=2
+mkr_cfi_pcore_fb8b_fb9b           ppode_lvtll_mac_gate           ITF=p_pode_lvt             MASK=2
+
+mkr_cfi_ncore_fb8b_fb9b           n_gpoly_ulvt                   ITF=n_gpoly_ulvt           MASK=2
+mkr_cfi_pcore_fb8b_fb9b           p_gpoly_ulvt                   ITF=p_gpoly_ulvt           MASK=2
+mkr_cfi_ncore_fb8b_fb9b           nch_ulvt_mac_gate              ITF=n_gpoly_ulvt           MASK=2
+mkr_cfi_pcore_fb8b_fb9b           pch_ulvt_mac_gate              ITF=p_gpoly_ulvt           MASK=2
+mkr_cfi_ncore_fb8b_fb9b           nch_ulvt_mac_gate_dnw          ITF=n_gpoly_ulvt           MASK=2
+mkr_cfi_ncore_fb8b_fb9b           nch_mpodeulvt_mac_gate         ITF=n_gpoly_ulvt           MASK=2
+mkr_cfi_pcore_fb8b_fb9b           pch_mpodeulvt_mac_gate         ITF=p_gpoly_ulvt           MASK=2
+mkr_cfi_ncore_fb8b_fb9b           n_pode_ulvt                    ITF=n_pode_ulvt            MASK=2
+mkr_cfi_pcore_fb8b_fb9b           p_pode_ulvt                    ITF=p_pode_ulvt            MASK=2
+mkr_cfi_ncore_fb8b_fb9b           npode_ulvt_mac_gate            ITF=n_pode_ulvt            MASK=2
+mkr_cfi_pcore_fb8b_fb9b           ppode_ulvt_mac_gate            ITF=p_pode_ulvt            MASK=2
+
+mkr_cfi_ncore_fb8b_fb9b           n_gpoly_ulvtll                 ITF=n_gpoly_ulvt           MASK=2
+mkr_cfi_pcore_fb8b_fb9b           p_gpoly_ulvtll                 ITF=p_gpoly_ulvt           MASK=2
+mkr_cfi_ncore_fb8b_fb9b           nch_ulvtll_mac_gate            ITF=n_gpoly_ulvt           MASK=2
+mkr_cfi_pcore_fb8b_fb9b           pch_ulvtll_mac_gate            ITF=p_gpoly_ulvt           MASK=2
+mkr_cfi_ncore_fb8b_fb9b           nch_ulvtll_mac_gate_dnw        ITF=n_gpoly_ulvt           MASK=2
+mkr_cfi_ncore_fb8b_fb9b           nch_mpodeulvtll_mac_gate       ITF=n_gpoly_ulvt           MASK=2
+mkr_cfi_pcore_fb8b_fb9b           pch_mpodeulvtll_mac_gate       ITF=p_gpoly_ulvt           MASK=2
+mkr_cfi_ncore_fb8b_fb9b           n_pode_ulvtll                  ITF=n_pode_ulvt            MASK=2
+mkr_cfi_pcore_fb8b_fb9b           p_pode_ulvtll                  ITF=p_pode_ulvt            MASK=2
+mkr_cfi_ncore_fb8b_fb9b           npode_ulvtll_mac_gate          ITF=n_pode_ulvt            MASK=2
+mkr_cfi_pcore_fb8b_fb9b           ppode_ulvtll_mac_gate          ITF=p_pode_ulvt            MASK=2
+
+mkr_cfi_ncore_fb8b_fb9b           n_gpoly_elvt                   ITF=n_gpoly_ulvt           MASK=2
+mkr_cfi_pcore_fb8b_fb9b           p_gpoly_elvt                   ITF=p_gpoly_ulvt           MASK=2
+mkr_cfi_ncore_fb8b_fb9b           nch_elvt_mac_gate              ITF=n_gpoly_ulvt           MASK=2
+mkr_cfi_pcore_fb8b_fb9b           pch_elvt_mac_gate              ITF=p_gpoly_ulvt           MASK=2
+mkr_cfi_ncore_fb8b_fb9b           nch_elvt_mac_gate_dnw          ITF=n_gpoly_ulvt           MASK=2
+mkr_cfi_ncore_fb8b_fb9b           nch_mpodeelvt_mac_gate         ITF=n_gpoly_ulvt           MASK=2
+mkr_cfi_pcore_fb8b_fb9b           pch_mpodeelvt_mac_gate         ITF=p_gpoly_ulvt           MASK=2
+mkr_cfi_ncore_fb8b_fb9b           n_pode_elvt                    ITF=n_pode_ulvt            MASK=2
+mkr_cfi_pcore_fb8b_fb9b           p_pode_elvt                    ITF=p_pode_ulvt            MASK=2
+mkr_cfi_ncore_fb8b_fb9b           npode_elvt_mac_gate            ITF=n_pode_ulvt            MASK=2
+mkr_cfi_pcore_fb8b_fb9b           ppode_elvt_mac_gate            ITF=p_pode_ulvt            MASK=2
+
+mkr_cfi_ncore_fb8b_fb9b           vargt                          ITF=n_gpoly_ulvt           MASK=2
+mkr_cfi_ncore_fb8b_fb9b           n_gpoly_nocg_lvt               ITF=n_gpoly_lvt            MASK=2
+mkr_cfi_pcore_fb8b_fb9b           p_gpoly_nocg_lvt               ITF=p_gpoly_lvt            MASK=2
+
+
+mkr_cfi_ncore_fb8c           n_gpoly_svt                    ITF=n_gpoly_svt            MASK=3
+mkr_cfi_pcore_fb8c           p_gpoly_svt                    ITF=p_gpoly_svt            MASK=3
+mkr_cfi_ncore_fb8c           nch_svt_mac_gate               ITF=n_gpoly_svt            MASK=3
+mkr_cfi_pcore_fb8c           pch_svt_mac_gate               ITF=p_gpoly_svt            MASK=3
+mkr_cfi_ncore_fb8c           nch_svt_mac_gate_dnw           ITF=n_gpoly_svt            MASK=3
+mkr_cfi_ncore_fb8c           nch_mpodesvt_mac_gate          ITF=n_gpoly_svt            MASK=3
+mkr_cfi_pcore_fb8c           pch_mpodesvt_mac_gate          ITF=p_gpoly_svt            MASK=3
+mkr_cfi_ncore_fb8c           n_pode_svt                     ITF=n_pode_svt             MASK=3
+mkr_cfi_pcore_fb8c           p_pode_svt                     ITF=p_pode_svt             MASK=3
+mkr_cfi_ncore_fb8c           npode_svt_mac_gate             ITF=n_pode_svt             MASK=3
+mkr_cfi_pcore_fb8c           ppode_svt_mac_gate             ITF=p_pode_svt             MASK=3
+
+mkr_cfi_ncore_fb8c           n_gpoly_lvt                    ITF=n_gpoly_lvt            MASK=3
+mkr_cfi_pcore_fb8c           p_gpoly_lvt                    ITF=p_gpoly_lvt            MASK=3
+mkr_cfi_ncore_fb8c           nch_lvt_mac_gate               ITF=n_gpoly_lvt            MASK=3
+mkr_cfi_pcore_fb8c           pch_lvt_mac_gate               ITF=p_gpoly_lvt            MASK=3
+mkr_cfi_ncore_fb8c           nch_lvt_mac_gate_dnw           ITF=n_gpoly_lvt            MASK=3
+mkr_cfi_ncore_fb8c           nch_mpodelvt_mac_gate          ITF=n_gpoly_lvt            MASK=3
+mkr_cfi_pcore_fb8c           pch_mpodelvt_mac_gate          ITF=p_gpoly_lvt            MASK=3
+mkr_cfi_ncore_fb8c           n_pode_lvt                     ITF=n_pode_lvt             MASK=3
+mkr_cfi_pcore_fb8c           p_pode_lvt                     ITF=p_pode_lvt             MASK=3
+mkr_cfi_ncore_fb8c           npode_lvt_mac_gate             ITF=n_pode_lvt             MASK=3
+mkr_cfi_pcore_fb8c           ppode_lvt_mac_gate             ITF=p_pode_lvt             MASK=3
+mkr_cfi_ncore_fb8c           nch_eflvt_mac_gate             ITF=n_gpoly_lvt            MASK=3
+mkr_cfi_pcore_fb8c           pch_eflvt_mac_gate             ITF=p_gpoly_lvt            MASK=3
+mkr_cfi_ncore_fb8c           nch_eflvt_mac_gate_dnw         ITF=n_gpoly_lvt            MASK=3
+mkr_cfi_ncore_fb8c           npode_eflvt_mac_gate           ITF=n_pode_lvt             MASK=3
+mkr_cfi_pcore_fb8c           ppode_eflvt_mac_gate           ITF=p_pode_lvt             MASK=3
+mkr_cfi_ncore_fb8c           nch_efsvt_mac_gate             ITF=n_gpoly_svt            MASK=3
+mkr_cfi_pcore_fb8c           pch_efsvt_mac_gate             ITF=p_gpoly_svt            MASK=3
+mkr_cfi_ncore_fb8c           nch_efsvt_mac_gate_dnw         ITF=n_gpoly_svt            MASK=3
+mkr_cfi_ncore_fb8c           npode_efsvt_mac_gate           ITF=n_pode_svt             MASK=3
+mkr_cfi_pcore_fb8c           ppode_efsvt_mac_gate           ITF=p_pode_svt             MASK=3
+
+mkr_cfi_ncore_fb8c           n_gpoly_lvtll                  ITF=n_gpoly_lvt            MASK=3
+mkr_cfi_pcore_fb8c           p_gpoly_lvtll                  ITF=p_gpoly_lvt            MASK=3
+mkr_cfi_ncore_fb8c           nch_lvtll_mac_gate             ITF=n_gpoly_lvt            MASK=3
+mkr_cfi_pcore_fb8c           pch_lvtll_mac_gate             ITF=p_gpoly_lvt            MASK=3
+mkr_cfi_ncore_fb8c           nch_lvtll_mac_gate_dnw         ITF=n_gpoly_lvt            MASK=3
+mkr_cfi_ncore_fb8c           nch_mpodelvtll_mac_gate        ITF=n_gpoly_lvt            MASK=3
+mkr_cfi_pcore_fb8c           pch_mpodelvtll_mac_gate        ITF=p_gpoly_lvt            MASK=3
+mkr_cfi_ncore_fb8c           n_pode_lvtll                   ITF=n_pode_lvt             MASK=3
+mkr_cfi_pcore_fb8c           p_pode_lvtll                   ITF=p_pode_lvt             MASK=3
+mkr_cfi_ncore_fb8c           npode_lvtll_mac_gate           ITF=n_pode_lvt             MASK=3
+mkr_cfi_pcore_fb8c           ppode_lvtll_mac_gate           ITF=p_pode_lvt             MASK=3
+
+mkr_cfi_ncore_fb8c           n_gpoly_ulvt                   ITF=n_gpoly_ulvt           MASK=3
+mkr_cfi_pcore_fb8c           p_gpoly_ulvt                   ITF=p_gpoly_ulvt           MASK=3
+mkr_cfi_ncore_fb8c           nch_ulvt_mac_gate              ITF=n_gpoly_ulvt           MASK=3
+mkr_cfi_pcore_fb8c           pch_ulvt_mac_gate              ITF=p_gpoly_ulvt           MASK=3
+mkr_cfi_ncore_fb8c           nch_ulvt_mac_gate_dnw          ITF=n_gpoly_ulvt           MASK=3
+mkr_cfi_ncore_fb8c           nch_mpodeulvt_mac_gate         ITF=n_gpoly_ulvt           MASK=3
+mkr_cfi_pcore_fb8c           pch_mpodeulvt_mac_gate         ITF=p_gpoly_ulvt           MASK=3
+mkr_cfi_ncore_fb8c           n_pode_ulvt                    ITF=n_pode_ulvt            MASK=3
+mkr_cfi_pcore_fb8c           p_pode_ulvt                    ITF=p_pode_ulvt            MASK=3
+mkr_cfi_ncore_fb8c           npode_ulvt_mac_gate            ITF=n_pode_ulvt            MASK=3
+mkr_cfi_pcore_fb8c           ppode_ulvt_mac_gate            ITF=p_pode_ulvt            MASK=3
+
+mkr_cfi_ncore_fb8c           n_gpoly_ulvtll                 ITF=n_gpoly_ulvt           MASK=3
+mkr_cfi_pcore_fb8c           p_gpoly_ulvtll                 ITF=p_gpoly_ulvt           MASK=3
+mkr_cfi_ncore_fb8c           nch_ulvtll_mac_gate            ITF=n_gpoly_ulvt           MASK=3
+mkr_cfi_pcore_fb8c           pch_ulvtll_mac_gate            ITF=p_gpoly_ulvt           MASK=3
+mkr_cfi_ncore_fb8c           nch_ulvtll_mac_gate_dnw        ITF=n_gpoly_ulvt           MASK=3
+mkr_cfi_ncore_fb8c           nch_mpodeulvtll_mac_gate       ITF=n_gpoly_ulvt           MASK=3
+mkr_cfi_pcore_fb8c           pch_mpodeulvtll_mac_gate       ITF=p_gpoly_ulvt           MASK=3
+mkr_cfi_ncore_fb8c           n_pode_ulvtll                  ITF=n_pode_ulvt            MASK=3
+mkr_cfi_pcore_fb8c           p_pode_ulvtll                  ITF=p_pode_ulvt            MASK=3
+mkr_cfi_ncore_fb8c           npode_ulvtll_mac_gate          ITF=n_pode_ulvt            MASK=3
+mkr_cfi_pcore_fb8c           ppode_ulvtll_mac_gate          ITF=p_pode_ulvt            MASK=3
+
+mkr_cfi_ncore_fb8c           n_gpoly_elvt                   ITF=n_gpoly_ulvt           MASK=3
+mkr_cfi_pcore_fb8c           p_gpoly_elvt                   ITF=p_gpoly_ulvt           MASK=3
+mkr_cfi_ncore_fb8c           nch_elvt_mac_gate              ITF=n_gpoly_ulvt           MASK=3
+mkr_cfi_pcore_fb8c           pch_elvt_mac_gate              ITF=p_gpoly_ulvt           MASK=3
+mkr_cfi_ncore_fb8c           nch_elvt_mac_gate_dnw          ITF=n_gpoly_ulvt           MASK=3
+mkr_cfi_ncore_fb8c           nch_mpodeelvt_mac_gate         ITF=n_gpoly_ulvt           MASK=3
+mkr_cfi_pcore_fb8c           pch_mpodeelvt_mac_gate         ITF=p_gpoly_ulvt           MASK=3
+mkr_cfi_ncore_fb8c           n_pode_elvt                    ITF=n_pode_ulvt            MASK=3
+mkr_cfi_pcore_fb8c           p_pode_elvt                    ITF=p_pode_ulvt            MASK=3
+mkr_cfi_ncore_fb8c           npode_elvt_mac_gate            ITF=n_pode_ulvt            MASK=3
+mkr_cfi_pcore_fb8c           ppode_elvt_mac_gate            ITF=p_pode_ulvt            MASK=3
+
+mkr_cfi_ncore_fb8c           vargt                          ITF=n_gpoly_ulvt           MASK=3
+mkr_cfi_ncore_fb8c           n_gpoly_nocg_lvt               ITF=n_gpoly_lvt            MASK=3
+mkr_cfi_pcore_fb8c           p_gpoly_nocg_lvt               ITF=p_gpoly_lvt            MASK=3
+
+
+mkr_cfi_ncore_others           n_gpoly_svt                    ITF=n_gpoly_svt            MASK=4
+mkr_cfi_pcore_others           p_gpoly_svt                    ITF=p_gpoly_svt            MASK=4
+mkr_cfi_ncore_others           nch_svt_mac_gate               ITF=n_gpoly_svt            MASK=4
+mkr_cfi_pcore_others           pch_svt_mac_gate               ITF=p_gpoly_svt            MASK=4
+mkr_cfi_ncore_others           nch_svt_mac_gate_dnw           ITF=n_gpoly_svt            MASK=4
+mkr_cfi_ncore_others           nch_mpodesvt_mac_gate          ITF=n_gpoly_svt            MASK=4
+mkr_cfi_pcore_others           pch_mpodesvt_mac_gate          ITF=p_gpoly_svt            MASK=4
+mkr_cfi_ncore_others           n_pode_svt                     ITF=n_pode_svt             MASK=4
+mkr_cfi_pcore_others           p_pode_svt                     ITF=p_pode_svt             MASK=4
+mkr_cfi_ncore_others           npode_svt_mac_gate             ITF=n_pode_svt             MASK=4
+mkr_cfi_pcore_others           ppode_svt_mac_gate             ITF=p_pode_svt             MASK=4
+
+mkr_cfi_ncore_others           n_gpoly_lvt                    ITF=n_gpoly_lvt            MASK=4
+mkr_cfi_pcore_others           p_gpoly_lvt                    ITF=p_gpoly_lvt            MASK=4
+mkr_cfi_ncore_others           nch_lvt_mac_gate               ITF=n_gpoly_lvt            MASK=4
+mkr_cfi_pcore_others           pch_lvt_mac_gate               ITF=p_gpoly_lvt            MASK=4
+mkr_cfi_ncore_others           nch_lvt_mac_gate_dnw           ITF=n_gpoly_lvt            MASK=4
+mkr_cfi_ncore_others           nch_mpodelvt_mac_gate          ITF=n_gpoly_lvt            MASK=4
+mkr_cfi_pcore_others           pch_mpodelvt_mac_gate          ITF=p_gpoly_lvt            MASK=4
+mkr_cfi_ncore_others           n_pode_lvt                     ITF=n_pode_lvt             MASK=4
+mkr_cfi_pcore_others           p_pode_lvt                     ITF=p_pode_lvt             MASK=4
+mkr_cfi_ncore_others           npode_lvt_mac_gate             ITF=n_pode_lvt             MASK=4
+mkr_cfi_pcore_others           ppode_lvt_mac_gate             ITF=p_pode_lvt             MASK=4
+mkr_cfi_ncore_others           nch_eflvt_mac_gate             ITF=n_gpoly_lvt            MASK=4
+mkr_cfi_pcore_others           pch_eflvt_mac_gate             ITF=p_gpoly_lvt            MASK=4
+mkr_cfi_ncore_others           nch_eflvt_mac_gate_dnw         ITF=n_gpoly_lvt            MASK=4
+mkr_cfi_ncore_others           npode_eflvt_mac_gate           ITF=n_pode_lvt             MASK=4
+mkr_cfi_pcore_others           ppode_eflvt_mac_gate           ITF=p_pode_lvt             MASK=4
+mkr_cfi_ncore_others           nch_efsvt_mac_gate             ITF=n_gpoly_svt            MASK=4
+mkr_cfi_pcore_others           pch_efsvt_mac_gate             ITF=p_gpoly_svt            MASK=4
+mkr_cfi_ncore_others           nch_efsvt_mac_gate_dnw         ITF=n_gpoly_svt            MASK=4
+mkr_cfi_ncore_others           npode_efsvt_mac_gate           ITF=n_pode_svt             MASK=4
+mkr_cfi_pcore_others           ppode_efsvt_mac_gate           ITF=p_pode_svt             MASK=4
+
+mkr_cfi_ncore_others           n_gpoly_lvtll                  ITF=n_gpoly_lvt            MASK=4
+mkr_cfi_pcore_others           p_gpoly_lvtll                  ITF=p_gpoly_lvt            MASK=4
+mkr_cfi_ncore_others           nch_lvtll_mac_gate             ITF=n_gpoly_lvt            MASK=4
+mkr_cfi_pcore_others           pch_lvtll_mac_gate             ITF=p_gpoly_lvt            MASK=4
+mkr_cfi_ncore_others           nch_lvtll_mac_gate_dnw         ITF=n_gpoly_lvt            MASK=4
+mkr_cfi_ncore_others           nch_mpodelvtll_mac_gate        ITF=n_gpoly_lvt            MASK=4
+mkr_cfi_pcore_others           pch_mpodelvtll_mac_gate        ITF=p_gpoly_lvt            MASK=4
+mkr_cfi_ncore_others           n_pode_lvtll                   ITF=n_pode_lvt             MASK=4
+mkr_cfi_pcore_others           p_pode_lvtll                   ITF=p_pode_lvt             MASK=4
+mkr_cfi_ncore_others           npode_lvtll_mac_gate           ITF=n_pode_lvt             MASK=4
+mkr_cfi_pcore_others           ppode_lvtll_mac_gate           ITF=p_pode_lvt             MASK=4
+
+mkr_cfi_ncore_others           n_gpoly_ulvt                   ITF=n_gpoly_ulvt           MASK=4
+mkr_cfi_pcore_others           p_gpoly_ulvt                   ITF=p_gpoly_ulvt           MASK=4
+mkr_cfi_ncore_others           nch_ulvt_mac_gate              ITF=n_gpoly_ulvt           MASK=4
+mkr_cfi_pcore_others           pch_ulvt_mac_gate              ITF=p_gpoly_ulvt           MASK=4
+mkr_cfi_ncore_others           nch_ulvt_mac_gate_dnw          ITF=n_gpoly_ulvt           MASK=4
+mkr_cfi_ncore_others           nch_mpodeulvt_mac_gate         ITF=n_gpoly_ulvt           MASK=4
+mkr_cfi_pcore_others           pch_mpodeulvt_mac_gate         ITF=p_gpoly_ulvt           MASK=4
+mkr_cfi_ncore_others           n_pode_ulvt                    ITF=n_pode_ulvt            MASK=4
+mkr_cfi_pcore_others           p_pode_ulvt                    ITF=p_pode_ulvt            MASK=4
+mkr_cfi_ncore_others           npode_ulvt_mac_gate            ITF=n_pode_ulvt            MASK=4
+mkr_cfi_pcore_others           ppode_ulvt_mac_gate            ITF=p_pode_ulvt            MASK=4
+
+mkr_cfi_ncore_others           n_gpoly_ulvtll                 ITF=n_gpoly_ulvt           MASK=4
+mkr_cfi_pcore_others           p_gpoly_ulvtll                 ITF=p_gpoly_ulvt           MASK=4
+mkr_cfi_ncore_others           nch_ulvtll_mac_gate            ITF=n_gpoly_ulvt           MASK=4
+mkr_cfi_pcore_others           pch_ulvtll_mac_gate            ITF=p_gpoly_ulvt           MASK=4
+mkr_cfi_ncore_others           nch_ulvtll_mac_gate_dnw        ITF=n_gpoly_ulvt           MASK=4
+mkr_cfi_ncore_others           nch_mpodeulvtll_mac_gate       ITF=n_gpoly_ulvt           MASK=4
+mkr_cfi_pcore_others           pch_mpodeulvtll_mac_gate       ITF=p_gpoly_ulvt           MASK=4
+mkr_cfi_ncore_others           n_pode_ulvtll                  ITF=n_pode_ulvt            MASK=4
+mkr_cfi_pcore_others           p_pode_ulvtll                  ITF=p_pode_ulvt            MASK=4
+mkr_cfi_ncore_others           npode_ulvtll_mac_gate          ITF=n_pode_ulvt            MASK=4
+mkr_cfi_pcore_others           ppode_ulvtll_mac_gate          ITF=p_pode_ulvt            MASK=4
+
+mkr_cfi_ncore_others           n_gpoly_elvt                   ITF=n_gpoly_ulvt           MASK=4
+mkr_cfi_pcore_others           p_gpoly_elvt                   ITF=p_gpoly_ulvt           MASK=4
+mkr_cfi_ncore_others           nch_elvt_mac_gate              ITF=n_gpoly_ulvt           MASK=4
+mkr_cfi_pcore_others           pch_elvt_mac_gate              ITF=p_gpoly_ulvt           MASK=4
+mkr_cfi_ncore_others           nch_elvt_mac_gate_dnw          ITF=n_gpoly_ulvt           MASK=4
+mkr_cfi_ncore_others           nch_mpodeelvt_mac_gate         ITF=n_gpoly_ulvt           MASK=4
+mkr_cfi_pcore_others           pch_mpodeelvt_mac_gate         ITF=p_gpoly_ulvt           MASK=4
+mkr_cfi_ncore_others           n_pode_elvt                    ITF=n_pode_ulvt            MASK=4
+mkr_cfi_pcore_others           p_pode_elvt                    ITF=p_pode_ulvt            MASK=4
+mkr_cfi_ncore_others           npode_elvt_mac_gate            ITF=n_pode_ulvt            MASK=4
+mkr_cfi_pcore_others           ppode_elvt_mac_gate            ITF=p_pode_ulvt            MASK=4
+
+mkr_cfi_ncore_others           vargt                          ITF=n_gpoly_ulvt           MASK=4
+mkr_cfi_ncore_others           n_gpoly_nocg_lvt               ITF=n_gpoly_lvt            MASK=4
+mkr_cfi_pcore_others           p_gpoly_nocg_lvt               ITF=p_gpoly_lvt            MASK=4
+
+
+mkr_cfi_ncore_p51           n_gpoly_svt                    ITF=n_gpoly_svt            MASK=5
+mkr_cfi_pcore_p51           p_gpoly_svt                    ITF=p_gpoly_svt            MASK=5
+mkr_cfi_ncore_p51           nch_svt_mac_gate               ITF=n_gpoly_svt            MASK=5
+mkr_cfi_pcore_p51           pch_svt_mac_gate               ITF=p_gpoly_svt            MASK=5
+mkr_cfi_ncore_p51           nch_svt_mac_gate_dnw           ITF=n_gpoly_svt            MASK=5
+mkr_cfi_ncore_p51           nch_mpodesvt_mac_gate          ITF=n_gpoly_svt            MASK=5
+mkr_cfi_pcore_p51           pch_mpodesvt_mac_gate          ITF=p_gpoly_svt            MASK=5
+mkr_cfi_ncore_p51           n_pode_svt                     ITF=n_pode_svt             MASK=5
+mkr_cfi_pcore_p51           p_pode_svt                     ITF=p_pode_svt             MASK=5
+mkr_cfi_ncore_p51           npode_svt_mac_gate             ITF=n_pode_svt             MASK=5
+mkr_cfi_pcore_p51           ppode_svt_mac_gate             ITF=p_pode_svt             MASK=5
+
+mkr_cfi_ncore_p51           n_gpoly_lvt                    ITF=n_gpoly_lvt            MASK=5
+mkr_cfi_pcore_p51           p_gpoly_lvt                    ITF=p_gpoly_lvt            MASK=5
+mkr_cfi_ncore_p51           nch_lvt_mac_gate               ITF=n_gpoly_lvt            MASK=5
+mkr_cfi_pcore_p51           pch_lvt_mac_gate               ITF=p_gpoly_lvt            MASK=5
+mkr_cfi_ncore_p51           nch_lvt_mac_gate_dnw           ITF=n_gpoly_lvt            MASK=5
+mkr_cfi_ncore_p51           nch_mpodelvt_mac_gate          ITF=n_gpoly_lvt            MASK=5
+mkr_cfi_pcore_p51           pch_mpodelvt_mac_gate          ITF=p_gpoly_lvt            MASK=5
+mkr_cfi_ncore_p51           n_pode_lvt                     ITF=n_pode_lvt             MASK=5
+mkr_cfi_pcore_p51           p_pode_lvt                     ITF=p_pode_lvt             MASK=5
+mkr_cfi_ncore_p51           npode_lvt_mac_gate             ITF=n_pode_lvt             MASK=5
+mkr_cfi_pcore_p51           ppode_lvt_mac_gate             ITF=p_pode_lvt             MASK=5
+mkr_cfi_ncore_p51           nch_eflvt_mac_gate             ITF=n_gpoly_lvt            MASK=5
+mkr_cfi_pcore_p51           pch_eflvt_mac_gate             ITF=p_gpoly_lvt            MASK=5
+mkr_cfi_ncore_p51           nch_eflvt_mac_gate_dnw         ITF=n_gpoly_lvt            MASK=5
+mkr_cfi_ncore_p51           npode_eflvt_mac_gate           ITF=n_pode_lvt             MASK=5
+mkr_cfi_pcore_p51           ppode_eflvt_mac_gate           ITF=p_pode_lvt             MASK=5
+mkr_cfi_ncore_p51           nch_efsvt_mac_gate             ITF=n_gpoly_svt            MASK=5
+mkr_cfi_pcore_p51           pch_efsvt_mac_gate             ITF=p_gpoly_svt            MASK=5
+mkr_cfi_ncore_p51           nch_efsvt_mac_gate_dnw         ITF=n_gpoly_svt            MASK=5
+mkr_cfi_ncore_p51           npode_efsvt_mac_gate           ITF=n_pode_svt             MASK=5
+mkr_cfi_pcore_p51           ppode_efsvt_mac_gate           ITF=p_pode_svt             MASK=5
+
+mkr_cfi_ncore_p51           n_gpoly_lvtll                  ITF=n_gpoly_lvt            MASK=5
+mkr_cfi_pcore_p51           p_gpoly_lvtll                  ITF=p_gpoly_lvt            MASK=5
+mkr_cfi_ncore_p51           nch_lvtll_mac_gate             ITF=n_gpoly_lvt            MASK=5
+mkr_cfi_pcore_p51           pch_lvtll_mac_gate             ITF=p_gpoly_lvt            MASK=5
+mkr_cfi_ncore_p51           nch_lvtll_mac_gate_dnw         ITF=n_gpoly_lvt            MASK=5
+mkr_cfi_ncore_p51           nch_mpodelvtll_mac_gate        ITF=n_gpoly_lvt            MASK=5
+mkr_cfi_pcore_p51           pch_mpodelvtll_mac_gate        ITF=p_gpoly_lvt            MASK=5
+mkr_cfi_ncore_p51           n_pode_lvtll                   ITF=n_pode_lvt             MASK=5
+mkr_cfi_pcore_p51           p_pode_lvtll                   ITF=p_pode_lvt             MASK=5
+mkr_cfi_ncore_p51           npode_lvtll_mac_gate           ITF=n_pode_lvt             MASK=5
+mkr_cfi_pcore_p51           ppode_lvtll_mac_gate           ITF=p_pode_lvt             MASK=5
+
+mkr_cfi_ncore_p51           n_gpoly_ulvt                   ITF=n_gpoly_ulvt           MASK=5
+mkr_cfi_pcore_p51           p_gpoly_ulvt                   ITF=p_gpoly_ulvt           MASK=5
+mkr_cfi_ncore_p51           nch_ulvt_mac_gate              ITF=n_gpoly_ulvt           MASK=5
+mkr_cfi_pcore_p51           pch_ulvt_mac_gate              ITF=p_gpoly_ulvt           MASK=5
+mkr_cfi_ncore_p51           nch_ulvt_mac_gate_dnw          ITF=n_gpoly_ulvt           MASK=5
+mkr_cfi_ncore_p51           nch_mpodeulvt_mac_gate         ITF=n_gpoly_ulvt           MASK=5
+mkr_cfi_pcore_p51           pch_mpodeulvt_mac_gate         ITF=p_gpoly_ulvt           MASK=5
+mkr_cfi_ncore_p51           n_pode_ulvt                    ITF=n_pode_ulvt            MASK=5
+mkr_cfi_pcore_p51           p_pode_ulvt                    ITF=p_pode_ulvt            MASK=5
+mkr_cfi_ncore_p51           npode_ulvt_mac_gate            ITF=n_pode_ulvt            MASK=5
+mkr_cfi_pcore_p51           ppode_ulvt_mac_gate            ITF=p_pode_ulvt            MASK=5
+
+mkr_cfi_ncore_p51           n_gpoly_ulvtll                 ITF=n_gpoly_ulvt           MASK=5
+mkr_cfi_pcore_p51           p_gpoly_ulvtll                 ITF=p_gpoly_ulvt           MASK=5
+mkr_cfi_ncore_p51           nch_ulvtll_mac_gate            ITF=n_gpoly_ulvt           MASK=5
+mkr_cfi_pcore_p51           pch_ulvtll_mac_gate            ITF=p_gpoly_ulvt           MASK=5
+mkr_cfi_ncore_p51           nch_ulvtll_mac_gate_dnw        ITF=n_gpoly_ulvt           MASK=5
+mkr_cfi_ncore_p51           nch_mpodeulvtll_mac_gate       ITF=n_gpoly_ulvt           MASK=5
+mkr_cfi_pcore_p51           pch_mpodeulvtll_mac_gate       ITF=p_gpoly_ulvt           MASK=5
+mkr_cfi_ncore_p51           n_pode_ulvtll                  ITF=n_pode_ulvt            MASK=5
+mkr_cfi_pcore_p51           p_pode_ulvtll                  ITF=p_pode_ulvt            MASK=5
+mkr_cfi_ncore_p51           npode_ulvtll_mac_gate          ITF=n_pode_ulvt            MASK=5
+mkr_cfi_pcore_p51           ppode_ulvtll_mac_gate          ITF=p_pode_ulvt            MASK=5
+
+mkr_cfi_ncore_p51           n_gpoly_elvt                   ITF=n_gpoly_ulvt           MASK=5
+mkr_cfi_pcore_p51           p_gpoly_elvt                   ITF=p_gpoly_ulvt           MASK=5
+mkr_cfi_ncore_p51           nch_elvt_mac_gate              ITF=n_gpoly_ulvt           MASK=5
+mkr_cfi_pcore_p51           pch_elvt_mac_gate              ITF=p_gpoly_ulvt           MASK=5
+mkr_cfi_ncore_p51           nch_elvt_mac_gate_dnw          ITF=n_gpoly_ulvt           MASK=5
+mkr_cfi_ncore_p51           nch_mpodeelvt_mac_gate         ITF=n_gpoly_ulvt           MASK=5
+mkr_cfi_pcore_p51           pch_mpodeelvt_mac_gate         ITF=p_gpoly_ulvt           MASK=5
+mkr_cfi_ncore_p51           n_pode_elvt                    ITF=n_pode_ulvt            MASK=5
+mkr_cfi_pcore_p51           p_pode_elvt                    ITF=p_pode_ulvt            MASK=5
+mkr_cfi_ncore_p51           npode_elvt_mac_gate            ITF=n_pode_ulvt            MASK=5
+mkr_cfi_pcore_p51           ppode_elvt_mac_gate            ITF=p_pode_ulvt            MASK=5
+
+mkr_cfi_ncore_p51           vargt                          ITF=n_gpoly_ulvt           MASK=5
+mkr_cfi_ncore_p51           n_gpoly_nocg_lvt               ITF=n_gpoly_lvt            MASK=5
+mkr_cfi_pcore_p51           p_gpoly_nocg_lvt               ITF=p_gpoly_lvt            MASK=5
+
+
+
+
+mkr_cfi_n_srm_sp          ngate_pg_hdsr_mac              ITF=n_gpoly_srm            MASK=1
+mkr_cfi_n_srm_sp          ngate_pd_hdsr_mac              ITF=n_gpoly_srm            MASK=1
+mkr_cfi_p_srm_sp          pgate_pu_hdsr_mac              ITF=p_gpoly_srm            MASK=1
+mkr_cfi_n_srm_sp          ngate_pg_hcsr_mac              ITF=n_gpoly_srm            MASK=1
+mkr_cfi_n_srm_sp          ngate_pd_hcsr_mac              ITF=n_gpoly_srm            MASK=1
+mkr_cfi_p_srm_sp          pgate_pu_hcsr_mac              ITF=p_gpoly_srm            MASK=1
+mkr_cfi_n_srm_sp          ngate_pg_hshcsr_mac            ITF=n_gpoly_srm            MASK=1
+mkr_cfi_n_srm_sp          ngate_pd_hshcsr_mac            ITF=n_gpoly_srm            MASK=1
+mkr_cfi_p_srm_sp          pgate_pu_hshcsr_mac            ITF=p_gpoly_srm            MASK=1
+mkr_cfi_n_srm_mp          ngate_pg_8tsr_mac              ITF=n_gpoly_srm            MASK=2
+mkr_cfi_n_srm_mp          ngate_pd_8tsr_mac              ITF=n_gpoly_srm            MASK=2
+mkr_cfi_p_srm_mp          pgate_pu_8tsr_mac              ITF=p_gpoly_srm            MASK=2
+mkr_cfi_n_srm_mp          ngate_pg_8trpsr_mac            ITF=n_gpoly_srm            MASK=2
+mkr_cfi_n_srm_mp          ngate_pd_8trpsr_mac            ITF=n_gpoly_srm            MASK=2
+mkr_cfi_n_srm_mp          ngate_pg_hc8tsr_mac            ITF=n_gpoly_srm            MASK=2
+mkr_cfi_n_srm_mp          ngate_pd_hc8tsr_mac            ITF=n_gpoly_srm            MASK=2
+mkr_cfi_p_srm_mp          pgate_pu_hc8tsr_mac            ITF=p_gpoly_srm            MASK=2
+mkr_cfi_n_srm_mp          ngate_pg_hc8trpsr_mac          ITF=n_gpoly_srm            MASK=2
+mkr_cfi_n_srm_mp          ngate_pd_hc8trpsr_mac          ITF=n_gpoly_srm            MASK=2
+mkr_cfi_n_srm_mp          ngate_pg_10tsr_mac             ITF=n_gpoly_srm            MASK=2
+mkr_cfi_n_srm_mp          ngate_pd_10tsr_mac             ITF=n_gpoly_srm            MASK=2
+mkr_cfi_p_srm_mp          pgate_pu_10tsr_mac             ITF=p_gpoly_srm            MASK=2
+mkr_cfi_n_srm_mp          ngate_pg_10trpsr_mac           ITF=n_gpoly_srm            MASK=2
+mkr_cfi_n_srm_mp          ngate_pd_10trpsr_mac           ITF=n_gpoly_srm            MASK=2
+mkr_cfi_n_srm_mp          ngate_pg_dpsr_mac              ITF=n_gpoly_srm            MASK=2
+mkr_cfi_n_srm_mp          ngate_pd_dpsr_mac              ITF=n_gpoly_srm            MASK=2
+mkr_cfi_p_srm_mp          pgate_pu_dpsr_mac              ITF=p_gpoly_srm            MASK=2
+mkr_cfi_n_srm_sp          n_gpoly_srm                    ITF=n_gpoly_srm            MASK=1
+mkr_cfi_n_srm_mp          n_gpoly_srm                    ITF=n_gpoly_srm            MASK=2
+mkr_cfi_p_srm_sp          p_gpoly_srm                    ITF=p_gpoly_srm            MASK=1
+mkr_cfi_p_srm_mp          p_gpoly_srm                    ITF=p_gpoly_srm            MASK=2
+mkr_cfi_n_srm_mp          ngate_pd_ulvtll10trpsr_mac     ITF=n_gpoly_srm            MASK=2
+mkr_cfi_n_srm_mp          ngate_pd_ulvtll10tsr_mac       ITF=n_gpoly_srm            MASK=2
+mkr_cfi_n_srm_mp          ngate_pd_ulvtll8trpsr_mac      ITF=n_gpoly_srm            MASK=2
+mkr_cfi_n_srm_mp          ngate_pd_ulvtll8tsr_mac        ITF=n_gpoly_srm            MASK=2
+mkr_cfi_n_srm_mp          ngate_pd_ulvtllhc8trpsr_mac    ITF=n_gpoly_srm            MASK=2
+mkr_cfi_n_srm_mp          ngate_pd_ulvtllhc8tsr_mac      ITF=n_gpoly_srm            MASK=2
+mkr_cfi_n_srm_mp          ngate_pg_ulvtll10trpsr_mac     ITF=n_gpoly_srm            MASK=2
+mkr_cfi_n_srm_mp          ngate_pg_ulvtll10tsr_mac       ITF=n_gpoly_srm            MASK=2
+mkr_cfi_n_srm_mp          ngate_pg_ulvtll8trpsr_mac      ITF=n_gpoly_srm            MASK=2
+mkr_cfi_n_srm_mp          ngate_pg_ulvtll8tsr_mac        ITF=n_gpoly_srm            MASK=2
+mkr_cfi_n_srm_mp          ngate_pg_ulvtllhc8trpsr_mac    ITF=n_gpoly_srm            MASK=2
+mkr_cfi_n_srm_mp          ngate_pg_ulvtllhc8tsr_mac      ITF=n_gpoly_srm            MASK=2
+mkr_cfi_p_srm_mp          pgate_pu_ulvtll10tsr_mac       ITF=p_gpoly_srm            MASK=2
+mkr_cfi_p_srm_mp          pgate_pu_ulvtll8tsr_mac        ITF=p_gpoly_srm            MASK=2
+mkr_cfi_p_srm_mp          pgate_pu_ulvtllhc8tsr_mac      ITF=p_gpoly_srm            MASK=2
+
+
+M0_A_SRM01                M0_A                           ITF=M0_SRM                 MASK=3
+M0_B_SRM01                M0_B                           ITF=M0_SRM                 MASK=4
+M0_A_SRM02                M0_A                           ITF=M0_SRM                 MASK=5
+M0_B_SRM02                M0_B                           ITF=M0_SRM                 MASK=6
+M0_A_SRM03                M0_A                           ITF=M0_SRM                 MASK=7
+M0_B_SRM03                M0_B                           ITF=M0_SRM                 MASK=8
+M1_A_SRM01                M1_A                           ITF=M1_SRM                 MASK=3
+M1_B_SRM01                M1_B                           ITF=M1_SRM                 MASK=4
+M1_A_SRM02                M1_A                           ITF=M1_SRM                 MASK=5
+M1_B_SRM02                M1_B                           ITF=M1_SRM                 MASK=6
+M1_A_SRM03                M1_A                           ITF=M1_SRM                 MASK=7
+M1_B_SRM03                M1_B                           ITF=M1_SRM                 MASK=8
+M3_SRM01                  M3                             ITF=M3_SRM                 MASK=1               
+M3_SRM02                  M3                             ITF=M3_SRM                 MASK=2
+
+remove_layers
+TPC
+MPC
+BPC
+TPC_GND_1
+MPC_LV_1
+BPC_GND_1
+BPC_LV_1
+BPC_HV1_1
+TPC_GND_DMY_1
+MPC_LV_DMY_1
+BPC_GND_DMY_1
+BPC_LVHV_DMY_1
+TPC_GND_2
+MPC_LV_2
+BPC_GND_2
+BPC_LV_2
+BPC_HV2_2
+TPC_GND_DMY_2
+MPC_LV_DMY_2
+BPC_GND_DMY_2
+BPC_LVHV_DMY_2
+RV_TPC_RDL
+RV_MPC_RDL
+RV_BPC_TPC
+RV_MTOP_BPC
+RV_MTOP_MPC
+RV_MTOP_BPC_BOT
+RV_BPC_BOT_MPC
+RV_BPC_BOT_RDL
+RV_MTOP_TPC
+fin_lay
+all_sd
+OD_id
+
+ignore_cap_layers
+n_gpoly_nocg_lvt    psub
+n_gpoly_nocg_lvt    nxwell
+p_gpoly_nocg_lvt    psub
+p_gpoly_nocg_lvt    nxwell
+n_gpoly_nocg_io     psub
+n_gpoly_nocg_io     nxwell
+p_gpoly_nocg_io     psub
+p_gpoly_nocg_io     nxwell
+n_odtap
+p_odtap
+n_odtap_srm
+p_odtap_srm
+n_odtap_bjt
+p_odtap_bjt
+VD2_MD_TAP
+M0_VD2_TAP
+MP_MD_TAP
+tndiff_dio      psub
+tpdiff_bjt      nxwell
+tpdiff_dio      nxwell
+vargt           nxwell
+vargt_12        nxwell

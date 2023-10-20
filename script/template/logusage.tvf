@@ -1,0 +1,51 @@
+##
+## logusage.tvf
+## Intel confidential
+## Add Intel Metrics 
+## modified by nrichaud@intel
+##
+package require http
+
+proc sail_api {} {
+    
+	global env
+	if ![info exists env(TP_CAL_VERSION)] {
+		set env(TP_CAL_VERSION) "undefined"
+	}
+	if ![info exists env(TP_CAL_RUNSET)] { 
+		set env(TP_CAL_RUNSET) "undefined"
+	}
+	if ![info exists env(CALIBRE_INITIAL_CMD_LINE)] {
+		set env(CALIBRE_INITIAL_CMD_LINE) "undefined"
+	}
+	if ![info exists env(CTH_EPS_SCOPE)] {
+		set env(CTH_EPS_SCOPE) "undefined"
+	}
+	 # this app is based on sails and run on our intel cloud platform
+     # `https://wiki.ith.intel.com/display/IntelCloudApps/First+Time+Usage`
+     set sUrl "https://track-user-perc.apps1-fm-int.icloud.intel.com/v1/widgets"
+     set aQuery(hostname) [exec hostname]
+     set aQuery(rundirpath) [exec pwd]
+     set aQuery(date) [exec date]
+     set aQuery(version) "$::env(TP_CAL_VERSION)"
+     set aQuery(runset) "$::env(TP_CAL_RUNSET)"
+     set aQuery(calibre_cmd) "$::env(CALIBRE_INITIAL_CMD_LINE)"
+     set aQuery(project) "$::env(CTH_EPS_SCOPE)"
+	 set query [eval ::http::formatQuery [array get aQuery]]
+     set urlparam ${sUrl}?${query}
+     catch {set a [exec curl -X POST $urlparam -k -s]} msg
+	 puts "LOG Track: $msg"
+     return 0
+}
+
+proc IN.SERVER {} {
+	# build and return user.json
+	if [catch {sail_api} msg] {
+		return -code error "###\tDEB: problem with json generation:\n $msg "
+	}
+}
+IN.SERVER
+
+##
+## End Intel Metrics
+##

@@ -1,0 +1,1371 @@
+//   @(#) TSMC N3 CALIBRE LVS/CCI COMMAND FILE  
+//   @(#) COMMAND FILE DOCUMENT: T-N03-CL-SP-005-C1 
+//   @(#) COMMAND FILE VERSION: 1.0b  
+//   @(#) COMMAND FILE METAL SCHEME: 1P18M  
+//   @(#) COMMAND FILE DATE: 01/28/2022  
+//   @(#) EDA TOOL VERSION: Calibre v2020.4_35.19  
+
+                               INFORMATION AND WARNINGS
+**************************************************************************************************************
+
+
+                  Matched    Matched    Unmatched    Unmatched    Component
+                   Layout     Source       Layout       Source    Type
+                  -------    -------    ---------    ---------    ---------
+   Ports:              22         22            0            0
+
+   Nets:              218        218            0            0
+
+   Instances:           2          2            0            0    MN(nch_12_dnw_mac)
+                        2          2            0            0    MN(nch_12_mac)
+                       22         22            0            0    MN(nch_eflvt_dnw_mac)
+                       10         10            0            0    MN(nch_eflvt_mac)
+                       22         22            0            0    MN(nch_efsvt_dnw_mac)
+                       10         10            0            0    MN(nch_efsvt_mac)
+                       11         11            0            0    MN(nch_elvt_dnw_mac)
+                       16         16            0            0    MN(nch_elvt_mac)
+                       11         11            0            0    MN(nch_lvt_dnw_mac)
+                       15         15            0            0    MN(nch_lvt_mac)
+                       11         11            0            0    MN(nch_lvtll_dnw_mac)
+                       15         15            0            0    MN(nch_lvtll_mac)
+                        7          7            0            0    MN(nch_mpode12_mac)
+                       11         11            0            0    MN(nch_mpodeelvt_mac)
+                       11         11            0            0    MN(nch_mpodelvt_mac)
+                       11         11            0            0    MN(nch_mpodelvtll_mac)
+                       11         11            0            0    MN(nch_mpodesvt_mac)
+                       11         11            0            0    MN(nch_mpodeulvt_mac)
+                       11         11            0            0    MN(nch_mpodeulvtll_mac)
+                       11         11            0            0    MN(nch_svt_dnw_mac)
+                       16         16            0            0    MN(nch_svt_mac)
+                       11         11            0            0    MN(nch_ulvt_dnw_mac)
+                       15         15            0            0    MN(nch_ulvt_mac)
+                       11         11            0            0    MN(nch_ulvtll_dnw_mac)
+                       15         15            0            0    MN(nch_ulvtll_mac)
+                        2          2            0            0    MN(nchpd_10trpsr_mac)
+                        2          2            0            0    MN(nchpd_10tsr_mac)
+                        2          2            0            0    MN(nchpd_8trpsr_mac)
+                        2          2            0            0    MN(nchpd_8tsr_mac)
+                        2          2            0            0    MN(nchpd_dpsr_mac)
+                        2          2            0            0    MN(nchpd_hc8trpsr_mac)
+                        2          2            0            0    MN(nchpd_hc8tsr_mac)
+                        2          2            0            0    MN(nchpd_hcsr_mac)
+                        2          2            0            0    MN(nchpd_hdsr_mac)
+                        2          2            0            0    MN(nchpd_hshcsr_mac)
+                        2          2            0            0    MN(nchpd_ulvtll10trpsr_mac)
+                        2          2            0            0    MN(nchpd_ulvtll10tsr_mac)
+                        2          2            0            0    MN(nchpd_ulvtll8trpsr_mac)
+                        2          2            0            0    MN(nchpd_ulvtll8tsr_mac)
+                        2          2            0            0    MN(nchpd_ulvtllhc8trpsr_mac)
+                        2          2            0            0    MN(nchpd_ulvtllhc8tsr_mac)
+                        2          2            0            0    MN(nchpg_10trpsr_mac)
+                        2          2            0            0    MN(nchpg_10tsr_mac)
+                        2          2            0            0    MN(nchpg_8trpsr_mac)
+                        2          2            0            0    MN(nchpg_8tsr_mac)
+                        2          2            0            0    MN(nchpg_dpsr_mac)
+                        2          2            0            0    MN(nchpg_hc8trpsr_mac)
+                        2          2            0            0    MN(nchpg_hc8tsr_mac)
+                        2          2            0            0    MN(nchpg_hcsr_mac)
+                        2          2            0            0    MN(nchpg_hdsr_mac)
+                        2          2            0            0    MN(nchpg_hshcsr_mac)
+                        2          2            0            0    MN(nchpg_ulvtll10trpsr_mac)
+                        2          2            0            0    MN(nchpg_ulvtll10tsr_mac)
+                        2          2            0            0    MN(nchpg_ulvtll8trpsr_mac)
+                        2          2            0            0    MN(nchpg_ulvtll8tsr_mac)
+                        2          2            0            0    MN(nchpg_ulvtllhc8trpsr_mac)
+                        2          2            0            0    MN(nchpg_ulvtllhc8tsr_mac)
+                    11085      11085            0            0    LDDN(nch_hia12_mac)
+                        2          2            0            0    MP(pch_12_mac)
+                       10         10            0            0    MP(pch_eflvt_mac)
+                       10         10            0            0    MP(pch_efsvt_mac)
+                       16         16            0            0    MP(pch_elvt_mac)
+                       15         15            0            0    MP(pch_lvt_mac)
+                       15         15            0            0    MP(pch_lvtll_mac)
+                        6          6            0            0    MP(pch_mpode12_mac)
+                       11         11            0            0    MP(pch_mpodeelvt_mac)
+                       11         11            0            0    MP(pch_mpodelvt_mac)
+                       11         11            0            0    MP(pch_mpodelvtll_mac)
+                       11         11            0            0    MP(pch_mpodesvt_mac)
+                       11         11            0            0    MP(pch_mpodeulvt_mac)
+                       11         11            0            0    MP(pch_mpodeulvtll_mac)
+                       16         16            0            0    MP(pch_svt_mac)
+                       15         15            0            0    MP(pch_ulvt_mac)
+                       15         15            0            0    MP(pch_ulvtll_mac)
+                        2          2            0            0    MP(pchpu_10tsr_mac)
+                        2          2            0            0    MP(pchpu_8tsr_mac)
+                        2          2            0            0    MP(pchpu_dpsr_mac)
+                        2          2            0            0    MP(pchpu_hc8tsr_mac)
+                        2          2            0            0    MP(pchpu_hcsr_mac)
+                        2          2            0            0    MP(pchpu_hdsr_mac)
+                        2          2            0            0    MP(pchpu_hshcsr_mac)
+                        2          2            0            0    MP(pchpu_ulvtll10tsr_mac)
+                        2          2            0            0    MP(pchpu_ulvtll8tsr_mac)
+                        2          2            0            0    MP(pchpu_ulvtllhc8tsr_mac)
+                        1          1            0            0    Q(pnp_i1_mac)
+                        1          1            0            0    Q(pnp_i2_mac)
+                        1          1            0            0    Q(pnp_p1_mac)
+                        8          8            0            0    rhim
+                       52         52            0            0    rmsp
+                        1          1            0            0    D(nwdio)
+                       24         24            0            0    crtmom_2t
+                       30         30            0            0    crtmom_ary
+                       18         18            0            0    crtmom_ary_sm
+                       36         36            0            0    crtmom_ary_sm_4t
+                       24         24            0            0    crtmom_mx_4t
+                       21         21            0            0    crtmom_sm_4t_rf
+                       21         21            0            0    crtmom_sm_rf
+                       24         24            0            0    crtmom_wo
+                       24         24            0            0    crtmom_wo_mx
+                       24         24            0            0    crtmom_wo_rf
+                        1          1            0            0    efuse_m0
+                        1          1            0            0    efuse_m1
+                        1          1            0            0    efuse_m4
+                        1          1            0            0    efuse_mx
+                        3          3            0            0    mimcap_shp2_4thv
+                        3          3            0            0    mimcap_shp2_4tlv
+                        8          8            0            0    mimcap_shp2_5thv
+                        5          5            0            0    moscap_rf
+                        7          7            0            0    moscap_rf12
+                        7          7            0            0    moscap_rf12_nw
+                        5          5            0            0    moscap_rf_nw
+                        1          1            0            0    ndio_12_mac
+                        1          1            0            0    ndio_12_ntn_mac
+                        4          4            0            0    ndio_hia12_mac
+                        2          2            0            0    ndio_hia12_ntn_mac
+                        8          8            0            0    ndio_mac
+                        7          7            0            0    nmoscap
+                        1          1            0            0    nmoscap_12
+                      331        331            0            0    npode_12_mac
+                       61         61            0            0    npode_eflvt_mac
+                       61         61            0            0    npode_efsvt_mac
+                       26         26            0            0    npode_elvt_mac
+                       24         24            0            0    npode_lvt_mac
+                       24         24            0            0    npode_lvtll_mac
+                       26         26            0            0    npode_svt_mac
+                       24         24            0            0    npode_ulvt_mac
+                       24         24            0            0    npode_ulvtll_mac
+                        1          1            0            0    pdio_12_mac
+                        3          3            0            0    pdio_hia12_mac
+                        2          2            0            0    pdio_mac
+                        5          5            0            0    ppode_12_mac
+                       19         19            0            0    ppode_eflvt_mac
+                       19         19            0            0    ppode_efsvt_mac
+                       26         26            0            0    ppode_elvt_mac
+                       24         24            0            0    ppode_lvt_mac
+                       24         24            0            0    ppode_lvtll_mac
+                       26         26            0            0    ppode_svt_mac
+                       24         24            0            0    ppode_ulvt_mac
+                       24         24            0            0    ppode_ulvtll_mac
+                  -------    -------    ---------    ---------
+                               INFORMATION AND WARNINGS
+**************************************************************************************************************
+
+
+                  Matched    Matched    Unmatched    Unmatched    Component
+                   Layout     Source       Layout       Source    Type
+                  -------    -------    ---------    ---------    ---------
+   Ports:               2          2            0            0
+
+   Nets:                2          2            0            0
+
+   Instances:           1          1            0            0    D(dnwpsub)
+                        1          1            0            0    D(pnwdio)
+                  -------    -------    ---------    ---------
+                               INFORMATION AND WARNINGS
+**************************************************************************************************************
+
+
+                  Matched    Matched    Unmatched    Unmatched    Component
+                   Layout     Source       Layout       Source    Type
+                  -------    -------    ---------    ---------    ---------
+   Ports:               1          1            0            0
+
+   Nets:                2          2            0            0
+
+   Instances:           1          1            0            0    D(dnwpsub)
+                        1          1            0            0    D(pwdnw)
+                  -------    -------    ---------    ---------
+                               INFORMATION AND WARNINGS
+**************************************************************************************************************
+
+
+                  Matched    Matched    Unmatched    Unmatched    Component
+                   Layout     Source       Layout       Source    Type
+                  -------    -------    ---------    ---------    ---------
+   Ports:               2          2            0            0
+
+   Nets:                2          2            0            0
+
+   Instances:           1          1            0            0    D(dnwpsub)
+                  -------    -------    ---------    ---------
+                               INFORMATION AND WARNINGS
+**************************************************************************************************************
+
+
+                  Matched    Matched    Unmatched    Unmatched    Component
+                   Layout     Source       Layout       Source    Type
+                  -------    -------    ---------    ---------    ---------
+   Ports:               2          2            0            0
+
+   Nets:                2          2            0            0
+
+   Instances:           1          1            0            0    D(dnwpsub)
+                        1          1            0            0    D(pwdnw)
+                  -------    -------    ---------    ---------
+                               INFORMATION AND WARNINGS
+**************************************************************************************************************
+
+
+                  Matched    Matched    Unmatched    Unmatched    Component
+                   Layout     Source       Layout       Source    Type
+                  -------    -------    ---------    ---------    ---------
+   Ports:               3          3            0            0
+
+   Nets:                3          3            0            0
+
+   Instances:           1          1            0            0    D(dnwpsub)
+                        2          2            0            0    D(pwdnw)
+                  -------    -------    ---------    ---------
+                               INFORMATION AND WARNINGS
+**************************************************************************************************************
+
+
+                  Matched    Matched    Unmatched    Unmatched    Component
+                   Layout     Source       Layout       Source    Type
+                  -------    -------    ---------    ---------    ---------
+   Ports:               3          3            0            0
+
+   Nets:                3          3            0            0
+
+   Instances:           1          1            0            0    D(dnwpsub)
+                        2          2            0            0    D(pwdnw)
+                  -------    -------    ---------    ---------
+                               INFORMATION AND WARNINGS
+**************************************************************************************************************
+
+
+                  Matched    Matched    Unmatched    Unmatched    Component
+                   Layout     Source       Layout       Source    Type
+                  -------    -------    ---------    ---------    ---------
+   Ports:               3          3            0            0
+
+   Nets:                3          3            0            0
+
+   Instances:           1          1            0            0    D(dnwpsub)
+                        1          1            0            0    D(pwdnw)
+                  -------    -------    ---------    ---------
+                               INFORMATION AND WARNINGS
+**************************************************************************************************************
+
+
+                  Matched    Matched    Unmatched    Unmatched    Component
+                   Layout     Source       Layout       Source    Type
+                  -------    -------    ---------    ---------    ---------
+   Ports:               3          3            0            0
+
+   Nets:                3          3            0            0
+
+   Instances:           1          1            0            0    D(dnwpsub)
+                        1          1            0            0    D(pnwdio)
+                        1          1            0            0    D(pwdnw)
+                  -------    -------    ---------    ---------
+                               INFORMATION AND WARNINGS
+**************************************************************************************************************
+
+
+                  Matched    Matched    Unmatched    Unmatched    Component
+                   Layout     Source       Layout       Source    Type
+                  -------    -------    ---------    ---------    ---------
+   Ports:               3          3            0            0
+
+   Nets:                3          3            0            0
+
+   Instances:           1          1            0            0    D(dnwpsub)
+                        1          1            0            0    D(pnwdio)
+                        2          2            0            0    D(pwdnw)
+                  -------    -------    ---------    ---------
+                               INFORMATION AND WARNINGS
+**************************************************************************************************************
+
+
+                  Matched    Matched    Unmatched    Unmatched    Component
+                   Layout     Source       Layout       Source    Type
+                  -------    -------    ---------    ---------    ---------
+   Ports:               2          2            0            0
+
+   Nets:                2          2            0            0
+
+   Instances:           1          1            0            0    D(dnwpsub)
+                        1          1            0            0    D(pnwdio)
+                        2          2            0            0    D(pwdnw)
+                  -------    -------    ---------    ---------
+                               INFORMATION AND WARNINGS
+**************************************************************************************************************
+
+
+                  Matched    Matched    Unmatched    Unmatched    Component
+                   Layout     Source       Layout       Source    Type
+                  -------    -------    ---------    ---------    ---------
+   Ports:               3          3            0            0
+
+   Nets:                4          4            0            0
+
+   Instances:           1          1            0            0    D(pnwdio)
+                        1          1            0            0    crtmom_wo
+                  -------    -------    ---------    ---------
+                               INFORMATION AND WARNINGS
+**************************************************************************************************************
+
+
+                  Matched    Matched    Unmatched    Unmatched    Component
+                   Layout     Source       Layout       Source    Type
+                  -------    -------    ---------    ---------    ---------
+   Ports:               3          3            0            0
+
+   Nets:                3          3            0            0
+
+   Instances:           1          1            0            0    moscap_rf12
+                  -------    -------    ---------    ---------
+                               INFORMATION AND WARNINGS
+**************************************************************************************************************
+
+
+                  Matched    Matched    Unmatched    Unmatched    Component
+                   Layout     Source       Layout       Source    Type
+                  -------    -------    ---------    ---------    ---------
+   Ports:               3          3            0            0
+
+   Nets:                3          3            0            0
+
+   Instances:           1          1            0            0    moscap_rf12_nw
+                  -------    -------    ---------    ---------
+                               INFORMATION AND WARNINGS
+**************************************************************************************************************
+
+
+                  Matched    Matched    Unmatched    Unmatched    Component
+                   Layout     Source       Layout       Source    Type
+                  -------    -------    ---------    ---------    ---------
+   Ports:               3          3            0            0
+
+   Nets:                3          3            0            0
+
+   Instances:           1          1            0            0    moscap_rf
+                  -------    -------    ---------    ---------
+                               INFORMATION AND WARNINGS
+**************************************************************************************************************
+
+
+                  Matched    Matched    Unmatched    Unmatched    Component
+                   Layout     Source       Layout       Source    Type
+                  -------    -------    ---------    ---------    ---------
+   Ports:               3          3            0            0
+
+   Nets:                3          3            0            0
+
+   Instances:           1          1            0            0    moscap_rf_nw
+                  -------    -------    ---------    ---------
+                               INFORMATION AND WARNINGS
+**************************************************************************************************************
+
+
+                  Matched    Matched    Unmatched    Unmatched    Component
+                   Layout     Source       Layout       Source    Type
+                  -------    -------    ---------    ---------    ---------
+   Ports:               3          3            0            0
+
+   Nets:                3          3            0            0
+
+   Instances:           1          1            0            0    Q(pnp_i1_mac)
+                  -------    -------    ---------    ---------
+                               INFORMATION AND WARNINGS
+**************************************************************************************************************
+
+
+                  Matched    Matched    Unmatched    Unmatched    Component
+                   Layout     Source       Layout       Source    Type
+                  -------    -------    ---------    ---------    ---------
+   Ports:               3          3            0            0
+
+   Nets:                3          3            0            0
+
+   Instances:           1          1            0            0    Q(pnp_i2_mac)
+                  -------    -------    ---------    ---------
+                               INFORMATION AND WARNINGS
+**************************************************************************************************************
+
+
+                  Matched    Matched    Unmatched    Unmatched    Component
+                   Layout     Source       Layout       Source    Type
+                  -------    -------    ---------    ---------    ---------
+   Ports:               3          3            0            0
+
+   Nets:                3          3            0            0
+
+   Instances:           1          1            0            0    Q(pnp_p1_mac)
+                  -------    -------    ---------    ---------
+                               INFORMATION AND WARNINGS
+**************************************************************************************************************
+
+
+                  Matched    Matched    Unmatched    Unmatched    Component
+                   Layout     Source       Layout       Source    Type
+                  -------    -------    ---------    ---------    ---------
+   Ports:               5          5            0            0
+
+   Nets:                6          6            0            0
+
+   Instances:           3          3            0            0    D(pnwdio)
+                        2          2            0            0    pdio_hia12_mac
+                  -------    -------    ---------    ---------
+                               INFORMATION AND WARNINGS
+**************************************************************************************************************
+
+
+                  Matched    Matched    Unmatched    Unmatched    Component
+                   Layout     Source       Layout       Source    Type
+                  -------    -------    ---------    ---------    ---------
+   Ports:              12         12            0            0
+
+   Nets:               12         12            0            0
+
+   Instances:           2          2            0            0    MN(nch_12_dnw_mac)
+                        2          2            0            0    MN(nch_12_mac)
+                       22         22            0            0    MN(nch_eflvt_dnw_mac)
+                       10         10            0            0    MN(nch_eflvt_mac)
+                       22         22            0            0    MN(nch_efsvt_dnw_mac)
+                       10         10            0            0    MN(nch_efsvt_mac)
+                       11         11            0            0    MN(nch_elvt_dnw_mac)
+                       16         16            0            0    MN(nch_elvt_mac)
+                       11         11            0            0    MN(nch_lvt_dnw_mac)
+                       15         15            0            0    MN(nch_lvt_mac)
+                       11         11            0            0    MN(nch_lvtll_dnw_mac)
+                       15         15            0            0    MN(nch_lvtll_mac)
+                       11         11            0            0    MN(nch_svt_dnw_mac)
+                       16         16            0            0    MN(nch_svt_mac)
+                       11         11            0            0    MN(nch_ulvt_dnw_mac)
+                       15         15            0            0    MN(nch_ulvt_mac)
+                       11         11            0            0    MN(nch_ulvtll_dnw_mac)
+                       15         15            0            0    MN(nch_ulvtll_mac)
+                        2          2            0            0    MN(nchpd_10trpsr_mac)
+                        2          2            0            0    MN(nchpd_10tsr_mac)
+                        2          2            0            0    MN(nchpd_8trpsr_mac)
+                        2          2            0            0    MN(nchpd_8tsr_mac)
+                        2          2            0            0    MN(nchpd_dpsr_mac)
+                        2          2            0            0    MN(nchpd_hc8trpsr_mac)
+                        2          2            0            0    MN(nchpd_hc8tsr_mac)
+                        2          2            0            0    MN(nchpd_hcsr_mac)
+                        2          2            0            0    MN(nchpd_hdsr_mac)
+                        2          2            0            0    MN(nchpd_hshcsr_mac)
+                        2          2            0            0    MN(nchpd_ulvtll10trpsr_mac)
+                        2          2            0            0    MN(nchpd_ulvtll10tsr_mac)
+                        2          2            0            0    MN(nchpd_ulvtll8trpsr_mac)
+                        2          2            0            0    MN(nchpd_ulvtll8tsr_mac)
+                        2          2            0            0    MN(nchpd_ulvtllhc8trpsr_mac)
+                        2          2            0            0    MN(nchpd_ulvtllhc8tsr_mac)
+                        2          2            0            0    MN(nchpg_10trpsr_mac)
+                        2          2            0            0    MN(nchpg_10tsr_mac)
+                        2          2            0            0    MN(nchpg_8trpsr_mac)
+                        2          2            0            0    MN(nchpg_8tsr_mac)
+                        2          2            0            0    MN(nchpg_dpsr_mac)
+                        2          2            0            0    MN(nchpg_hc8trpsr_mac)
+                        2          2            0            0    MN(nchpg_hc8tsr_mac)
+                        2          2            0            0    MN(nchpg_hcsr_mac)
+                        2          2            0            0    MN(nchpg_hdsr_mac)
+                        2          2            0            0    MN(nchpg_hshcsr_mac)
+                        2          2            0            0    MN(nchpg_ulvtll10trpsr_mac)
+                        2          2            0            0    MN(nchpg_ulvtll10tsr_mac)
+                        2          2            0            0    MN(nchpg_ulvtll8trpsr_mac)
+                        2          2            0            0    MN(nchpg_ulvtll8tsr_mac)
+                        2          2            0            0    MN(nchpg_ulvtllhc8trpsr_mac)
+                        2          2            0            0    MN(nchpg_ulvtllhc8tsr_mac)
+                    11085      11085            0            0    LDDN(nch_hia12_mac)
+                        2          2            0            0    MP(pch_12_mac)
+                       10         10            0            0    MP(pch_eflvt_mac)
+                       10         10            0            0    MP(pch_efsvt_mac)
+                       16         16            0            0    MP(pch_elvt_mac)
+                       15         15            0            0    MP(pch_lvt_mac)
+                       15         15            0            0    MP(pch_lvtll_mac)
+                       16         16            0            0    MP(pch_svt_mac)
+                       15         15            0            0    MP(pch_ulvt_mac)
+                       15         15            0            0    MP(pch_ulvtll_mac)
+                        2          2            0            0    MP(pchpu_10tsr_mac)
+                        2          2            0            0    MP(pchpu_8tsr_mac)
+                        2          2            0            0    MP(pchpu_dpsr_mac)
+                        2          2            0            0    MP(pchpu_hc8tsr_mac)
+                        2          2            0            0    MP(pchpu_hcsr_mac)
+                        2          2            0            0    MP(pchpu_hdsr_mac)
+                        2          2            0            0    MP(pchpu_hshcsr_mac)
+                        2          2            0            0    MP(pchpu_ulvtll10tsr_mac)
+                        2          2            0            0    MP(pchpu_ulvtll8tsr_mac)
+                        2          2            0            0    MP(pchpu_ulvtllhc8tsr_mac)
+                        1          1            0            0    Q(pnp_i1_mac)
+                        1          1            0            0    Q(pnp_i2_mac)
+                        1          1            0            0    Q(pnp_p1_mac)
+                        4          4            0            0    rhim
+                        1          1            0            0    D(nwdio)
+                       24         24            0            0    crtmom_2t
+                       24         24            0            0    crtmom_mx_4t
+                       24         24            0            0    crtmom_wo
+                       24         24            0            0    crtmom_wo_mx
+                       24         24            0            0    crtmom_wo_rf
+                        1          1            0            0    efuse_m0
+                        1          1            0            0    efuse_m1
+                        1          1            0            0    efuse_m4
+                        1          1            0            0    efuse_mx
+                        1          1            0            0    ndio_12_mac
+                        1          1            0            0    ndio_12_ntn_mac
+                        4          4            0            0    ndio_hia12_mac
+                        2          2            0            0    ndio_hia12_ntn_mac
+                        8          8            0            0    ndio_mac
+                        7          7            0            0    nmoscap
+                        1          1            0            0    nmoscap_12
+                        1          1            0            0    pdio_12_mac
+                        3          3            0            0    pdio_hia12_mac
+                        2          2            0            0    pdio_mac
+                  -------    -------    ---------    ---------
+                               INFORMATION AND WARNINGS
+**************************************************************************************************************
+
+
+                  Matched    Matched    Unmatched    Unmatched    Component
+                   Layout     Source       Layout       Source    Type
+                  -------    -------    ---------    ---------    ---------
+   Ports:              22         22            0            0
+
+   Nets:              218        218            0            0
+
+   Instances:           2          2            0            0    MN(nch_12_dnw_mac)
+                        2          2            0            0    MN(nch_12_mac)
+                       16         16            0            0    MN(nch_eflvt_dnw_mac)
+                        1          1            0            0    MN(nch_eflvt_mac)
+                       16         16            0            0    MN(nch_efsvt_dnw_mac)
+                        1          1            0            0    MN(nch_efsvt_mac)
+                        6          6            0            0    MN(nch_elvt_dnw_mac)
+                        7          7            0            0    MN(nch_elvt_mac)
+                        6          6            0            0    MN(nch_lvt_dnw_mac)
+                        6          6            0            0    MN(nch_lvt_mac)
+                        6          6            0            0    MN(nch_lvtll_dnw_mac)
+                        6          6            0            0    MN(nch_lvtll_mac)
+                        2          2            0            0    MN(nch_mpode12_mac)
+                        6          6            0            0    MN(nch_mpodeelvt_mac)
+                        6          6            0            0    MN(nch_mpodelvt_mac)
+                        6          6            0            0    MN(nch_mpodelvtll_mac)
+                        6          6            0            0    MN(nch_mpodesvt_mac)
+                        6          6            0            0    MN(nch_mpodeulvt_mac)
+                        6          6            0            0    MN(nch_mpodeulvtll_mac)
+                        6          6            0            0    MN(nch_svt_dnw_mac)
+                        7          7            0            0    MN(nch_svt_mac)
+                        6          6            0            0    MN(nch_ulvt_dnw_mac)
+                        6          6            0            0    MN(nch_ulvt_mac)
+                        6          6            0            0    MN(nch_ulvtll_dnw_mac)
+                        6          6            0            0    MN(nch_ulvtll_mac)
+                    11085      11085            0            0    LDDN(nch_hia12_mac)
+                        2          2            0            0    MP(pch_12_mac)
+                        1          1            0            0    MP(pch_eflvt_mac)
+                        1          1            0            0    MP(pch_efsvt_mac)
+                        7          7            0            0    MP(pch_elvt_mac)
+                        6          6            0            0    MP(pch_lvt_mac)
+                        6          6            0            0    MP(pch_lvtll_mac)
+                        1          1            0            0    MP(pch_mpode12_mac)
+                        6          6            0            0    MP(pch_mpodeelvt_mac)
+                        6          6            0            0    MP(pch_mpodelvt_mac)
+                        6          6            0            0    MP(pch_mpodelvtll_mac)
+                        6          6            0            0    MP(pch_mpodesvt_mac)
+                        6          6            0            0    MP(pch_mpodeulvt_mac)
+                        6          6            0            0    MP(pch_mpodeulvtll_mac)
+                        7          7            0            0    MP(pch_svt_mac)
+                        6          6            0            0    MP(pch_ulvt_mac)
+                        6          6            0            0    MP(pch_ulvtll_mac)
+                        1          1            0            0    Q(pnp_i1_mac)
+                        1          1            0            0    Q(pnp_i2_mac)
+                        1          1            0            0    Q(pnp_p1_mac)
+                        8          8            0            0    rhim
+                       52         52            0            0    rmsp
+                        1          1            0            0    D(nwdio)
+                        1          1            0            0    efuse_m0
+                        1          1            0            0    efuse_m1
+                        1          1            0            0    efuse_m4
+                        1          1            0            0    efuse_mx
+                        3          3            0            0    mimcap_shp1_4tlv
+                        7          7            0            0    mimcap_shp1_5thv
+                        1          1            0            0    ndio_12_mac
+                        1          1            0            0    ndio_12_ntn_mac
+                        4          4            0            0    ndio_hia12_mac
+                        2          2            0            0    ndio_hia12_ntn_mac
+                        2          2            0            0    ndio_mac
+                        1          1            0            0    nmoscap
+                        1          1            0            0    nmoscap_12
+                      331        331            0            0    npode_12_mac
+                       31         31            0            0    npode_eflvt_mac
+                       31         31            0            0    npode_efsvt_mac
+                        8          8            0            0    npode_elvt_mac
+                        6          6            0            0    npode_lvt_mac
+                        6          6            0            0    npode_lvtll_mac
+                        8          8            0            0    npode_svt_mac
+                        6          6            0            0    npode_ulvt_mac
+                        6          6            0            0    npode_ulvtll_mac
+                        1          1            0            0    pdio_12_mac
+                        3          3            0            0    pdio_hia12_mac
+                        2          2            0            0    pdio_mac
+                        5          5            0            0    ppode_12_mac
+                        1          1            0            0    ppode_eflvt_mac
+                        1          1            0            0    ppode_efsvt_mac
+                        8          8            0            0    ppode_elvt_mac
+                        6          6            0            0    ppode_lvt_mac
+                        6          6            0            0    ppode_lvtll_mac
+                        8          8            0            0    ppode_svt_mac
+                        6          6            0            0    ppode_ulvt_mac
+                        6          6            0            0    ppode_ulvtll_mac
+                  -------    -------    ---------    ---------
+                               INFORMATION AND WARNINGS
+**************************************************************************************************************
+
+
+                  Matched    Matched    Unmatched    Unmatched    Component
+                   Layout     Source       Layout       Source    Type
+                  -------    -------    ---------    ---------    ---------
+   Ports:              22         22            0            0
+
+   Nets:              218        218            0            0
+
+   Instances:           2          2            0            0    MN(nch_12_dnw_mac)
+                        2          2            0            0    MN(nch_12_mac)
+                       16         16            0            0    MN(nch_eflvt_dnw_mac)
+                        1          1            0            0    MN(nch_eflvt_mac)
+                       16         16            0            0    MN(nch_efsvt_dnw_mac)
+                        1          1            0            0    MN(nch_efsvt_mac)
+                        6          6            0            0    MN(nch_elvt_dnw_mac)
+                        7          7            0            0    MN(nch_elvt_mac)
+                        6          6            0            0    MN(nch_lvt_dnw_mac)
+                        6          6            0            0    MN(nch_lvt_mac)
+                        6          6            0            0    MN(nch_lvtll_dnw_mac)
+                        6          6            0            0    MN(nch_lvtll_mac)
+                        2          2            0            0    MN(nch_mpode12_mac)
+                        6          6            0            0    MN(nch_mpodeelvt_mac)
+                        6          6            0            0    MN(nch_mpodelvt_mac)
+                        6          6            0            0    MN(nch_mpodelvtll_mac)
+                        6          6            0            0    MN(nch_mpodesvt_mac)
+                        6          6            0            0    MN(nch_mpodeulvt_mac)
+                        6          6            0            0    MN(nch_mpodeulvtll_mac)
+                        6          6            0            0    MN(nch_svt_dnw_mac)
+                        7          7            0            0    MN(nch_svt_mac)
+                        6          6            0            0    MN(nch_ulvt_dnw_mac)
+                        6          6            0            0    MN(nch_ulvt_mac)
+                        6          6            0            0    MN(nch_ulvtll_dnw_mac)
+                        6          6            0            0    MN(nch_ulvtll_mac)
+                    11085      11085            0            0    LDDN(nch_hia12_mac)
+                        2          2            0            0    MP(pch_12_mac)
+                        1          1            0            0    MP(pch_eflvt_mac)
+                        1          1            0            0    MP(pch_efsvt_mac)
+                        7          7            0            0    MP(pch_elvt_mac)
+                        6          6            0            0    MP(pch_lvt_mac)
+                        6          6            0            0    MP(pch_lvtll_mac)
+                        1          1            0            0    MP(pch_mpode12_mac)
+                        6          6            0            0    MP(pch_mpodeelvt_mac)
+                        6          6            0            0    MP(pch_mpodelvt_mac)
+                        6          6            0            0    MP(pch_mpodelvtll_mac)
+                        6          6            0            0    MP(pch_mpodesvt_mac)
+                        6          6            0            0    MP(pch_mpodeulvt_mac)
+                        6          6            0            0    MP(pch_mpodeulvtll_mac)
+                        7          7            0            0    MP(pch_svt_mac)
+                        6          6            0            0    MP(pch_ulvt_mac)
+                        6          6            0            0    MP(pch_ulvtll_mac)
+                        1          1            0            0    Q(pnp_i1_mac)
+                        1          1            0            0    Q(pnp_i2_mac)
+                        1          1            0            0    Q(pnp_p1_mac)
+                        8          8            0            0    rhim
+                       52         52            0            0    rmsp
+                        1          1            0            0    D(nwdio)
+                        1          1            0            0    efuse_m0
+                        1          1            0            0    efuse_m1
+                        1          1            0            0    efuse_m4
+                        1          1            0            0    efuse_mx
+                       29         29            0            0    mimcap_sin_shd_3t
+                        1          1            0            0    ndio_12_mac
+                        1          1            0            0    ndio_12_ntn_mac
+                        4          4            0            0    ndio_hia12_mac
+                        2          2            0            0    ndio_hia12_ntn_mac
+                        2          2            0            0    ndio_mac
+                        1          1            0            0    nmoscap
+                        1          1            0            0    nmoscap_12
+                      331        331            0            0    npode_12_mac
+                       31         31            0            0    npode_eflvt_mac
+                       31         31            0            0    npode_efsvt_mac
+                        8          8            0            0    npode_elvt_mac
+                        6          6            0            0    npode_lvt_mac
+                        6          6            0            0    npode_lvtll_mac
+                        8          8            0            0    npode_svt_mac
+                        6          6            0            0    npode_ulvt_mac
+                        6          6            0            0    npode_ulvtll_mac
+                        1          1            0            0    pdio_12_mac
+                        3          3            0            0    pdio_hia12_mac
+                        2          2            0            0    pdio_mac
+                        5          5            0            0    ppode_12_mac
+                        1          1            0            0    ppode_eflvt_mac
+                        1          1            0            0    ppode_efsvt_mac
+                        8          8            0            0    ppode_elvt_mac
+                        6          6            0            0    ppode_lvt_mac
+                        6          6            0            0    ppode_lvtll_mac
+                        8          8            0            0    ppode_svt_mac
+                        6          6            0            0    ppode_ulvt_mac
+                        6          6            0            0    ppode_ulvtll_mac
+                  -------    -------    ---------    ---------
+                               INFORMATION AND WARNINGS
+**************************************************************************************************************
+
+
+                  Matched    Matched    Unmatched    Unmatched    Component
+                   Layout     Source       Layout       Source    Type
+                  -------    -------    ---------    ---------    ---------
+   Ports:              22         22            0            0
+
+   Nets:              218        218            0            0
+
+   Instances:           2          2            0            0    MN(nch_12_dnw_mac)
+                        2          2            0            0    MN(nch_12_mac)
+                       22         22            0            0    MN(nch_eflvt_dnw_mac)
+                       10         10            0            0    MN(nch_eflvt_mac)
+                       22         22            0            0    MN(nch_efsvt_dnw_mac)
+                       10         10            0            0    MN(nch_efsvt_mac)
+                       11         11            0            0    MN(nch_elvt_dnw_mac)
+                       16         16            0            0    MN(nch_elvt_mac)
+                       11         11            0            0    MN(nch_lvt_dnw_mac)
+                       15         15            0            0    MN(nch_lvt_mac)
+                       11         11            0            0    MN(nch_lvtll_dnw_mac)
+                       15         15            0            0    MN(nch_lvtll_mac)
+                        7          7            0            0    MN(nch_mpode12_mac)
+                       11         11            0            0    MN(nch_mpodeelvt_mac)
+                       11         11            0            0    MN(nch_mpodelvt_mac)
+                       11         11            0            0    MN(nch_mpodelvtll_mac)
+                       11         11            0            0    MN(nch_mpodesvt_mac)
+                       11         11            0            0    MN(nch_mpodeulvt_mac)
+                       11         11            0            0    MN(nch_mpodeulvtll_mac)
+                       11         11            0            0    MN(nch_svt_dnw_mac)
+                       16         16            0            0    MN(nch_svt_mac)
+                       11         11            0            0    MN(nch_ulvt_dnw_mac)
+                       15         15            0            0    MN(nch_ulvt_mac)
+                       11         11            0            0    MN(nch_ulvtll_dnw_mac)
+                       15         15            0            0    MN(nch_ulvtll_mac)
+                        2          2            0            0    MN(nchpd_10trpsr_mac)
+                        2          2            0            0    MN(nchpd_10tsr_mac)
+                        2          2            0            0    MN(nchpd_8trpsr_mac)
+                        2          2            0            0    MN(nchpd_8tsr_mac)
+                        2          2            0            0    MN(nchpd_dpsr_mac)
+                        2          2            0            0    MN(nchpd_hc8trpsr_mac)
+                        2          2            0            0    MN(nchpd_hc8tsr_mac)
+                        2          2            0            0    MN(nchpd_hcsr_mac)
+                        2          2            0            0    MN(nchpd_hdsr_mac)
+                        2          2            0            0    MN(nchpd_hshcsr_mac)
+                        2          2            0            0    MN(nchpd_ulvtll10trpsr_mac)
+                        2          2            0            0    MN(nchpd_ulvtll10tsr_mac)
+                        2          2            0            0    MN(nchpd_ulvtll8trpsr_mac)
+                        2          2            0            0    MN(nchpd_ulvtll8tsr_mac)
+                        2          2            0            0    MN(nchpd_ulvtllhc8trpsr_mac)
+                        2          2            0            0    MN(nchpd_ulvtllhc8tsr_mac)
+                        2          2            0            0    MN(nchpg_10trpsr_mac)
+                        2          2            0            0    MN(nchpg_10tsr_mac)
+                        2          2            0            0    MN(nchpg_8trpsr_mac)
+                        2          2            0            0    MN(nchpg_8tsr_mac)
+                        2          2            0            0    MN(nchpg_dpsr_mac)
+                        2          2            0            0    MN(nchpg_hc8trpsr_mac)
+                        2          2            0            0    MN(nchpg_hc8tsr_mac)
+                        2          2            0            0    MN(nchpg_hcsr_mac)
+                        2          2            0            0    MN(nchpg_hdsr_mac)
+                        2          2            0            0    MN(nchpg_hshcsr_mac)
+                        2          2            0            0    MN(nchpg_ulvtll10trpsr_mac)
+                        2          2            0            0    MN(nchpg_ulvtll10tsr_mac)
+                        2          2            0            0    MN(nchpg_ulvtll8trpsr_mac)
+                        2          2            0            0    MN(nchpg_ulvtll8tsr_mac)
+                        2          2            0            0    MN(nchpg_ulvtllhc8trpsr_mac)
+                        2          2            0            0    MN(nchpg_ulvtllhc8tsr_mac)
+                    11085      11085            0            0    LDDN(nch_hia12_mac)
+                        2          2            0            0    MP(pch_12_mac)
+                       10         10            0            0    MP(pch_eflvt_mac)
+                       10         10            0            0    MP(pch_efsvt_mac)
+                       16         16            0            0    MP(pch_elvt_mac)
+                       15         15            0            0    MP(pch_lvt_mac)
+                       15         15            0            0    MP(pch_lvtll_mac)
+                        6          6            0            0    MP(pch_mpode12_mac)
+                       11         11            0            0    MP(pch_mpodeelvt_mac)
+                       11         11            0            0    MP(pch_mpodelvt_mac)
+                       11         11            0            0    MP(pch_mpodelvtll_mac)
+                       11         11            0            0    MP(pch_mpodesvt_mac)
+                       11         11            0            0    MP(pch_mpodeulvt_mac)
+                       11         11            0            0    MP(pch_mpodeulvtll_mac)
+                       16         16            0            0    MP(pch_svt_mac)
+                       15         15            0            0    MP(pch_ulvt_mac)
+                       15         15            0            0    MP(pch_ulvtll_mac)
+                        2          2            0            0    MP(pchpu_10tsr_mac)
+                        2          2            0            0    MP(pchpu_8tsr_mac)
+                        2          2            0            0    MP(pchpu_dpsr_mac)
+                        2          2            0            0    MP(pchpu_hc8tsr_mac)
+                        2          2            0            0    MP(pchpu_hcsr_mac)
+                        2          2            0            0    MP(pchpu_hdsr_mac)
+                        2          2            0            0    MP(pchpu_hshcsr_mac)
+                        2          2            0            0    MP(pchpu_ulvtll10tsr_mac)
+                        2          2            0            0    MP(pchpu_ulvtll8tsr_mac)
+                        2          2            0            0    MP(pchpu_ulvtllhc8tsr_mac)
+                        1          1            0            0    Q(pnp_i1_mac)
+                        1          1            0            0    Q(pnp_i2_mac)
+                        1          1            0            0    Q(pnp_p1_mac)
+                        8          8            0            0    rhim
+                       52         52            0            0    rmsp
+                        1          1            0            0    D(nwdio)
+                        6          6            0            0    crtmom_2t
+                       30         30            0            0    crtmom_ary
+                       18         18            0            0    crtmom_ary_sm
+                       36         36            0            0    crtmom_ary_sm_4t
+                        6          6            0            0    crtmom_mx_4t
+                       21         21            0            0    crtmom_sm_4t_rf
+                       21         21            0            0    crtmom_sm_rf
+                        6          6            0            0    crtmom_wo
+                        6          6            0            0    crtmom_wo_mx
+                        6          6            0            0    crtmom_wo_rf
+                        1          1            0            0    efuse_m0
+                        1          1            0            0    efuse_m1
+                        1          1            0            0    efuse_m4
+                        1          1            0            0    efuse_mx
+                        3          3            0            0    mimcap_shp1_4tlv
+                        7          7            0            0    mimcap_shp1_5thv
+                        3          3            0            0    mimcap_shp2_4thv
+                        3          3            0            0    mimcap_shp2_4tlv
+                        8          8            0            0    mimcap_shp2_5thv
+                        5          5            0            0    moscap_rf
+                        7          7            0            0    moscap_rf12
+                        7          7            0            0    moscap_rf12_nw
+                        5          5            0            0    moscap_rf_nw
+                        1          1            0            0    ndio_12_mac
+                        1          1            0            0    ndio_12_ntn_mac
+                        4          4            0            0    ndio_hia12_mac
+                        2          2            0            0    ndio_hia12_ntn_mac
+                        8          8            0            0    ndio_mac
+                        7          7            0            0    nmoscap
+                        1          1            0            0    nmoscap_12
+                      331        331            0            0    npode_12_mac
+                       61         61            0            0    npode_eflvt_mac
+                       61         61            0            0    npode_efsvt_mac
+                       26         26            0            0    npode_elvt_mac
+                       24         24            0            0    npode_lvt_mac
+                       24         24            0            0    npode_lvtll_mac
+                       26         26            0            0    npode_svt_mac
+                       24         24            0            0    npode_ulvt_mac
+                       24         24            0            0    npode_ulvtll_mac
+                        1          1            0            0    pdio_12_mac
+                        3          3            0            0    pdio_hia12_mac
+                        2          2            0            0    pdio_mac
+                        5          5            0            0    ppode_12_mac
+                       19         19            0            0    ppode_eflvt_mac
+                       19         19            0            0    ppode_efsvt_mac
+                       26         26            0            0    ppode_elvt_mac
+                       24         24            0            0    ppode_lvt_mac
+                       24         24            0            0    ppode_lvtll_mac
+                       26         26            0            0    ppode_svt_mac
+                       24         24            0            0    ppode_ulvt_mac
+                       24         24            0            0    ppode_ulvtll_mac
+                  -------    -------    ---------    ---------
+                               INFORMATION AND WARNINGS
+**************************************************************************************************************
+
+
+                  Matched    Matched    Unmatched    Unmatched    Component
+                   Layout     Source       Layout       Source    Type
+                  -------    -------    ---------    ---------    ---------
+   Ports:              12         12            0            0
+
+   Nets:               12         12            0            0
+
+   Instances:          15         15            0            0    MN(nch_12_dnw_mac)
+                       16         16            0            0    MN(nch_12_mac)
+                       15         15            0            0    MN(nch_eflvt_dnw_mac)
+                       16         16            0            0    MN(nch_eflvt_mac)
+                       15         15            0            0    MN(nch_efsvt_dnw_mac)
+                       15         15            0            0    MN(nch_efsvt_mac)
+                        1          1            0            0    MN(nch_elvt_mac)
+                       15         15            0            0    MN(nch_lvt_dnw_mac)
+                       16         16            0            0    MN(nch_lvt_mac)
+                       15         15            0            0    MN(nch_lvtll_dnw_mac)
+                       16         16            0            0    MN(nch_lvtll_mac)
+                       15         15            0            0    MN(nch_svt_dnw_mac)
+                      165        165            0            0    MN(nch_svt_mac)
+                       15         15            0            0    MN(nch_ulvt_dnw_mac)
+                       16         16            0            0    MN(nch_ulvt_mac)
+                       15         15            0            0    MN(nch_ulvtll_dnw_mac)
+                       16         16            0            0    MN(nch_ulvtll_mac)
+                        1          1            0            0    MN(nchpd_10trpsr_mac)
+                        1          1            0            0    MN(nchpd_10tsr_mac)
+                        1          1            0            0    MN(nchpd_8trpsr_mac)
+                        1          1            0            0    MN(nchpd_8tsr_mac)
+                        1          1            0            0    MN(nchpd_dpsr_mac)
+                        1          1            0            0    MN(nchpd_hc8trpsr_mac)
+                        1          1            0            0    MN(nchpd_hc8tsr_mac)
+                        1          1            0            0    MN(nchpd_hcsr_mac)
+                        1          1            0            0    MN(nchpd_hdsr_mac)
+                        1          1            0            0    MN(nchpd_hshcsr_mac)
+                        1          1            0            0    MN(nchpd_ulvtll10trpsr_mac)
+                        1          1            0            0    MN(nchpd_ulvtll10tsr_mac)
+                        1          1            0            0    MN(nchpd_ulvtll8trpsr_mac)
+                        1          1            0            0    MN(nchpd_ulvtll8tsr_mac)
+                        1          1            0            0    MN(nchpd_ulvtllhc8trpsr_mac)
+                        1          1            0            0    MN(nchpd_ulvtllhc8tsr_mac)
+                        1          1            0            0    MN(nchpg_10trpsr_mac)
+                        1          1            0            0    MN(nchpg_10tsr_mac)
+                        1          1            0            0    MN(nchpg_8trpsr_mac)
+                        1          1            0            0    MN(nchpg_8tsr_mac)
+                        1          1            0            0    MN(nchpg_dpsr_mac)
+                        1          1            0            0    MN(nchpg_hc8trpsr_mac)
+                        1          1            0            0    MN(nchpg_hc8tsr_mac)
+                        1          1            0            0    MN(nchpg_hcsr_mac)
+                        1          1            0            0    MN(nchpg_hdsr_mac)
+                        1          1            0            0    MN(nchpg_hshcsr_mac)
+                        1          1            0            0    MN(nchpg_ulvtll10trpsr_mac)
+                        1          1            0            0    MN(nchpg_ulvtll10tsr_mac)
+                        1          1            0            0    MN(nchpg_ulvtll8trpsr_mac)
+                        1          1            0            0    MN(nchpg_ulvtll8tsr_mac)
+                        1          1            0            0    MN(nchpg_ulvtllhc8trpsr_mac)
+                        1          1            0            0    MN(nchpg_ulvtllhc8tsr_mac)
+                       16         16            0            0    MP(pch_12_mac)
+                       16         16            0            0    MP(pch_eflvt_mac)
+                       15         15            0            0    MP(pch_efsvt_mac)
+                        1          1            0            0    MP(pch_elvt_mac)
+                       16         16            0            0    MP(pch_lvt_mac)
+                       16         16            0            0    MP(pch_lvtll_mac)
+                      165        165            0            0    MP(pch_svt_mac)
+                       16         16            0            0    MP(pch_ulvt_mac)
+                       16         16            0            0    MP(pch_ulvtll_mac)
+                        1          1            0            0    MP(pchpu_10tsr_mac)
+                        1          1            0            0    MP(pchpu_8tsr_mac)
+                        1          1            0            0    MP(pchpu_dpsr_mac)
+                        1          1            0            0    MP(pchpu_hc8tsr_mac)
+                        1          1            0            0    MP(pchpu_hcsr_mac)
+                        1          1            0            0    MP(pchpu_hdsr_mac)
+                        1          1            0            0    MP(pchpu_hshcsr_mac)
+                        1          1            0            0    MP(pchpu_ulvtll10tsr_mac)
+                        1          1            0            0    MP(pchpu_ulvtll8tsr_mac)
+                        1          1            0            0    MP(pchpu_ulvtllhc8tsr_mac)
+                       60         60            0            0    npode_12_mac
+                       60         60            0            0    npode_eflvt_mac
+                       60         60            0            0    npode_efsvt_mac
+                       60         60            0            0    npode_lvt_mac
+                       60         60            0            0    npode_lvtll_mac
+                       60         60            0            0    npode_svt_mac
+                       60         60            0            0    npode_ulvt_mac
+                       60         60            0            0    npode_ulvtll_mac
+                       30         30            0            0    ppode_12_mac
+                       30         30            0            0    ppode_eflvt_mac
+                       30         30            0            0    ppode_efsvt_mac
+                       30         30            0            0    ppode_lvt_mac
+                       30         30            0            0    ppode_lvtll_mac
+                       30         30            0            0    ppode_svt_mac
+                       30         30            0            0    ppode_ulvt_mac
+                       30         30            0            0    ppode_ulvtll_mac
+                  -------    -------    ---------    ---------
+                               INFORMATION AND WARNINGS
+**************************************************************************************************************
+
+
+                  Matched    Matched    Unmatched    Unmatched    Component
+                   Layout     Source       Layout       Source    Type
+                  -------    -------    ---------    ---------    ---------
+   Ports:              10         10            0            0
+
+   Nets:              156        156            0            0
+
+   Instances:           4          4            0            0    MN(nch_12_dnw_mac)
+                        4          4            0            0    MN(nch_12_mac)
+                        4          4            0            0    MN(nch_eflvt_dnw_mac)
+                        4          4            0            0    MN(nch_eflvt_mac)
+                        4          4            0            0    MN(nch_efsvt_dnw_mac)
+                        4          4            0            0    MN(nch_efsvt_mac)
+                        4          4            0            0    MN(nch_lvt_dnw_mac)
+                        4          4            0            0    MN(nch_lvt_mac)
+                        4          4            0            0    MN(nch_lvtll_dnw_mac)
+                        4          4            0            0    MN(nch_lvtll_mac)
+                        4          4            0            0    MN(nch_svt_dnw_mac)
+                        4          4            0            0    MN(nch_svt_mac)
+                        4          4            0            0    MN(nch_ulvt_dnw_mac)
+                        4          4            0            0    MN(nch_ulvt_mac)
+                        4          4            0            0    MN(nch_ulvtll_dnw_mac)
+                        4          4            0            0    MN(nch_ulvtll_mac)
+                        4          4            0            0    LDDN(nch_hia12_mac)
+                        4          4            0            0    MP(pch_12_mac)
+                        4          4            0            0    MP(pch_eflvt_mac)
+                        4          4            0            0    MP(pch_efsvt_mac)
+                        4          4            0            0    MP(pch_lvt_mac)
+                        4          4            0            0    MP(pch_lvtll_mac)
+                        4          4            0            0    MP(pch_svt_mac)
+                        4          4            0            0    MP(pch_ulvt_mac)
+                        4          4            0            0    MP(pch_ulvtll_mac)
+                        8          8            0            0    npode_12_mac
+                        8          8            0            0    npode_eflvt_mac
+                        8          8            0            0    npode_efsvt_mac
+                        8          8            0            0    npode_lvt_mac
+                        8          8            0            0    npode_lvtll_mac
+                        8          8            0            0    npode_svt_mac
+                        8          8            0            0    npode_ulvt_mac
+                        8          8            0            0    npode_ulvtll_mac
+                        4          4            0            0    ppode_12_mac
+                        4          4            0            0    ppode_eflvt_mac
+                        4          4            0            0    ppode_efsvt_mac
+                        4          4            0            0    ppode_lvt_mac
+                        4          4            0            0    ppode_lvtll_mac
+                        4          4            0            0    ppode_svt_mac
+                        4          4            0            0    ppode_ulvt_mac
+                        4          4            0            0    ppode_ulvtll_mac
+                  -------    -------    ---------    ---------
+                               INFORMATION AND WARNINGS
+**************************************************************************************************************
+
+
+                  Matched    Matched    Unmatched    Unmatched    Component
+                   Layout     Source       Layout       Source    Type
+                  -------    -------    ---------    ---------    ---------
+   Ports:              12         12            0            0
+
+   Nets:              208        208            0            0
+
+   Instances:           2          2            0            0    MN(nch_12_dnw_mac)
+                        2          2            0            0    MN(nch_12_mac)
+                       16         16            0            0    MN(nch_eflvt_dnw_mac)
+                        1          1            0            0    MN(nch_eflvt_mac)
+                       16         16            0            0    MN(nch_efsvt_dnw_mac)
+                        1          1            0            0    MN(nch_efsvt_mac)
+                        6          6            0            0    MN(nch_elvt_dnw_mac)
+                        7          7            0            0    MN(nch_elvt_mac)
+                        6          6            0            0    MN(nch_lvt_dnw_mac)
+                        6          6            0            0    MN(nch_lvt_mac)
+                        6          6            0            0    MN(nch_lvtll_dnw_mac)
+                        6          6            0            0    MN(nch_lvtll_mac)
+                        7          7            0            0    MN(nch_mpode12_mac)
+                        6          6            0            0    MN(nch_mpodeelvt_mac)
+                        6          6            0            0    MN(nch_mpodelvt_mac)
+                        6          6            0            0    MN(nch_mpodelvtll_mac)
+                        6          6            0            0    MN(nch_mpodesvt_mac)
+                        6          6            0            0    MN(nch_mpodeulvt_mac)
+                        6          6            0            0    MN(nch_mpodeulvtll_mac)
+                        6          6            0            0    MN(nch_svt_dnw_mac)
+                        7          7            0            0    MN(nch_svt_mac)
+                        6          6            0            0    MN(nch_ulvt_dnw_mac)
+                        6          6            0            0    MN(nch_ulvt_mac)
+                        6          6            0            0    MN(nch_ulvtll_dnw_mac)
+                        6          6            0            0    MN(nch_ulvtll_mac)
+                        2          2            0            0    MN(nchpd_10trpsr_mac)
+                        2          2            0            0    MN(nchpd_10tsr_mac)
+                        2          2            0            0    MN(nchpd_8trpsr_mac)
+                        2          2            0            0    MN(nchpd_8tsr_mac)
+                        2          2            0            0    MN(nchpd_dpsr_mac)
+                        2          2            0            0    MN(nchpd_hc8trpsr_mac)
+                        2          2            0            0    MN(nchpd_hc8tsr_mac)
+                        2          2            0            0    MN(nchpd_hcsr_mac)
+                        2          2            0            0    MN(nchpd_hdsr_mac)
+                        2          2            0            0    MN(nchpd_hshcsr_mac)
+                        2          2            0            0    MN(nchpd_ulvtll10trpsr_mac)
+                        2          2            0            0    MN(nchpd_ulvtll10tsr_mac)
+                        2          2            0            0    MN(nchpd_ulvtll8trpsr_mac)
+                        2          2            0            0    MN(nchpd_ulvtll8tsr_mac)
+                        2          2            0            0    MN(nchpd_ulvtllhc8trpsr_mac)
+                        2          2            0            0    MN(nchpd_ulvtllhc8tsr_mac)
+                        2          2            0            0    MN(nchpg_10trpsr_mac)
+                        2          2            0            0    MN(nchpg_10tsr_mac)
+                        2          2            0            0    MN(nchpg_8trpsr_mac)
+                        2          2            0            0    MN(nchpg_8tsr_mac)
+                        2          2            0            0    MN(nchpg_dpsr_mac)
+                        2          2            0            0    MN(nchpg_hc8trpsr_mac)
+                        2          2            0            0    MN(nchpg_hc8tsr_mac)
+                        2          2            0            0    MN(nchpg_hcsr_mac)
+                        2          2            0            0    MN(nchpg_hdsr_mac)
+                        2          2            0            0    MN(nchpg_hshcsr_mac)
+                        2          2            0            0    MN(nchpg_ulvtll10trpsr_mac)
+                        2          2            0            0    MN(nchpg_ulvtll10tsr_mac)
+                        2          2            0            0    MN(nchpg_ulvtll8trpsr_mac)
+                        2          2            0            0    MN(nchpg_ulvtll8tsr_mac)
+                        2          2            0            0    MN(nchpg_ulvtllhc8trpsr_mac)
+                        2          2            0            0    MN(nchpg_ulvtllhc8tsr_mac)
+                    11085      11085            0            0    LDDN(nch_hia12_mac)
+                        2          2            0            0    MP(pch_12_mac)
+                        1          1            0            0    MP(pch_eflvt_mac)
+                        1          1            0            0    MP(pch_efsvt_mac)
+                        7          7            0            0    MP(pch_elvt_mac)
+                        6          6            0            0    MP(pch_lvt_mac)
+                        6          6            0            0    MP(pch_lvtll_mac)
+                        6          6            0            0    MP(pch_mpode12_mac)
+                        6          6            0            0    MP(pch_mpodeelvt_mac)
+                        6          6            0            0    MP(pch_mpodelvt_mac)
+                        6          6            0            0    MP(pch_mpodelvtll_mac)
+                        6          6            0            0    MP(pch_mpodesvt_mac)
+                        6          6            0            0    MP(pch_mpodeulvt_mac)
+                        6          6            0            0    MP(pch_mpodeulvtll_mac)
+                        7          7            0            0    MP(pch_svt_mac)
+                        6          6            0            0    MP(pch_ulvt_mac)
+                        6          6            0            0    MP(pch_ulvtll_mac)
+                        2          2            0            0    MP(pchpu_10tsr_mac)
+                        2          2            0            0    MP(pchpu_8tsr_mac)
+                        2          2            0            0    MP(pchpu_dpsr_mac)
+                        2          2            0            0    MP(pchpu_hc8tsr_mac)
+                        2          2            0            0    MP(pchpu_hcsr_mac)
+                        2          2            0            0    MP(pchpu_hdsr_mac)
+                        2          2            0            0    MP(pchpu_hshcsr_mac)
+                        2          2            0            0    MP(pchpu_ulvtll10tsr_mac)
+                        2          2            0            0    MP(pchpu_ulvtll8tsr_mac)
+                        2          2            0            0    MP(pchpu_ulvtllhc8tsr_mac)
+                        1          1            0            0    Q(pnp_i1_mac)
+                        1          1            0            0    Q(pnp_i2_mac)
+                        1          1            0            0    Q(pnp_p1_mac)
+                        1          1            0            0    D(nwdio)
+                        1          1            0            0    efuse_m0
+                        1          1            0            0    efuse_m1
+                        1          1            0            0    efuse_m4
+                        1          1            0            0    efuse_mx
+                        1          1            0            0    ndio_12_mac
+                        1          1            0            0    ndio_12_ntn_mac
+                        4          4            0            0    ndio_hia12_mac
+                        2          2            0            0    ndio_hia12_ntn_mac
+                        2          2            0            0    ndio_mac
+                        1          1            0            0    nmoscap
+                        1          1            0            0    nmoscap_12
+                      331        331            0            0    npode_12_mac
+                       31         31            0            0    npode_eflvt_mac
+                       31         31            0            0    npode_efsvt_mac
+                        8          8            0            0    npode_elvt_mac
+                        6          6            0            0    npode_lvt_mac
+                        6          6            0            0    npode_lvtll_mac
+                        8          8            0            0    npode_svt_mac
+                        6          6            0            0    npode_ulvt_mac
+                        6          6            0            0    npode_ulvtll_mac
+                        1          1            0            0    pdio_12_mac
+                        3          3            0            0    pdio_hia12_mac
+                        2          2            0            0    pdio_mac
+                        5          5            0            0    ppode_12_mac
+                        1          1            0            0    ppode_eflvt_mac
+                        1          1            0            0    ppode_efsvt_mac
+                        8          8            0            0    ppode_elvt_mac
+                        6          6            0            0    ppode_lvt_mac
+                        6          6            0            0    ppode_lvtll_mac
+                        8          8            0            0    ppode_svt_mac
+                        6          6            0            0    ppode_ulvt_mac
+                        6          6            0            0    ppode_ulvtll_mac
+                  -------    -------    ---------    ---------
+                               INFORMATION AND WARNINGS
+**************************************************************************************************************
+
+
+                  Matched    Matched    Unmatched    Unmatched    Component
+                   Layout     Source       Layout       Source    Type
+                  -------    -------    ---------    ---------    ---------
+   Ports:              12         12            0            0
+
+   Nets:               24         24            0            0
+
+   Instances:           2          2            0            0    MN(nch_12_dnw_mac)
+                        2          2            0            0    MN(nch_12_mac)
+                       16         16            0            0    MN(nch_eflvt_dnw_mac)
+                        1          1            0            0    MN(nch_eflvt_mac)
+                       16         16            0            0    MN(nch_efsvt_dnw_mac)
+                        1          1            0            0    MN(nch_efsvt_mac)
+                        6          6            0            0    MN(nch_elvt_dnw_mac)
+                        7          7            0            0    MN(nch_elvt_mac)
+                        6          6            0            0    MN(nch_lvt_dnw_mac)
+                        6          6            0            0    MN(nch_lvt_mac)
+                        6          6            0            0    MN(nch_lvtll_dnw_mac)
+                        6          6            0            0    MN(nch_lvtll_mac)
+                        2          2            0            0    MN(nch_mpode12_mac)
+                        6          6            0            0    MN(nch_mpodeelvt_mac)
+                        6          6            0            0    MN(nch_mpodelvt_mac)
+                        6          6            0            0    MN(nch_mpodelvtll_mac)
+                        6          6            0            0    MN(nch_mpodesvt_mac)
+                        6          6            0            0    MN(nch_mpodeulvt_mac)
+                        6          6            0            0    MN(nch_mpodeulvtll_mac)
+                        6          6            0            0    MN(nch_svt_dnw_mac)
+                        7          7            0            0    MN(nch_svt_mac)
+                        6          6            0            0    MN(nch_ulvt_dnw_mac)
+                        6          6            0            0    MN(nch_ulvt_mac)
+                        6          6            0            0    MN(nch_ulvtll_dnw_mac)
+                        6          6            0            0    MN(nch_ulvtll_mac)
+                        2          2            0            0    MP(pch_12_mac)
+                        1          1            0            0    MP(pch_eflvt_mac)
+                        1          1            0            0    MP(pch_efsvt_mac)
+                        7          7            0            0    MP(pch_elvt_mac)
+                        6          6            0            0    MP(pch_lvt_mac)
+                        6          6            0            0    MP(pch_lvtll_mac)
+                        1          1            0            0    MP(pch_mpode12_mac)
+                        6          6            0            0    MP(pch_mpodeelvt_mac)
+                        6          6            0            0    MP(pch_mpodelvt_mac)
+                        6          6            0            0    MP(pch_mpodelvtll_mac)
+                        6          6            0            0    MP(pch_mpodesvt_mac)
+                        6          6            0            0    MP(pch_mpodeulvt_mac)
+                        6          6            0            0    MP(pch_mpodeulvtll_mac)
+                        7          7            0            0    MP(pch_svt_mac)
+                        6          6            0            0    MP(pch_ulvt_mac)
+                        6          6            0            0    MP(pch_ulvtll_mac)
+                        9          9            0            0    npode_12_mac
+                       31         31            0            0    npode_eflvt_mac
+                       31         31            0            0    npode_efsvt_mac
+                        8          8            0            0    npode_elvt_mac
+                        6          6            0            0    npode_lvt_mac
+                        6          6            0            0    npode_lvtll_mac
+                        8          8            0            0    npode_svt_mac
+                        6          6            0            0    npode_ulvt_mac
+                        6          6            0            0    npode_ulvtll_mac
+                        5          5            0            0    ppode_12_mac
+                        1          1            0            0    ppode_eflvt_mac
+                        1          1            0            0    ppode_efsvt_mac
+                        8          8            0            0    ppode_elvt_mac
+                        6          6            0            0    ppode_lvt_mac
+                        6          6            0            0    ppode_lvtll_mac
+                        8          8            0            0    ppode_svt_mac
+                        6          6            0            0    ppode_ulvt_mac
+                        6          6            0            0    ppode_ulvtll_mac
+                  -------    -------    ---------    ---------
+
+
+********************************
+  Matched device          
+********************************
+  CRTMOM_2T                                                       
+  CRTMOM_ARY                                                      
+  CRTMOM_ARY_SM                                                   
+  CRTMOM_ARY_SM_4T                                                
+  CRTMOM_MX_4T                                                    
+  CRTMOM_SM_4T_RF                                                 
+  CRTMOM_SM_RF                                                    
+  CRTMOM_WO                                                       
+  CRTMOM_WO_MX                                                    
+  CRTMOM_WO_RF                                                    
+  D(DNWPSUB)                                                      
+  D(NWDIO)                                                        
+  D(PNWDIO)                                                       
+  D(PWDNW)                                                        
+  EFUSE_M0                                                        
+  EFUSE_M1                                                        
+  EFUSE_M4                                                        
+  EFUSE_MX                                                        
+  LDDN(NCH_HIA12_MAC)                                             
+  MIMCAP_SHP1_4TLV                                                
+  MIMCAP_SHP1_5THV                                                
+  MIMCAP_SHP2_4THV                                                
+  MIMCAP_SHP2_4TLV                                                
+  MIMCAP_SHP2_5THV                                                
+  MIMCAP_SIN_SHD_3T                                               
+  MN(NCHPD_10TRPSR_MAC)                                           
+  MN(NCHPD_10TSR_MAC)                                             
+  MN(NCHPD_8TRPSR_MAC)                                            
+  MN(NCHPD_8TSR_MAC)                                              
+  MN(NCHPD_DPSR_MAC)                                              
+  MN(NCHPD_HC8TRPSR_MAC)                                          
+  MN(NCHPD_HC8TSR_MAC)                                            
+  MN(NCHPD_HCSR_MAC)                                              
+  MN(NCHPD_HDSR_MAC)                                              
+  MN(NCHPD_HSHCSR_MAC)                                            
+  MN(NCHPD_ULVTLL10TRPSR_MAC)                                     
+  MN(NCHPD_ULVTLL10TSR_MAC)                                       
+  MN(NCHPD_ULVTLL8TRPSR_MAC)                                      
+  MN(NCHPD_ULVTLL8TSR_MAC)                                        
+  MN(NCHPD_ULVTLLHC8TRPSR_MAC)                                    
+  MN(NCHPD_ULVTLLHC8TSR_MAC)                                      
+  MN(NCHPG_10TRPSR_MAC)                                           
+  MN(NCHPG_10TSR_MAC)                                             
+  MN(NCHPG_8TRPSR_MAC)                                            
+  MN(NCHPG_8TSR_MAC)                                              
+  MN(NCHPG_DPSR_MAC)                                              
+  MN(NCHPG_HC8TRPSR_MAC)                                          
+  MN(NCHPG_HC8TSR_MAC)                                            
+  MN(NCHPG_HCSR_MAC)                                              
+  MN(NCHPG_HDSR_MAC)                                              
+  MN(NCHPG_HSHCSR_MAC)                                            
+  MN(NCHPG_ULVTLL10TRPSR_MAC)                                     
+  MN(NCHPG_ULVTLL10TSR_MAC)                                       
+  MN(NCHPG_ULVTLL8TRPSR_MAC)                                      
+  MN(NCHPG_ULVTLL8TSR_MAC)                                        
+  MN(NCHPG_ULVTLLHC8TRPSR_MAC)                                    
+  MN(NCHPG_ULVTLLHC8TSR_MAC)                                      
+  MN(NCH_12_DNW_MAC)                                              
+  MN(NCH_12_MAC)                                                  
+  MN(NCH_EFLVT_DNW_MAC)                                           
+  MN(NCH_EFLVT_MAC)                                               
+  MN(NCH_EFSVT_DNW_MAC)                                           
+  MN(NCH_EFSVT_MAC)                                               
+  MN(NCH_ELVT_DNW_MAC)                                            
+  MN(NCH_ELVT_MAC)                                                
+  MN(NCH_LVTLL_DNW_MAC)                                           
+  MN(NCH_LVTLL_MAC)                                               
+  MN(NCH_LVT_DNW_MAC)                                             
+  MN(NCH_LVT_MAC)                                                 
+  MN(NCH_MPODE12_MAC)                                             
+  MN(NCH_MPODEELVT_MAC)                                           
+  MN(NCH_MPODELVTLL_MAC)                                          
+  MN(NCH_MPODELVT_MAC)                                            
+  MN(NCH_MPODESVT_MAC)                                            
+  MN(NCH_MPODEULVTLL_MAC)                                         
+  MN(NCH_MPODEULVT_MAC)                                           
+  MN(NCH_SVT_DNW_MAC)                                             
+  MN(NCH_SVT_MAC)                                                 
+  MN(NCH_ULVTLL_DNW_MAC)                                          
+  MN(NCH_ULVTLL_MAC)                                              
+  MN(NCH_ULVT_DNW_MAC)                                            
+  MN(NCH_ULVT_MAC)                                                
+  MOSCAP_RF                                                       
+  MOSCAP_RF12                                                     
+  MOSCAP_RF12_NW                                                  
+  MOSCAP_RF_NW                                                    
+  MP(PCHPU_10TSR_MAC)                                             
+  MP(PCHPU_8TSR_MAC)                                              
+  MP(PCHPU_DPSR_MAC)                                              
+  MP(PCHPU_HC8TSR_MAC)                                            
+  MP(PCHPU_HCSR_MAC)                                              
+  MP(PCHPU_HDSR_MAC)                                              
+  MP(PCHPU_HSHCSR_MAC)                                            
+  MP(PCHPU_ULVTLL10TSR_MAC)                                       
+  MP(PCHPU_ULVTLL8TSR_MAC)                                        
+  MP(PCHPU_ULVTLLHC8TSR_MAC)                                      
+  MP(PCH_12_MAC)                                                  
+  MP(PCH_EFLVT_MAC)                                               
+  MP(PCH_EFSVT_MAC)                                               
+  MP(PCH_ELVT_MAC)                                                
+  MP(PCH_LVTLL_MAC)                                               
+  MP(PCH_LVT_MAC)                                                 
+  MP(PCH_MPODE12_MAC)                                             
+  MP(PCH_MPODEELVT_MAC)                                           
+  MP(PCH_MPODELVTLL_MAC)                                          
+  MP(PCH_MPODELVT_MAC)                                            
+  MP(PCH_MPODESVT_MAC)                                            
+  MP(PCH_MPODEULVTLL_MAC)                                         
+  MP(PCH_MPODEULVT_MAC)                                           
+  MP(PCH_SVT_MAC)                                                 
+  MP(PCH_ULVTLL_MAC)                                              
+  MP(PCH_ULVT_MAC)                                                
+  NDIO_12_MAC                                                     
+  NDIO_12_NTN_MAC                                                 
+  NDIO_HIA12_MAC                                                  
+  NDIO_HIA12_NTN_MAC                                              
+  NDIO_MAC                                                        
+  NMOSCAP                                                         
+  NMOSCAP_12                                                      
+  NPODE_12_MAC                                                    
+  NPODE_EFLVT_MAC                                                 
+  NPODE_EFSVT_MAC                                                 
+  NPODE_ELVT_MAC                                                  
+  NPODE_LVTLL_MAC                                                 
+  NPODE_LVT_MAC                                                   
+  NPODE_SVT_MAC                                                   
+  NPODE_ULVTLL_MAC                                                
+  NPODE_ULVT_MAC                                                  
+  PDIO_12_MAC                                                     
+  PDIO_HIA12_MAC                                                  
+  PDIO_MAC                                                        
+  PPODE_12_MAC                                                    
+  PPODE_EFLVT_MAC                                                 
+  PPODE_EFSVT_MAC                                                 
+  PPODE_ELVT_MAC                                                  
+  PPODE_LVTLL_MAC                                                 
+  PPODE_LVT_MAC                                                   
+  PPODE_SVT_MAC                                                   
+  PPODE_ULVTLL_MAC                                                
+  PPODE_ULVT_MAC                                                  
+  Q(PNP_I1_MAC)                                                   
+  Q(PNP_I2_MAC)                                                   
+  Q(PNP_P1_MAC)                                                   
+  RHIM                                                            
+  RMSP                                                            
+
+********************************
+  Pass!                   
+********************************
