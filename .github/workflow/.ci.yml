@@ -1,0 +1,124 @@
+stages:
+  - unpack
+  - prepareTP
+  - prepareRSF
+  - stage
+
+variables:
+  #n6
+  #NODE: "n6"
+  #PDK1.0
+  #TSMC_PERC_PKG_PATH: "/nfs/imu/proj/tec/tptest/p4homes/nrichaud/n6/git/source/TN06CLDR011C7_1_0_4A.zip"
+  #TSMC_LVS_PKG_PATH: "/nfs/imu/proj/globus/tpdev/tech5/n6/.dr/source/calibre/lvs/TN06CLSP004C1_1_0A.zip"
+  #METALSTACK: "13M_1X1Xa1Ya5Y2Yy2R"
+  #METALSTACK_perc: "13M_1X1Xa1Ya5Y2Yy2R"
+  #METALSTACK_TP: "1P13M_1X_h_1Xa_v_1Ya_h_5Y_vhvhv_2Yy2R"
+  #COMP_VERSION: "v1.3.0"
+  #PATH2COMPARE: "/p/tech1/n6_disk1//collaterals/layoutverification_perc/v1.2.3/calibre/1P13M_1X_h_1Xa_v_1Ya_h_5Y_vhvhv_2Yy2R"
+  #n7
+  #NODE: "n7"
+  #TSMC_PERC_PKG_PATH: "/nfs/imu/proj/globus/tpdev/tech5/n7/.dr/source/calibre/perc/TN07CLDR001C7_1_3A.zip"
+  #TSMC_LVS_PKG_PATH: "/nfs/imu/proj/globus/tpdev/tech5/n7/.dr/source/calibre/lvs/tn07clls001c1_1_1b.zip"
+  #METALSTACK: "15M_1X1Xa1Ya5Y2Yy2Yx2R"
+  #METALSTACK_TP: "1P15M_1X_h_1Xa_v_1Ya_h_5Y_vhvhv_2Yy2Yx2R"
+    #METALSTACK: "13M_1X1Xa1Ya5Y2Yy2Z"
+    #METALSTACK_TP: "1P13M_1X_h_1Xa_v_1Ya_h_5Y_vhvhv_2Yy2Z"
+    #METALSTACK: "11M_2X1Ya3Y2Yy2R"
+    #METALSTACK_TP: "1P11M_2X_hv_1Ya_h_3Y_vhv_2Yy2R"
+  #COMP_VERSION: "v1.0.501"
+  #n5
+  #NODE: "n5"
+  #TSMC_PERC_PKG_PATH: "/nfs/imu/proj/globus/tpdev/tech5/n5/.dr/source/PDK_v1.1_TSMC/calibre/esdlup/TN05CLDR014C7_1_1_1A.zip"
+  #TSMC_LVS_PKG_PATH: "/nfs/imu/proj/globus/tpdev/tech5/n5/.dr/source/PDK_v1.1_TSMC/calibre/lvs/TN05CLLS007C1_1_1A.zip"
+  #METALSTACK: "15M_1X1Xb1Xe1Ya1Yb5Y2Yy2R"
+  #METALSTACK_TP: "1P15M_1X_h_1Xb_v_1Xe_h_1Ya_v_1Yb_h_5Y_vhvhv_2Yy2R"
+  #COMP_VERSION: "v1.1.002"
+  #PATH2COMPARE: "/nfs/imu/proj/tech1/n5_disk7/collaterals/layoutverification_perc/v1.1.6/calibre/1P15M_1X_h_1Xb_v_1Xe_h_1Ya_v_1Yb_h_5Y_vhvhv_2Yy2R"
+  #PATH_TO_CHEETAHXML: "/nfs/imu/proj/tec/tptest/INandOUT/nrichaud/workspace/tsmc_esdlup_checker/perc_n5.xml"
+  #n5p
+  #NODE: "n5p"
+  #TSMC_PERC_PKG_PATH: "/nfs/imu/proj/globus/tpdev/tech5/n5p/.dr/source/calibre/esdlup/TN05CLDR014C7_0_9A.zip"
+  #TSMC_LVS_PKG_PATH: "/nfs/imu/proj/globus/tpdev/tech5/n5p/.dr/source/calibre/lvs/TN05CLLS007C1_0_9A.zip"
+  #METALSTACK: "15M_1X1Xb1Xe1Ya1Yb5Y2Yy2R"
+  #METALSTACK_TP: "1P15M_1X_h_1Xb_v_1Xe_h_1Ya_v_1Yb_h_5Y_vhvhv_2Yy2R"
+  #COMP_VERSION: "v0.9.001"
+  #PATH2COMPARE: "/nfs/imu/proj/globus/tpdev/tech5/n5/.dr/calibre/v1.0.201/1P15M_1X_h_1Xb_v_1Xe_h_1Ya_v_1Yb_h_5Y_vhvhv_2Yy2Z"
+  #PATH_TO_CHEETAHXML: "/nfs/imu/proj/tec/tptest/INandOUT/nrichaud/workspace/tsmc_esdlup_checker/pdk.xml"
+  #n4p
+  #NODE: "n4"
+  #TSMC_PERC_PKG_PATH: "/nfs/imu/proj/tec/tptest/p4homes/nrichaud/n4p/git/source_calibre/TN04CLDR014C7_0_9A.zip"
+  #TSMC_LVS_PKG_PATH: "/nfs/imu/proj/tec/tptest/p4homes/nrichaud/n4p/git/source_calibre/TN04CLSP006C1_0_9_1P1A.zip"
+  #METALSTACK: "15M_1X1Xb1Xe1Ya1Yb5Y2Yy2R"
+  #METALSTACK_perc: "15M_1X1Xb1Xe1Ya1Yb5Y2Yy2R"
+  #METALSTACK_TP: "1P15M_1X_h_1Xb_v_1Xe_h_1Ya_v_1Yb_h_5Y_vhvhv_2Yy2R"
+  #COMP_VERSION: "v0.9.0"
+  #PATH2COMPARE: "/p/tech1/n6_disk1//collaterals/layoutverification_perc/v1.2.3/calibre/1P13M_1X_h_1Xa_v_1Ya_h_5Y_vhvhv_2Yy2R"
+  #n3
+  NODE: "n3"
+  #TSMC_PERC_PKG_PATH: "/nfs/imu/proj/tec/tptest/INandOUT/nrichaud/workspace/tsmc_esdlup_checker/tsmc_package/TN03CLDR007C7_1_0_1A.zip"
+  #TSMC_LVS_PKG_PATH: "/nfs/imu/proj/globus/tpdev/tech5/n3/.dr/source/calibre/lvs/v1.0/TN03CLSP001C1_1_0A.zip"
+  TSMC_PERC_PKG_PATH: "/nfs/imu/proj/tec/tptest/p4homes/nrichaud/n3/git/source_calibre/TN03CLDR007C7_1_0_3A.zip"
+  TSMC_LVS_PKG_PATH: "/nfs/imu/proj/tec/tptest/p4homes/nrichaud/n3/git/source_calibre/TN03CLSP001C1_1_0B.zip"
+  METALSTACK: "18M_1X1Xb1Xc1Xd1Ya1Yb5Y2Yy2Yx1R1U"
+  METALSTACK_perc: "18M_1X1Xb1Xc1Xd1Ya1Yb5Y2Yy2Yx1R1U_SHPMIM1_UT-CURDL"
+  METALSTACK_TP: "1P18M_1X_h_1Xb_v_1Xc_h_1Xd_v_1Ya_h_1Yb_v_5Y_hvhvh_2Yy2Yx1R1U_shpmim_std_ut-curdl"
+  COMP_VERSION: "v1.0.8"
+  PATH2COMPARE: "/p/tech1/n3/tech-release/v1.0.7/layoutverification_perc/calibre/1P18M_1X_h_1Xb_v_1Xc_h_1Xd_v_1Ya_h_1Yb_v_5Y_hvhvh_2Yy2Yx1R1U_shpmim_std_ut-curdl/"
+  PATH_TO_CHEETAHXML: "/nfs/imu/proj/tec/tptest/INandOUT/nrichaud/workspace/tsmc_esdlup_checker/perc_n5.xml"
+
+unpack_:
+  stage: unpack
+  script:
+    - echo "script/unpack.sh $NODE $TSMC_PERC_PKG_PATH $TSMC_LVS_PKG_PATH $METALSTACK $METALSTACK_perc|tee unpack.log"
+    - script/unpack.sh $NODE $TSMC_PERC_PKG_PATH $TSMC_LVS_PKG_PATH $METALSTACK $METALSTACK_perc  |tee unpack.log
+    - tree .
+    - echo "stack $METALSTACK tsmc ESDLUP package $TSMC_PERC_PKG_PATH"
+    - pwd
+  artifacts:
+    paths:
+      - perc
+
+prepareTP_:
+  stage: prepareTP
+  script:
+    - echo "script/prepareTP.sh $NODE $METALSTACK $METALSTACK_perc $METALSTACK_TP|tee prepareTP.log"
+    - script/prepareTP.sh $NODE $METALSTACK $METALSTACK_perc $METALSTACK_TP|tee prepareTP.log
+    #- echo "script/build_die2die_switch_280.sh $NODE $COMP_VERSION $METALSTACK $METALSTACK_TP|tee build_die2die_switch_280.log"
+    #- script/build_die2die_switch_280.sh $NODE $COMP_VERSION $METALSTACK $METALSTACK_TP|tee build_die2die_switch_280.log
+    #- echo "script/build_die2die_switch_180.sh $NODE $COMP_VERSION $METALSTACK $METALSTACK_TP|tee build_die2die_switch_180.log"
+    #- script/build_die2die_switch_180.sh $NODE $COMP_VERSION $METALSTACK $METALSTACK_TP|tee build_die2die_switch_180.log
+    #- echo "script/build_die2die_switch_40.sh $NODE $COMP_VERSION $METALSTACK $METALSTACK_TP|tee build_die2die_switch_40.log"
+    #- script/build_die2die_switch_40.sh $NODE $COMP_VERSION $METALSTACK $METALSTACK_TP|tee build_die2die_switch_40.log
+    - tree prepareTP
+    - pwd
+  artifacts:
+    paths:
+      - prepareTP
+  dependencies:
+    - unpack_
+
+prepareRSF_:
+  stage: prepareRSF
+  script:
+    - echo "script/prepareRSF.sh $NODE $METALSTACK $METALSTACK_perc $METALSTACK_TP|tee prepareRSF.log"
+    - script/prepareRSF.sh $NODE $METALSTACK $METALSTACK_perc $METALSTACK_TP|tee prepareRSF.log
+    - tree prepareTP
+    - pwd
+  artifacts:
+    paths:
+      - prepareTP
+  dependencies:
+    - prepareTP_
+
+transferToPerforceDir_:
+  stage: stage
+  script:
+    - echo "script/trans2perfDir.sh $NODE nrichaud $METALSTACK_TP|tee trans2perfDir.log"
+    - script/trans2perfDir.sh $NODE nrichaud $METALSTACK_TP|tee trans2perfDir.log
+    - pwd
+    - echo "tree /nfs/imu/proj/tec/tptest/p4homes/nrichaud/$NODE/git/$NODE-layoutverification_perc/layoutverification_perc/calibre/$METALSTACK_TP"
+    - tree /nfs/imu/proj/tec/tptest/p4homes/nrichaud/$NODE/git/$NODE-layoutverification_perc/layoutverification_perc/calibre/$METALSTACK_TP
+    - realpath /nfs/imu/proj/tec/tptest/p4homes/nrichaud/$NODE/git/$NODE-layoutverification_perc/layoutverification_perc/calibre/$METALSTACK_TP
+  dependencies:
+    - prepareRSF_
+  when: manual
